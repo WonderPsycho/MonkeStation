@@ -91,10 +91,7 @@
 	data["loan"] = !!SSshuttle.shuttle_loan
 	data["loan_dispatched"] = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched
 	data["can_send"] = can_send
-<<<<<<< HEAD
 	data["can_approve_requests"] = can_approve_requests
-=======
->>>>>>> master
 	var/message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
 		message = SSshuttle.centcom_message

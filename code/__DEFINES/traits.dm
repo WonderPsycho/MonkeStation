@@ -366,12 +366,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
-<<<<<<< HEAD
-=======
 // Monkestation Changes Start
 #define TRAIT_TRASH_EATER "trash_eater" //goat.dm symptom requirement
 // Monkestation Changes End
->>>>>>> master
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 
 ///Traits given by station traits

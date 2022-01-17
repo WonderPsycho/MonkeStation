@@ -14299,19 +14299,11 @@
 /area/centcom/evac)
 "KN" = (
 /obj/docking_port/stationary{
-<<<<<<< HEAD
-	dwidth = 2;
-	height = 7;
-	id = "pod_away";
-	name = "recovery ship";
-	width = 5
-=======
 	dwidth = 1;
 	height = 4;
 	id = "pod_away";
 	name = "recovery ship";
 	width = 3
->>>>>>> master
 	},
 /turf/open/space/basic,
 /area/space)

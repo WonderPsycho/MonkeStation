@@ -538,8 +538,6 @@
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR "movable_light_overlay_set_range"
 ///Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
-<<<<<<< HEAD
-=======
 
 
 //monkestation edit begin
@@ -550,4 +548,3 @@
 ///Called when the ticker sets up the game for start
 #define COMSIG_TICKER_ENTER_SETTING_UP "comsig_ticker_enter_setting_up"
 //monkestation edit end
->>>>>>> master
