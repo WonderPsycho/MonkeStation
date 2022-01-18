@@ -2,7 +2,7 @@
 	name = "Lesser Narcotimancy"
 	desc = "Instantly releases a large amount of random drugs into your blood. May or may not be helpful."
 	charge_counter = 0
-	charge_max = 60 SECONDS
+	charge_max = 30 SECONDS
 	clothes_req = FALSE
 	range = -1
 	include_user = TRUE
@@ -10,9 +10,16 @@
 	var/list/drug_types = list(	/datum/reagent/drug/space_drugs, /datum/reagent/drug/crank,
 								/datum/reagent/drug/krokodil, /datum/reagent/drug/methamphetamine,
 								/datum/reagent/drug/bath_salts, /datum/reagent/drug/happiness,
-								/datum/reagent/colorful_reagent, /datum/reagent/medicine/adminordrazine/quantum_heal)
-	action_icon = 'icons/mob/actions/actions_items.dmi'
-	action_icon_state = "random"
+								/datum/reagent/colorful_reagent, /datum/reagent/medicine/adminordrazine/quantum_heal,
+								/datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/omnizine,
+								/datum/reagent/medicine/pen_acid, /datum/reagent/medicine/sal_acid,
+								/datum/reagent/medicine/mannitol, /datum/reagent/medicine/mutadone,
+								/datum/reagent/medicine/amphetamine, /datum/reagent/medicine/pumpup,
+								/datum/reagent/medicine/bicaridine, /datum/reagent/medicine/dexalin,
+								/datum/reagent/medicine/kelotane, /datum/reagent/medicine/tricordrazine)
+	action_background_icon_state = "bg_default"
+	action_icon = 'monkestation/icons/mob/actions/florida_man.dmi'
+	action_icon_state = "lesser_narcomancy"
 
 /obj/effect/proc_holder/spell/targeted/florida_regeneration/cast(list/targets, mob/user)
 	if(!ishuman(user))
@@ -30,8 +37,9 @@
 	range = -1
 	include_user = TRUE
 	charge_type = "recharge"
-	action_icon = 'icons/mob/actions/actions_changeling.dmi'
-	action_icon_state = "biodegrade"
+	action_icon = 'monkestation/icons/mob/actions/florida_man.dmi'
+	action_icon_state = "break_cuffs"
+	action_background_icon_state = "bg_default"
 
 
 /obj/effect/proc_holder/spell/targeted/florida_cuff_break/cast(list/targets, mob/user)
@@ -61,8 +69,9 @@
 	range = -1
 	include_user = TRUE
 	charge_type = "recharge"
-	action_icon = 'icons/mob/actions/actions_spells.dmi'
-	action_icon_state = "immrod"
+	action_icon = 'monkestation/icons/mob/actions/florida_man.dmi'
+	action_icon_state = "sovereign_citizen"
+	action_background_icon_state = "bg_default"
 
 
 /obj/effect/proc_holder/spell/targeted/florida_doorbuster/cast(list/targets, mob/user)
