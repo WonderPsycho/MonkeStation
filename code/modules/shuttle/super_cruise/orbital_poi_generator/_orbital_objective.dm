@@ -46,7 +46,7 @@
 	//Handle payout
 	SSeconomy.distribute_funds(payout)
 	GLOB.exploration_points += payout * 0.1
-	GLOB.passive_discovery_research += 6
+	GLOB.passive_discovery_research += 6 //MonkeStation Edit: Passive Discovery Research per mission
 	//Announcement
 	//MonkeStation Edit: Missions increase Discovery Research
 	priority_announce("Central Command priority objective completed. [payout] credits have been \
