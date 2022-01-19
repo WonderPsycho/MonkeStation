@@ -441,25 +441,22 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	//Dizziness
 	if(dizziness)
 		var/client/C = client
-		var/temp
+		var/temp_x
+		var/temp_y
 		var/saved_dizz = dizziness
 		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness  * world.time * 0.5) + 1) / 5
-			src = null
+			var/amplitude = dizziness * world.time * 0.0025
 			spawn(0)
 				if(C)
-					temp = amplitude * sin(saved_dizz  * world.time * 0.5)
-					animate(C, ELASTIC_EASING, pixel_x = temp)
-					temp = amplitude * cos(saved_dizz  * world.time * 0.5)
-					animate(C, ELASTIC_EASING, pixel_y = temp)
+					temp_x = amplitude * sin(saved_dizz  * world.time * 0.5)
+					temp_y = amplitude * cos(saved_dizz  * world.time * 2) / 2
+					animate(C, QUAD_EASING, pixel_x = temp_x, pixel_y = temp_y)
 					sleep(3)
+					animate(C, QUAD_EASING, pixel_x = 0, pixel_y = 0)
 					if(C)
 						C.pixel_x = 0
 						C.pixel_y = 0
-			src = oldsrc
 		dizziness = max(dizziness - restingpwr, 0)
-
 	if(drowsyness)
 		drowsyness = max(drowsyness - restingpwr, 0)
 		blur_eyes(2)
