@@ -23,6 +23,8 @@
 			return
 		if(man_radio.channels)
 			channel_options += man_radio.channels
+		if(issilicon(L))
+			channel_options += "Binary"
 
 	else
 		return
@@ -55,5 +57,7 @@
 				selected_channel = ".t "
 			if("CentCom")
 				selected_channel = ".y "
+			if("Binary")
+				selected_channel = ".b "
 		L.say("[selected_channel][spoken_text]")
 
