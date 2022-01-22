@@ -40,6 +40,10 @@
 #define COMSIG_KB_LIVING_RADIO_CHANNEL_DOWN "keybinding_living_radio_channel" //MonkeStation Edit: Radio Hotkey
 
 //Mob
+#define COMSIG_KB_MOB_MOVENORTH_DOWN "keybinding_mob_movenorth_down"
+#define COMSIG_KB_MOB_MOVEEAST_DOWN "keybinding_mob_moveeast_down"
+#define COMSIG_KB_MOB_MOVESOUTH_DOWN "keybinding_mob_movesouth_down"
+#define COMSIG_KB_MOB_MOVEWEST_DOWN "keybinding_mob_movewest_down"
 #define COMSIG_KB_MOB_FACENORTH_DOWN "keybinding_mob_facenorth_down"
 #define COMSIG_KB_MOB_FACEEAST_DOWN "keybinding_mob_faceeast_down"
 #define COMSIG_KB_MOB_FACESOUTH_DOWN "keybinding_mob_facesouth_down"
@@ -67,3 +71,11 @@
 #define COMSIG_KB_SILICON_TOGGLEMODULETHREE_DOWN "keybinding_silicon_togglemodulethree_down"
 #define COMSIG_KB_SILICON_CYCLEINTENT_DOWN "keybinding_silicon_cycleintent_down"
 #define COMSIG_KB_SILICON_UNEQUIPMODULE_DOWN "keybinding_silicon_unequipmodule_down"
+
+//MonkeStation Edit: Hotkey Emotes
+
+#define COMSIG_KB_EMOTE_QUICK_FART		"keybinding_emote_fart"
+#define COMSIG_KB_EMOTE_QUICK_SCREAM	"keybinding_emote_scream"
+#define COMSIG_KB_EMOTE_QUICK_FLIP		"keybinding_emote_flip"
+#define COMSIG_KB_EMOTE_QUICK_SPIN		"keybinding_emote_spin"
+#define COMSIG_KB_EMOTE_QUICK_CLAP		"keybinding_emote_clap"
