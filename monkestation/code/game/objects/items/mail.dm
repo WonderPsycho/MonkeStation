@@ -17,13 +17,18 @@
 	var/datum/weakref/recipient_ref
 	/// How many goodies this mail contains.
 	var/goodie_count = 1
-	/// Goodies which can be given to anyone. For there to be a 50/50 chance of getting a department item, both lists need equal weight
+	// Goodies which can be given to anyone.
+	// For there to be a 50/50 chance of getting a department item, both this and a job list need equal weight
 	var/list/generic_goodies = list(
+		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game = 10,
+		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy = 10,
+		/obj/item/reagent_containers/food/snacks/cheesiehonkers = 10,
+		/obj/item/reagent_containers/food/snacks/candy = 10,
+		/obj/item/reagent_containers/food/snacks/chips = 10,
 		/obj/item/stack/spacecash/c50 = 10,
-		/obj/item/stack/spacecash/c100 = 25,
-		/obj/item/stack/spacecash/c200 = 15,
-		/obj/item/stack/spacecash/c500 = 5,
-		/obj/item/stack/spacecash/c1000 = 1,
+		/obj/item/stack/spacecash/c100 = 5,
+		/obj/item/stack/spacecash/c200 = 1
+
 	)
 	// Overlays (pure fluff)
 	/// Does the letter have the postmark overlay?
@@ -55,7 +60,7 @@
 	var/datum/mind/recipient
 	if(recipient_ref)
 		recipient = recipient_ref.resolve()
-	var/list/msg = list("<span class='notice'><i>You notice the postmarking on the front of the mail...</i></span>")
+	var/msg = "<span class='notice'><i>You notice the postmarking on the front of the mail...</i></span>"
 	if(recipient)
 		msg += "\n<span class='info'>Certified NT mail for [recipient].</span>"
 	else
@@ -67,7 +72,7 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
 	var/matrix/M = new()
-	M.Scale(((rand(100) / 100) + 0.5), ((rand(100) / 100) + 0.5)) //Between 1.5 and 0.5 scale
+	M.Scale(((rand(50) / 100) + 0.5), ((rand(50) / 100) + 0.5)) //Between 1.0 and 0.5 scale
 	transform = M
 	if(isnull(department_colors))
 		department_colors = list(
@@ -143,7 +148,13 @@
 
 /// Accepts a mind to initialize goodies for a piece of mail.
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
-	name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
+	switch(rand(1,5))
+		if(1,2)
+			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
+		if(3,4)
+			name = "[initial(name)] for [recipient.name]"
+		if(5)
+			name = "[initial(name)] critical to [recipient.name]"
 	recipient_ref = WEAKREF(recipient)
 
 	var/mob/living/body = recipient.current
@@ -173,19 +184,19 @@
 		special_name = TRUE
 		junk = pick(list(/obj/item/paper/pamphlet/gateway, /obj/item/paper/pamphlet/violent_video_games, /obj/item/paper/fluff/junkmail_redpill))
 		junk_names = list(
-		/obj/item/paper/pamphlet/gateway = "[initial(name)] for [pick(GLOB.adjectives)] adventurers",
-		/obj/item/paper/pamphlet/violent_video_games = "[initial(name)] for the truth about the arcade centcom doesn't want to hear",
-		/obj/item/paper/fluff/junkmail_redpill = "[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
+		/obj/item/paper/pamphlet/gateway = pick("[initial(name)] for [pick(GLOB.adjectives)] adventurers", "An important [initial(name)] for [pick(GLOB.adjectives)] spacers", "Exploration [initial(name)]"),
+		/obj/item/paper/pamphlet/violent_video_games = pick("[initial(name)] for the truth about the arcade centcom doesn't want to hear","[initial(name)] full of studies", "IMPORTANT: READ THIS BEFORE GAMING TONIGHT"),
+		/obj/item/paper/fluff/junkmail_redpill = pick("[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen","\[REDACTED\] [initial(name)]", "[initial(name)] postmarked from the future"),
 	)
 
 	color = pick(department_colors) //eh, who gives a shit.
 	switch(rand(1,20))
-		if(1,2,3,4,5,6,7,8,9,10)
+		if(1,2,3,4,5,6,7,8,9,10,11,12,13)
 			name = special_name ? junk_names[junk] : "[pick("important","critical", "crucial", "serious", "vital")] [initial(name)]"
-		if(11,12,13,14,15)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
+		if(14,15)
+			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
 		if(16,17)
-			name = special_name ? junk_names[junk] : "Critical [initial(name)] for the Captain"
+			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
 		if(18,19)
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
 		if(20)
@@ -223,7 +234,8 @@
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		if(human.stat == DEAD || !human.mind)
 			continue
-		// Skip wizards, nuke ops, cyborgs; Centcom does not send them mail
+		// Skip wizards, nuke ops, cyborgs; Centcom does not send them ACTUAL mail
+		// They 'get' junk mail rarely.
 		if(!SSjob.GetJob(human.mind.assigned_role) || (human.mind.assigned_role in GLOB.nonhuman_positions))
 			continue
 

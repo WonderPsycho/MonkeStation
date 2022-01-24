@@ -12,6 +12,7 @@
 		/obj/item/clothing/mask/gas = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
 		/obj/item/choice_beacon/music = 5,
+		/obj/item/reagent_containers/spray/gamerspray = 5,
 		/obj/item/toy/crayon/spraycan = 3,
 		/obj/item/crowbar/large = 1
 	)
@@ -45,6 +46,16 @@
 		/obj/item/gun/energy/floragun = 10,
 		/obj/item/seeds/random = 5,
 		/obj/item/reagent_containers/food/snacks/monkeycube/bee = 2
+	)
+
+//BRIG PHYSICIAN
+/datum/job/brig_phys
+	mail_goodies = list(
+		/obj/item/reagent_containers/hypospray/medipen = 20,
+		/obj/item/storage/fancy/cigarettes = 15,
+		/obj/item/reagent_containers/food/snacks/donut = 10,
+		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
+		/obj/item/reagent_containers/hypospray/medipen/survival = 5
 	)
 
 //CAPTAIN, NOT THE DOG, BUT THE ACTUAL CAPTAIN OF THE STATION
@@ -100,6 +111,7 @@
 //CHIEF MEDICAL OFFICER
 /datum/job/chief_medical_officer
 	mail_goodies = list(
+		/obj/item/paper/fluff/jobs/medical/hippocratic = 5,
 		/obj/item/organ/heart/gland/electric = 3,
 		/obj/item/organ/heart/gland/trauma = 4,
 		/obj/item/organ/heart/gland/egg = 7,
@@ -151,8 +163,41 @@
 		/obj/item/reagent_containers/food/condiment/rice = 20,
 		/obj/item/reagent_containers/food/condiment/enzyme = 15,
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
+		/obj/item/choice_beacon/pet/goat = 10,
 		/obj/item/kitchen/knife = 4,
 		/obj/item/kitchen/knife/butcher = 2
+	)
+
+//CURATOR
+/datum/job/curator
+	mail_goodies = list(
+		/obj/item/storage/toolbox/artistic = 20,
+		/obj/item/canvas/nineteen_nineteen = 10,
+		/obj/item/paper/fluff/curator/chaos = 5,
+		/obj/item/paper/fluff/curator/kobold = 5,
+		/obj/item/paper/fluff/curator/dwarf = 5,
+		/obj/item/paper/fluff/curator/wgw = 5,
+		/obj/item/paper/fluff/curator/wordsofgod = 5,
+		/obj/item/soapstone = 5,
+		/obj/item/book/granter/spell/summonitem = 2
+	)
+
+//DEBTOR
+/datum/job/gimmick/hobo
+	mail_goodies = list(
+		/obj/item/reagent_containers/food/snacks/deadmouse = 30,
+		/obj/item/reagent_containers/food/drinks/bottle/hooch = 10,
+		/obj/item/radio = 10,
+		/obj/item/storage/pill_bottle/floorpill = 10,
+		/obj/item/storage/pill_bottle/lsd = 5,
+		/obj/item/storage/pill_bottle/happiness = 5,
+		/obj/item/clothing/head/foilhat = 5,
+		/obj/item/gps = 5,
+		/obj/item/melee/skateboard = 5,
+		/obj/item/melee/baseball_bat = 5,
+		/mob/living/simple_animal/mouse = 5
+
+
 	)
 
 //DETECTIVE
@@ -166,6 +211,25 @@
 		/obj/item/ammo_box/c38/match = 5,
 		/obj/item/ammo_box/c38/trac = 5,
 		/obj/item/clothing/accessory/holster/detective = 1
+	)
+
+//DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
+/datum/job/deputy //Copy of the sec officer, since this one may not even be active.
+	mail_goodies = list(
+		/obj/item/reagent_containers/food/snacks/donut = 10,
+		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
+		/obj/item/reagent_containers/food/snacks/donut/chaos = 5,
+		/obj/item/melee/baton = 1
+	)
+//EXPLORATION CREW
+/datum/job/exploration //Slightly more powerful due to the rarity of them ever actually getting a chance to get their mail.
+	mail_goodies = list(
+		/obj/item/tank/internals/emergency_oxygen/engi = 20,
+		/obj/item/storage/box/minertracker = 15,
+		/obj/item/stack/sheet/mineral/plasma/five = 10,
+		/obj/item/pinpointer/crew = 10,
+		/obj/item/extraction_pack = 5,
+		/obj/item/pickaxe/diamond = 3
 	)
 
 //GENETICIST
@@ -187,12 +251,44 @@
 		/obj/item/stack/sheet/bone = 5
 	)
 
+//HEAD OF SECURITY
+/datum/job/hos
+	mail_goodies = list(
+		/obj/item/reagent_containers/food/drinks/coffee = 20,
+		/obj/item/reagent_containers/food/snacks/donut = 10,
+		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
+		/obj/item/reagent_containers/food/snacks/donut/chaos = 5,
+		/obj/item/shield/riot/tele = 5,
+		/obj/item/melee/baton = 1
+	)
+
 //JANITOR
 /datum/job/janitor
 	mail_goodies = list(
 		/obj/item/grenade/chem_grenade/cleaner = 30,
 		/obj/item/storage/box/lights/mixed = 20,
-		/obj/item/lightreplacer = 10
+		/obj/item/lightreplacer = 10,
+		/obj/item/choice_beacon/janicart = 5
+	)
+
+//LAWYER
+/datum/job/lawyer
+	mail_goodies = list(
+		/obj/item/book/manual/wiki/security_space_law = 15, //Can never have enough LAW
+		/obj/item/clothing/accessory/lawyers_badge = 10,
+		/obj/item/storage/secure/briefcase = 10,
+		/obj/item/megaphone = 5,
+		/obj/item/clothing/glasses/sunglasses/advanced/garb = 5,
+		/obj/item/gavelhammer = 5
+	)
+
+//MAGICIAN GIMMICK
+/datum/job/gimmick/magician
+	mail_goodies = list(
+		/mob/living/simple_animal/chicken/rabbit/normal = 40, //AND FOR MY NEXT TRICK...
+		/obj/item/gun/magic/wand = 10,
+		/obj/item/clothing/head/collectable/tophat = 10,
+		/obj/item/clothing/head/bowler = 5
 	)
 
 //MEDICAL DOCTOR
@@ -247,6 +343,8 @@
 
 //QUARTERMASTER
 	mail_goodies = list(
+		/obj/item/clothing/accessory/medal/ribbon/cargo = 10,
+		/mob/living/simple_animal/sloth = 5,
 		/obj/item/circuitboard/machine/emitter = 3
 	)
 
@@ -310,7 +408,21 @@
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 10,
 		/obj/item/stack/sheet/mineral/plasma = 10,
-		/obj/item/stack/sheet/mineral/uranium = 5
+		/obj/item/stack/sheet/mineral/uranium = 5,
+		/obj/item/choice_beacon/pet/hamster = 5 //hampter.
+	)
+
+//VIP / CELEBRITY GIMMICK
+/datum/job/gimmick/celebrity
+	mail_goodies = list(
+		/obj/item/clothing/ears/headphones = 10, 			//WOW THE NEW BEATS BY DR.MOFF?
+		/obj/item/clothing/under/syndicate/tacticool = 10,	//Only on the iScream 12
+		/obj/item/reagent_containers/food/drinks/flask/gold = 10,
+		/obj/item/choice_beacon/pet = 5,
+		/obj/item/storage/bag/money = 5,
+		/obj/item/coin/gold = 5,
+		/obj/item/coin/silver = 5,
+		/obj/item/encryptionkey/heads/captain = 1 //Tiny chance to harass the entire crew
 	)
 
 //WARDEN
@@ -321,5 +433,6 @@
 		/obj/item/storage/box/teargas = 10,
 		/obj/item/storage/box/flashbangs = 10,
 		/obj/item/storage/box/rubbershot = 10,
-		/obj/item/storage/box/lethalshot = 5
+		/obj/item/storage/box/lethalshot = 5,
+		/obj/item/choice_beacon/pet/mouse = 5
 	)

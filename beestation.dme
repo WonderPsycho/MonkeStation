@@ -3484,6 +3484,7 @@
 #include "monkestation\code\game\area\Space_Station_13_areas.dm"
 #include "monkestation\code\game\objects\effects\misc.dm"
 #include "monkestation\code\game\objects\effects\spawners\lootdrop.dm"
+#include "monkestation\code\game\objects\items\fluff_papers.dm"
 #include "monkestation\code\game\objects\items\mail.dm"
 #include "monkestation\code\game\objects\items\stickables.dm"
 #include "monkestation\code\modules\admin\verbs\testdummy.dm"
