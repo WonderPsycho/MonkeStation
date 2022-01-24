@@ -195,12 +195,32 @@
 			name = special_name ? junk_names[junk] : "[pick("important","critical", "crucial", "serious", "vital")] [initial(name)]"
 		if(14,15)
 			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
-		if(16,17)
+		if(16) //False Flag, generates a random super antagonist name to scare the crew and make metagaming far harder
+			switch(pick("nuke", "ninja", "wizard", "nightmare", "ert", "clown", "devil", "xeno", "blob"))
+				if("nuke")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.first_names)] [syndicate_name()]"
+				if("ninja")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
+				if("wizard")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.wizard_first)] [pick(GLOB.wizard_second)]"
+				if("nightmare")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.nightmare_names)]"
+				if("ert") //Death Squad too!
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick("Security Officer", "Engineer", "Medical Officer", "Commander", "Trooper", "Chaplain", "Heavy Duty Janitor", "Intern", "Deathsquad Officer")] [pick(pick(GLOB.last_names), pick(GLOB.commando_names))]"
+				if("clown")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.clown_names)]"
+				if("devil")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [randomDevilName()]"
+				if("xeno")
+					name = special_name ? junk_names[junk] : "[initial(name)] for [pick("alien princess","alien hunter")] ([rand(1, 999)])"
+				if("blob")
+					name = special_name ? junk_names[junk] : "[initial(name)] for Blob Overmind ([rand(1, 999)])"
+		if(17)
 			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
-		if(18,19)
+		if(18)
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
-		if(20)
-			name = special_name ? junk_names[junk] : "[pick("important","critical", "crucial", "serious", "vital")] [initial(name)]" // ONE IN TWENTY TO GET STUFF FROM JUNK
+		if(19,20)
+			name = special_name ? junk_names[junk] : "[pick("important","critical", "crucial", "serious", "vital")] [initial(name)]" // ONE IN TEN TO GET STUFF FROM JUNK
 			if(!special_name)
 				junk = pick(generic_goodies)
 
