@@ -334,7 +334,6 @@
 				var/obj/item/I = affected_mob.get_active_held_item()
 				affected_mob.dropItemToGround(I)
 
-
 /datum/disease/transformation/legion
 	name = "Necropolis Infestation"
 	cure_text = "The healing Vitrium Froth of some Lavaland flora"
