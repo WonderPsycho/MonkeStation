@@ -1,0 +1,555 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/mob_spawn/human/corpse,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/mob_spawn/human/corpse/russian,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -6;
+	pixel_y = -7
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 5;
+	pixel_y = -10
+	},
+/obj/item/stack/spacecash/c100{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/obj/item/stack/spacecash/c1000{
+	pixel_x = 4;
+	pixel_y = -6
+	},
+/obj/item/stack/spacecash{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = -8;
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/bee_terrorist,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/mob_spawn/human/corpse,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 8;
+	pixel_y = 11
+	},
+/obj/item/stack/spacecash{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/stack/spacecash{
+	pixel_x = -4;
+	pixel_y = -10
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -5;
+	pixel_y = -7
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 11;
+	pixel_y = 1
+	},
+/obj/item/stack/spacecash{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = -3;
+	pixel_y = -8
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = 10;
+	pixel_y = 12
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -9;
+	pixel_y = -8
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/item/stack/spacecash/c500{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = -7;
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/effect/mob_spawn/human/clown/corpse,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/russian/ranged,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"z" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/russian,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"B" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/russian/ranged,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/plating,
+/area/template_noop)
+"D" = (
+/obj/effect/mob_spawn/human/clown/corpse,
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/effect/mob_spawn/human/corpse/bee_terrorist,
+/turf/open/floor/plating,
+/area/template_noop)
+"F" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/russian,
+/turf/open/floor/plating,
+/area/template_noop)
+"G" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_y = 6
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 7;
+	pixel_y = -4
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = -10;
+	pixel_y = 9
+	},
+/obj/item/stack/spacecash/c100{
+	pixel_x = -5;
+	pixel_y = -7
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = 14;
+	pixel_y = -5
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"K" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = 6;
+	pixel_y = -8
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = -9;
+	pixel_y = 6
+	},
+/obj/item/stack/spacecash{
+	pixel_x = -7;
+	pixel_y = -8
+	},
+/obj/item/stack/spacecash/c1000{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/obj/item/stack/spacecash/c50{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/obj/item/paper/crumpled{
+	info = "seems I am the only one left amongst this mess... as a Nanotrasen hired Inspector in this whole criminal operation that happened in the maint of this... here by station.. we.. tied to offer all these gangs and mafias on station what they wanted,  the green kudzu seeds and the money! but it seems they all killed each other along with two of my highly trained Nanotrasen Security Specialists that were here to guard me while doing this risky deal.. seems it ended with all of them including my guards all kiling each other off in on big firefight, luckily i was able to hide under the table of the offer while this mess was transpiring, well since this is over, I am leaving all the offers that was ORIGINALLY meant for the previous gangs and mafias of this station here on this dear table as NT told me that all of that kudzu is not important to them or me to even keep since the credits on the table are all counterfit and the kudzu is no value to NT as a company as a whole, so if anyone is reading this, enjoy of what remains here with the many of those who died here..";
+	pixel_x = 3;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mob_spawn/human/clown/corpse,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/russian/ranged/officer,
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 10;
+	pixel_y = 6
+	},
+/obj/item/stack/spacecash/c100{
+	pixel_x = 12;
+	pixel_y = 2
+	},
+/obj/item/stack/spacecash{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -5;
+	pixel_y = -20
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 7;
+	pixel_y = -9
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = -15;
+	pixel_y = -7
+	},
+/obj/item/stack/spacecash/c100{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/stack/spacecash/c500{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/stack/spacecash{
+	pixel_x = 8;
+	pixel_y = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/effect/mob_spawn/human/corpse/bee_terrorist,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/structure/table,
+/obj/item/seeds/kudzu{
+	pixel_x = -4;
+	pixel_y = -5
+	},
+/obj/item/seeds/kudzu{
+	pixel_x = 10;
+	pixel_y = 4
+	},
+/obj/item/stack/spacecash/c1000{
+	pixel_x = -3;
+	pixel_y = -5
+	},
+/obj/item/stack/spacecash{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/damaged,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+H
+O
+H
+H
+a
+v
+C
+H
+b
+C
+"}
+(2,1,1) = {"
+H
+S
+i
+Y
+v
+f
+U
+q
+q
+H
+"}
+(3,1,1) = {"
+S
+h
+Z
+H
+S
+w
+l
+S
+A
+H
+"}
+(4,1,1) = {"
+A
+b
+v
+E
+b
+M
+b
+S
+Z
+d
+"}
+(5,1,1) = {"
+M
+W
+x
+S
+g
+p
+X
+H
+n
+H
+"}
+(6,1,1) = {"
+D
+H
+A
+H
+I
+o
+Q
+z
+H
+S
+"}
+(7,1,1) = {"
+C
+L
+N
+b
+K
+V
+r
+H
+e
+j
+"}
+(8,1,1) = {"
+S
+s
+G
+u
+C
+b
+M
+Z
+y
+b
+"}
+(9,1,1) = {"
+S
+S
+x
+s
+x
+P
+B
+R
+S
+F
+"}
+(10,1,1) = {"
+Z
+S
+A
+i
+S
+C
+x
+S
+t
+S
+"}

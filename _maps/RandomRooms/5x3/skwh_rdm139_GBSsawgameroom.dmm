@@ -1,0 +1,80 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"g" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/fake_gbs{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/glass/bottle/fake_gbs{
+	pixel_x = 9
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/fake_gbs{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/bottle/fake_gbs{
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/glass/bottle/gbs{
+	pixel_x = 16
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/fake_gbs{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/glass/bottle/fake_gbs{
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/item/paper/crumpled{
+	info = "In here is a table of many samples of 'GBS', only one of them is a real sample of GBS the rest are fake samples, if you wish to play this game. then in-order to win you must drink a fake sample and you will achieve the ultimate ways of tiding by spreading fear by being infected with fake GBS, however if you drink the real sample... the fate of the station rests in your hands and all of you and the crew will perish from drinking the real sample and being infected with the real sample, remember the fate of the station rests in your hands in this room, YOU EITHER LIVE OR DIE, PICK YOUR CHOICE"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+N
+N
+j
+"}
+(2,1,1) = {"
+j
+g
+N
+"}
+(3,1,1) = {"
+N
+k
+S
+"}
+(4,1,1) = {"
+N
+y
+N
+"}
+(5,1,1) = {"
+N
+P
+N
+"}
