@@ -1487,7 +1487,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 19 //set to 19 for testing purposes for now, will be readjusted for gameplay purposes after the PR is finished
+	weight = 19
 	stock = 3
 
 /datum/map_template/random_room/skwh_rdm157
