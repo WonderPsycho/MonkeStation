@@ -1,0 +1,155 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/sign/warning/radiation,
+/turf/closed/wall,
+/area/template_noop)
+"d" = (
+/obj/item/alienartifact,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/item/alienartifact,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/item/alienartifact,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plating,
+/area/template_noop)
+"s" = (
+/obj/item/alienartifact,
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plating,
+/area/template_noop)
+"D" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"G" = (
+/obj/structure/sign/warning/biohazard,
+/turf/closed/wall,
+/area/template_noop)
+"I" = (
+/obj/structure/sign/warning,
+/turf/closed/wall,
+/area/template_noop)
+"J" = (
+/obj/item/alienartifact,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/space)
+"O" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/item/alienartifact,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+i
+V
+E
+n
+D
+"}
+(2,1,1) = {"
+n
+V
+n
+q
+D
+"}
+(3,1,1) = {"
+E
+n
+I
+D
+R
+"}
+(4,1,1) = {"
+n
+q
+P
+n
+q
+"}
+(5,1,1) = {"
+s
+O
+q
+P
+E
+"}
+(6,1,1) = {"
+T
+O
+J
+P
+P
+"}
+(7,1,1) = {"
+D
+n
+G
+q
+q
+"}
+(8,1,1) = {"
+n
+n
+q
+P
+Y
+"}
+(9,1,1) = {"
+Y
+q
+b
+d
+q
+"}
+(10,1,1) = {"
+D
+P
+O
+r
+n
+"}

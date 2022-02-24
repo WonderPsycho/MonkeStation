@@ -1,0 +1,302 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"e" = (
+/obj/effect/turf_decal/tile/purple/tile_side,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"h" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"l" = (
+/mob/living/simple_animal/hostile/blob/blobspore,
+/obj/item/aiModule/core/full/liveandletlive,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 8
+	},
+/obj/item/slime_extract/green{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"r" = (
+/obj/structure/blob/node,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"t" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"v" = (
+/mob/living/simple_animal/hostile/blob/blobspore,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"w" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"z" = (
+/obj/effect/turf_decal/tile/purple/tile_side,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"A" = (
+/obj/effect/temp_visual/blob,
+/mob/living/simple_animal/hostile/blob/blobspore,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"B" = (
+/obj/effect/temp_visual/blob,
+/mob/living/simple_animal/hostile/blob/blobspore,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"D" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"E" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/slime_extract/bluespace{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"H" = (
+/obj/structure/blob/factory,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/machinery/door/airlock/public,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"K" = (
+/obj/structure/blob/factory,
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/structure/blob/factory,
+/mob/living/simple_animal/hostile/blob/blobspore,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 8
+	},
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"O" = (
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"Q" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"T" = (
+/obj/machinery/door/airlock/public,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"U" = (
+/obj/structure/blob/node,
+/mob/living/simple_animal/hostile/blob/blobspore,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"V" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/turf/closed/wall,
+/area/template_noop)
+"X" = (
+/obj/item/slime_extract/black{
+	pixel_x = -3;
+	pixel_y = -5
+	},
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/white,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+Z
+b
+t
+n
+Z
+b
+n
+t
+b
+"}
+(2,1,1) = {"
+b
+n
+h
+n
+b
+h
+h
+O
+E
+b
+"}
+(3,1,1) = {"
+n
+O
+n
+n
+h
+n
+X
+a
+b
+M
+"}
+(4,1,1) = {"
+C
+O
+W
+W
+W
+W
+W
+W
+O
+b
+"}
+(5,1,1) = {"
+D
+h
+W
+U
+H
+l
+V
+T
+P
+o
+"}
+(6,1,1) = {"
+C
+O
+W
+K
+A
+H
+v
+I
+w
+b
+"}
+(7,1,1) = {"
+C
+h
+W
+r
+L
+B
+A
+I
+O
+d
+"}
+(8,1,1) = {"
+b
+h
+W
+W
+W
+W
+W
+W
+n
+M
+"}
+(9,1,1) = {"
+b
+h
+n
+n
+h
+b
+h
+b
+b
+d
+"}
+(10,1,1) = {"
+b
+n
+n
+n
+b
+e
+z
+n
+z
+Q
+"}
