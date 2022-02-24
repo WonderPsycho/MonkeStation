@@ -108,7 +108,9 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/canned_laughter{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/glass/bottle/felinid{
+/obj/item/reagent_containers/glass/bottle/romerol{
+	desc = "A bottle of... what seems to be water? it looks too blue though.";
+	name = "a bottle of... water..?";
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/glass/bottle/potassium{
@@ -366,13 +368,6 @@
 /obj/item/reagent_containers/glass/bottle/frostoil{
 	pixel_x = 5;
 	pixel_y = 4
-	},
-/obj/item/reagent_containers/glass/waterbottle/large/empty{
-	desc = "A bottle of... what seems to be water? it looks too blue tho.";
-	name = "a bottle of... water..?";
-	pixel_x = -8;
-	pixel_y = 8;
-	reagents = /datum/reagent/romerol
 	},
 /obj/item/reagent_containers/pill/lsd{
 	pixel_x = 3;

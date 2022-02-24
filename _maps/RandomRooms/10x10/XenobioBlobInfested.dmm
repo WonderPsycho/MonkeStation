@@ -46,8 +46,8 @@
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "r" = (
-/obj/structure/blob/node,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/node/lone,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "t" = (
@@ -73,15 +73,15 @@
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "A" = (
-/obj/effect/temp_visual/blob,
 /mob/living/simple_animal/hostile/blob/blobspore,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/normal,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "B" = (
-/obj/effect/temp_visual/blob,
 /mob/living/simple_animal/hostile/blob/blobspore,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/normal,
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
@@ -106,8 +106,8 @@
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "H" = (
-/obj/structure/blob/factory,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/factory/lone,
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
@@ -116,12 +116,12 @@
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "K" = (
-/obj/structure/blob/factory,
+/obj/structure/blob/factory/lone,
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/structure/blob/factory,
 /mob/living/simple_animal/hostile/blob/blobspore,
+/obj/structure/blob/factory/lone,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "M" = (
@@ -151,9 +151,9 @@
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "U" = (
-/obj/structure/blob/node,
 /mob/living/simple_animal/hostile/blob/blobspore,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/blob/node/lone,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "V" = (
