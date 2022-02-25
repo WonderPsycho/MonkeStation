@@ -8,10 +8,10 @@
 	flavour_text = "You have been assigned to this station to protect the interests of the company while keeping the peace between guests and the staff.";
 	id_access = "1;2;63;12;32";
 	id_access_list = "1;2;63;12;32";
-	important_info = "You are a ghost role controlled Security Officer, you are expected to sort of the exact same as a normal sec off does with a main focus on exploring maint and mainaining law in it, you are ABSOLUTELY allowed to rp and interact with the rest of the station crew as long as you don't break any rules or self-antag as a maint sec off.";
+	important_info = "You are a ghost role controlled Security Officer, you are expected to sort of the exact same as a normal sec off does with a main focus on exploring maint and maintaining law in it, you are ABSOLUTELY allowed to RP and interact with the rest of the station crew as long as you don't break any rules or self-antag as a maint sec off.";
 	mob_name = "Maintenance Security Officer";
 	name = "maintenance security sleeper";
-	objectives = "Maintain Law and Order in the Maint Tunnels and the rest of the station if nesscessary";
+	objectives = "Maintain Law and Order in the Maint Tunnels and the rest of the station if necessary";
 	req_access = "1;2;63;12;32";
 	req_access_txt = "1;2;63;12;32"
 	},
@@ -76,10 +76,10 @@
 	flavour_text = "You have been assigned to this station to protect the interests of the company while keeping the peace between guests and the staff.";
 	id_access = "1;2;63;12;32";
 	id_access_list = "1;2;63;12;32";
-	important_info = "You are a ghost role controlled Security Officer, you are expected to sort of the exact same as a normal sec off does with a main focus on exploring maint and mainaining law in it, you are ABSOLUTELY allowed to rp and interact with the rest of the station crew as long as you don't break any rules or self-antag as a maint sec off.";
+	important_info = "You are a ghost role controlled Security Officer, you are expected to sort of the exact same as a normal sec off does with a main focus on exploring maint and maintaining law in it, you are ABSOLUTELY allowed to RP and interact with the rest of the station crew as long as you don't break any rules or self-antag as a maint sec off.";
 	mob_name = "Maintenance Security Officer";
 	name = "maintenance security sleeper";
-	objectives = "Maintain Law and Order in the Maint Tunnels and the rest of the station if nesscessary";
+	objectives = "Maintain Law and Order in the Maint Tunnels and the rest of the station if necessary";
 	req_access = "1;2;63;12;32";
 	req_access_txt = "1;2;63;12;32"
 	},
