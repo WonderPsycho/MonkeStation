@@ -14,8 +14,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "k" = (
@@ -29,25 +29,25 @@
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
 /obj/effect/mob_spawn/human/clown/corpse,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "q" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
@@ -93,11 +93,11 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
-/obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/gibs/limb{
 	pixel_x = -7;
 	pixel_y = 2
 	},
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (
