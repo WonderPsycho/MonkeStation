@@ -38,11 +38,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/light{
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/broken{
 	dir = 4
 	},
-/obj/machinery/door/unpowered,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (

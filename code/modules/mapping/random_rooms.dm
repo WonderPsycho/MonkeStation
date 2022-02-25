@@ -1597,3 +1597,23 @@
 	template_height = 10
 	template_width = 10
 	weight = 19
+
+/datum/map_template/random_room/MAINTSEC
+	name = "Maintenance Security Patrol Room"
+	room_id = "MaintSecurityPatrol"
+	mappath = "_maps/RandomRooms/10x5/MaintSecurityPatrol.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 19
+	stock = 4
+
+/datum/map_template/random_room/HOBOJERRY
+	name = "Hobo Jerry's Room"
+	room_id = "HoboJerrysRoom"
+	mappath = "_maps/RandomRooms/5x4/HoboJerrysRoom.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 19
+	stock = 1

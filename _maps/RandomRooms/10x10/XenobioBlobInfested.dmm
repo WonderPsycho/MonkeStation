@@ -163,7 +163,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (
-/turf/closed/wall,
+/turf/closed/wall/mineral/plastitanium,
 /area/template_noop)
 "X" = (
 /obj/item/slime_extract/black{
