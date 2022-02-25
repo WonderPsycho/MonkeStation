@@ -26,26 +26,6 @@
 	template_width = 10
 	weight = 3
 
-/datum/map_template/random_room/skwh_rdm159
-	name = "Monkey Testing Room"
-	room_id = "skwh_rdm159_MONKETESTSUBJECT"
-	mappath = "monkestation/_maps/RandomRooms/10x10/skwh_rdm159_MONKETESTSUBJECT.dmm"
-	centerspawner = FALSE
-	template_height = 10
-	template_width = 10
-	weight = 1
-	stock = 5
-
-/datum/map_template/random_room/skwh_rdm139
-	name = "SAW GBS Maint Game Room"
-	room_id = "skwh_rdm139_GBSsawgameroom"
-	mappath = "monkestation/_maps/RandomRooms/5x3/skwh_rdm139_GBSsawgameroom.dmm"
-	centerspawner = FALSE
-	template_height = 3
-	template_width = 5
-	weight = 2
-	stock = 1
-
 /datum/map_template/random_room/skwh_rdm160
 	name = "Green Viney Riches"
 	room_id = "skwh_rdm160_greenvineyriches"
