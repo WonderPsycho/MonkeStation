@@ -26,7 +26,6 @@
 /area/template_noop)
 "l" = (
 /mob/living/simple_animal/hostile/blob/blobspore,
-/obj/item/aiModule/core/full/liveandletlive,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -65,6 +64,7 @@
 "w" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/aiModule/core/full/liveandletlive,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "z" = (
