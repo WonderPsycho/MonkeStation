@@ -1,10 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = 3;
-	pixel_y = 7
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
@@ -98,7 +94,7 @@
 	pixel_x = -11;
 	pixel_y = -9
 	},
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/template_noop)
 "pR" = (
@@ -109,11 +105,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "pV" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/item/reagent_containers/glass/bottle/tuberculosis{
-	pixel_x = 3;
-	pixel_y = 4
-	},
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/template_noop)
 "qi" = (
@@ -126,7 +118,7 @@
 /area/template_noop)
 "qB" = (
 /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "sE" = (
@@ -151,13 +143,6 @@
 /area/template_noop)
 "xp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = -7;
-	pixel_y = -4
-	},
 /obj/item/reagent_containers/glass/bottle/random_virus{
 	pixel_x = 8;
 	pixel_y = 11
@@ -230,16 +215,15 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "EH" = (
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = 3;
-	pixel_y = 5
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
 /area/template_noop)
 "FY" = (
-/obj/effect/decal/cleanable/vomit/old,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
 /area/template_noop)
 "Gg" = (
@@ -268,9 +252,9 @@
 /turf/open/floor/plasteel/airless/white,
 /area/template_noop)
 "Ig" = (
-/obj/effect/decal/cleanable/blood/old,
 /mob/living/carbon/monkey,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/template_noop)
 "IC" = (
@@ -283,11 +267,6 @@
 /obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plating,
 /area/template_noop)
-"Ji" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/template_noop)
 "KP" = (
 /obj/item/reagent_containers/glass/bottle/retrovirus{
 	desc = "A small bottle. Contains a space retrovirus culture in a synthblood medium.";
@@ -298,9 +277,6 @@
 /area/template_noop)
 "LB" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = -5
-	},
 /obj/item/reagent_containers/glass/bottle/random_virus{
 	pixel_y = 8
 	},
@@ -343,14 +319,6 @@
 	pixel_y = 10
 	},
 /obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = -9;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/glass/bottle/random_virus{
 	pixel_x = 7;
 	pixel_y = 1
 	},
@@ -386,14 +354,6 @@
 "Uo" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = -11;
-	pixel_y = -11
-	},
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = 8;
-	pixel_y = -5
-	},
-/obj/item/reagent_containers/glass/bottle/random_virus{
 	pixel_y = 11
 	},
 /turf/open/floor/plating,
@@ -427,10 +387,6 @@
 /area/template_noop)
 "ZX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/random_virus{
-	pixel_x = 5;
-	pixel_y = 3
-	},
 /obj/item/reagent_containers/glass/bottle/random_virus{
 	pixel_x = -7;
 	pixel_y = -12
@@ -478,7 +434,7 @@ lA
 DH
 Nm
 mA
-EH
+dB
 zV
 DH
 DH
@@ -513,7 +469,7 @@ Mv
 (7,1,1) = {"
 Po
 dB
-BO
+pV
 gL
 YN
 uz
@@ -532,14 +488,14 @@ NA
 qi
 lm
 NA
-pV
+gL
 "}
 (9,1,1) = {"
 uG
 nA
 NA
 FY
-FY
+EH
 NA
 DH
 BO
@@ -550,7 +506,7 @@ he
 Gm
 qB
 NA
-Ji
+Oz
 Ig
 NA
 BO
