@@ -67,7 +67,6 @@
 /area/template_noop)
 "z" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/mask/cluwne,
 /obj/effect/spawner/lootdrop,
 /turf/open/floor/plasteel,
 /area/template_noop)
