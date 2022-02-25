@@ -1487,7 +1487,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 19 //set to 19 for testing purposes for now, will be readjusted for gameplay purposes after the PR is finished
+	weight = 2
 	stock = 3
 
 /datum/map_template/random_room/skwh_rdm157
@@ -1497,7 +1497,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 19
+	weight = 3
 
 /datum/map_template/random_room/skwh_rdm159
 	name = "Monkey Testing Room"
@@ -1506,7 +1506,8 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 19
+	weight = 1
+	stock = 5
 
 /datum/map_template/random_room/skwh_rdm139
 	name = "SAW GBS Maint Game Room"
@@ -1515,7 +1516,8 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	weight = 19
+	weight = 2
+	stock = 1
 
 /datum/map_template/random_room/skwh_rdm160
 	name = "Green Viney Riches"
@@ -1524,16 +1526,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 19
-
-/datum/map_template/random_room/ARTIFACTROOM
-	name = "Long Lost Artifact Room"
-	room_id = "ARTFIFACTROOM"
-	mappath = "_maps/RandomRooms/10x5/ARTIFACTROOM.dmm"
-	centerspawner = FALSE
-	template_height = 5
-	template_width = 10
-	weight = 19
+	weight = 6
 
 /datum/map_template/random_room/maskroom3x5
 	name = "Haunted Old Maskroom"
@@ -1542,7 +1535,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	weight = 19
+	weight = 5
 
 /datum/map_template/random_room/secretivemaintwater
 	name = "Secretive Maint Water Collector Room 1"
@@ -1551,7 +1544,8 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	weight = 19
+	weight = 4
+	stock = 6
 
 /datum/map_template/random_room/DRUGDEALERHOBOS
 	name = "Hobo Drug Production Room"
@@ -1560,7 +1554,8 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 19
+	weight = 3
+	stock = 5
 
 /datum/map_template/random_room/randomlostartifact
 	name = "Room of the Lost Maint Artifact of OLD"
@@ -1569,7 +1564,8 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	weight = 19
+	weight = 3
+	stock = 2
 
 /datum/map_template/random_room/ARTROOM
 	name = "Hazardous Abandoned Artifact Room"
@@ -1578,7 +1574,8 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 19
+	weight = 1
+	stock = 7
 
 /datum/map_template/random_room/BlobInfestedXenobio
 	name = "Abandoned Old Blob Infested Xenobio Room"
@@ -1587,7 +1584,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 19
+	weight = 1
 
 /datum/map_template/random_room/SECONDAI
 	name = "Holy Hobo AI Worship Room"
@@ -1596,7 +1593,8 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 19
+	weight = 2
+	stock = 1
 
 /datum/map_template/random_room/MAINTSEC
 	name = "Maintenance Security Patrol Room"
@@ -1605,7 +1603,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 19
+	weight = 5
 	stock = 4
 
 /datum/map_template/random_room/HOBOJERRY
@@ -1615,5 +1613,5 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
-	weight = 19
+	weight = 1
 	stock = 1
