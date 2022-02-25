@@ -74,7 +74,7 @@
 	weight = 4
 	stock = 6
 
-/datum/map_template/random_room/DRUGDEALERHOBOS
+/datum/map_template/random_room/drugdealerhobos
 	name = "Hobo Drug Production Room"
 	room_id = "DRUGDEALERHOBOS"
 	mappath = "monkestation/_maps/RandomRooms/10x5/DRUGDEALERHOBOS.dmm"
@@ -94,26 +94,7 @@
 	weight = 3
 	stock = 2
 
-/datum/map_template/random_room/ARTROOM
-	name = "Hazardous Abandoned Artifact Room"
-	room_id = "ARTIFACTROOM"
-	mappath = "monkestation/_maps/RandomRooms/10x5/ARTIFACTROOM.dmm"
-	centerspawner = FALSE
-	template_height = 5
-	template_width = 10
-	weight = 1
-	stock = 7
-
-/datum/map_template/random_room/BlobInfestedXenobio
-	name = "Abandoned Old Blob Infested Xenobio Room"
-	room_id = "XenobioBlobInfested"
-	mappath = "monkestation/_maps/RandomRooms/10x10/XenobioBlobInfested.dmm"
-	centerspawner = FALSE
-	template_height = 10
-	template_width = 10
-	weight = 1
-
-/datum/map_template/random_room/SECONDAI
+/datum/map_template/random_room/aigod
 	name = "Holy Hobo AI Worship Room"
 	room_id = "SECONDARYAIWORSHIPROOM10x10"
 	mappath = "monkestation/_maps/RandomRooms/10x10/SECONDARYAIWORSHIPROOM10x10.dmm"
@@ -121,24 +102,4 @@
 	template_height = 10
 	template_width = 10
 	weight = 2
-	stock = 1
-
-/datum/map_template/random_room/MAINTSEC
-	name = "Maintenance Security Patrol Room"
-	room_id = "MaintSecurityPatrol"
-	mappath = "monkestation/_maps/RandomRooms/10x5/MaintSecurityPatrol.dmm"
-	centerspawner = FALSE
-	template_height = 5
-	template_width = 10
-	weight = 5
-	stock = 4
-
-/datum/map_template/random_room/HOBOJERRY
-	name = "Hobo Jerry's Room"
-	room_id = "HoboJerrysRoom"
-	mappath = "monkestation/_maps/RandomRooms/5x4/HoboJerrysRoom.dmm"
-	centerspawner = FALSE
-	template_height = 4
-	template_width = 5
-	weight = 1
 	stock = 1
