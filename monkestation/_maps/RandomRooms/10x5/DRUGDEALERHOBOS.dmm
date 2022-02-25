@@ -28,8 +28,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/decal/cleanable/vomit/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -45,8 +45,8 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/machinery/chem_dispenser/mutagen,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
@@ -77,10 +77,6 @@
 /obj/item/reagent_containers/glass/beaker/slime{
 	pixel_x = -5;
 	pixel_y = -6
-	},
-/obj/item/reagent_containers/glass/bottle/beesease{
-	pixel_x = 9;
-	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	pixel_x = -8;
@@ -129,10 +125,6 @@
 	pixel_x = -11;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/glass/bottle/fake_gbs{
-	pixel_x = 10;
-	pixel_y = -7
-	},
 /obj/item/reagent_containers/glass/bottle/mercury{
 	pixel_x = 7;
 	pixel_y = 8
@@ -172,10 +164,6 @@
 	pixel_x = 6;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/glass/beaker/eldritch{
-	pixel_x = -8;
-	pixel_y = -4
-	},
 /obj/item/reagent_containers/glass/waterbottle/relic{
 	pixel_x = 10;
 	pixel_y = 6
@@ -200,7 +188,7 @@ y
 (3,1,1) = {"
 E
 u
-M
+D
 a
 E
 "}
@@ -208,7 +196,7 @@ E
 z
 Y
 y
-c
+E
 D
 "}
 (5,1,1) = {"
@@ -235,13 +223,13 @@ z
 (8,1,1) = {"
 D
 r
-z
+j
 a
 D
 "}
 (9,1,1) = {"
 y
-j
+E
 E
 o
 E
