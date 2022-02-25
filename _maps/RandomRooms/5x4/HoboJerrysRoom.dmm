@@ -43,10 +43,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
-"m" = (
-/obj/item/reagent_containers/spray/chemsprayer,
-/turf/open/floor/plasteel/grid/steel,
-/area/template_noop)
 "r" = (
 /obj/structure/table/wood,
 /obj/item/book/granter/martial/cqc{
@@ -156,7 +152,7 @@ O
 "}
 (4,1,1) = {"
 P
-m
+O
 N
 V
 "}
