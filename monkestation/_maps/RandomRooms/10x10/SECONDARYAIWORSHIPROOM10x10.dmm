@@ -143,7 +143,10 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "rc" = (
-/obj/effect/landmark/start/ai,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/template_noop)
 "rQ" = (
@@ -237,6 +240,11 @@
 /area/template_noop)
 "HA" = (
 /obj/effect/spawner/lootdrop/clowntrap,
+/turf/open/floor/plating,
+/area/template_noop)
+"Ij" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/template_noop)
 "Ks" = (
@@ -443,7 +451,7 @@ ht
 CL
 jJ
 rc
-jJ
+Ij
 cl
 pD
 Lc
