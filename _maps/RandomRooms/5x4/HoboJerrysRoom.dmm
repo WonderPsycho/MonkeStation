@@ -27,6 +27,10 @@
 	},
 /turf/open/floor/plating/rust,
 /area/template_noop)
+"c" = (
+/obj/machinery/chem_master,
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
 "l" = (
 /obj/structure/table/wood,
 /obj/item/book/granter/spell/knock{
@@ -136,7 +140,7 @@
 l
 O
 P
-O
+c
 "}
 (2,1,1) = {"
 b
