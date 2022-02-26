@@ -81,5 +81,5 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 2
+	weight = 3
 	stock = 1
