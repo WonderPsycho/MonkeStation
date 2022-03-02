@@ -368,7 +368,7 @@
 	template_height = 3
 	template_width = 5
 
-/datum/map_template/random_room/sk_rdm044
+/*/datum/map_template/random_room/sk_rdm044
 	name = "Delta Organ Trade"
 	room_id = "sk_rdm044_deltaorgantrade"
 	mappath = "_maps/RandomRooms/3x3/sk_rdm044_deltaorgantrade.dmm"
