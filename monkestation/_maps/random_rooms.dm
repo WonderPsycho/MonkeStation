@@ -1,4 +1,4 @@
-/datum/map_template/random_room/skwh_rdm157
+/datum/map_template/random_room/slimestorage
 	name = "Slime Storage"
 	room_id = "skwh_rdm157_slimestorage"
 	mappath = "monkestation/_maps/RandomRooms/10x5/skwh_rdm157_slimestorage.dmm"
