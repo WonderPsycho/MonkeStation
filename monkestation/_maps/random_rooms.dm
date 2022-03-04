@@ -1,4 +1,4 @@
-/datum/map_template/random_room/skwh_rdm158
+/datum/map_template/random_room/largeabandonedviro
 	name = "Large Abandoned Virology"
 	room_id = "skwh_rdm158_abandonedviro"
 	mappath = "monkestation/_maps/RandomRooms/10x10/skwh_rdm158_abandonedviro.dmm"
@@ -8,7 +8,7 @@
 	weight = 2
 	stock = 3
 
-/datum/map_template/random_room/skwh_rdm157
+/datum/map_template/random_room/slimestorage
 	name = "Slime Storage"
 	room_id = "skwh_rdm157_slimestorage"
 	mappath = "monkestation/_maps/RandomRooms/10x5/skwh_rdm157_slimestorage.dmm"
@@ -17,7 +17,7 @@
 	template_width = 10
 	weight = 3
 
-/datum/map_template/random_room/skwh_rdm160
+/datum/map_template/random_room/greenkudzurichesmafiagangwarroom
 	name = "Green Viney Riches"
 	room_id = "skwh_rdm160_greenvineyriches"
 	mappath = "monkestation/_maps/RandomRooms/10x10/skwh_rdm160_greenvineyriches.dmm"
