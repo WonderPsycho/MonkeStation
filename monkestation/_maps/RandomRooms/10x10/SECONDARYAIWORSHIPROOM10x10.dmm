@@ -85,11 +85,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"lV" = (
-/obj/item/seeds/firelemon,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/cafeteria,
-/area/template_noop)
 "mV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -497,7 +492,7 @@ ok
 DI
 rQ
 zq
-lV
+XF
 eh
 ct
 XF

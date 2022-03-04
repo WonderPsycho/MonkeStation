@@ -84,10 +84,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
-"N" = (
-/obj/item/seeds/kudzu,
-/turf/open/floor/plating,
-/area/template_noop)
 "S" = (
 /mob/living/carbon/monkey,
 /turf/open/floor/plasteel,
@@ -145,7 +141,7 @@ y
 "}
 (6,1,1) = {"
 v
-N
+v
 D
 y
 k

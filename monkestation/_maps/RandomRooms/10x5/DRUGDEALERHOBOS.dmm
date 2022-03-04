@@ -6,12 +6,6 @@
 /area/template_noop)
 "b" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/techstorage/medical{
-	pixel_x = -6
-	},
-/obj/effect/spawner/lootdrop/techstorage/medical{
-	pixel_y = 8
-	},
 /obj/item/reagent_containers/food/drinks/bottle/hooch{
 	pixel_x = -2;
 	pixel_y = 6
@@ -117,10 +111,6 @@
 /area/template_noop)
 "L" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/techstorage/medical{
-	pixel_x = 4;
-	pixel_y = 5
-	},
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
 	pixel_x = -11;
 	pixel_y = 10
@@ -143,10 +133,6 @@
 /area/template_noop)
 "Y" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/techstorage/medical{
-	pixel_x = 5;
-	pixel_y = -6
-	},
 /obj/item/reagent_containers/glass/waterbottle/relic{
 	pixel_x = -5;
 	pixel_y = 6
@@ -156,10 +142,6 @@
 "Z" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/oil,
-/obj/effect/spawner/lootdrop/techstorage/medical{
-	pixel_x = -6;
-	pixel_y = 7
-	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
 	pixel_x = 6;
 	pixel_y = 10
