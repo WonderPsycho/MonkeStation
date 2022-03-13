@@ -350,16 +350,16 @@
 		/obj/item/clothing/mask/gas/cyborg = 25,
 		"" = 75)
 
-/obj/effect/spawner/lootdrop/aimodule_harmless // These shouldn't allow the AI to start butchering people
-	name = "harmless AI module spawner" //Monkestation Edit: adds other AI modules of their respective categories to said lootdrops
+/obj/effect/spawner/lootdrop/aimodule_harmless //Monkestation Edit: adds other AI modules of their respective categories to said lootdrops
+	name = "harmless AI module spawner"
 	loot = list(
 				/obj/item/aiModule/core/full/asimov,
 				/obj/item/aiModule/core/full/asimovpp,
 				/obj/item/aiModule/core/full/hippocratic,
 				/obj/item/aiModule/core/full/paladin_devotion,
-				/obj/item/aiModule/core/full/paladin
+				/obj/item/aiModule/core/full/paladin,
 				/obj/item/aiModule/core/full/manifestimov
-				)
+				,)
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason
 	name = "neutral AI module spawner"
@@ -371,9 +371,9 @@
 				/obj/item/aiModule/core/full/reporter,
 				/obj/item/aiModule/core/full/robocop,
 				/obj/item/aiModule/core/full/liveandletlive,
-				/obj/item/aiModule/core/full/hulkamania
+				/obj/item/aiModule/core/full/hulkamania,
 				/obj/item/aiModule/core/full/secmaster
-				)
+				,)
 
 /obj/effect/spawner/lootdrop/aimodule_harmful // These will get the shuttle called
 	name = "harmful AI module spawner"
@@ -382,10 +382,10 @@
 				/obj/item/aiModule/core/full/balance,
 				/obj/item/aiModule/core/full/tyrant,
 				/obj/item/aiModule/core/full/thermurderdynamic,
-				/obj/item/aiModule/core/full/damaged
-				/obj/item/aiModule/core/full/aicaptain
+				/obj/item/aiModule/core/full/damaged,
+				/obj/item/aiModule/core/full/aicaptain,
 				/obj/item/aiModule/core/full/advancedquarantine
-				)
+				,)
 
 // Tech storage circuit board spawners
 
