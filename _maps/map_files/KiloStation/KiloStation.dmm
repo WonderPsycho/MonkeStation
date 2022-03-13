@@ -35001,6 +35001,7 @@
 	},
 /obj/structure/table,
 /obj/item/aiModule/reset,
+/obj/item/aiModule/core/manifestimov,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -97332,6 +97333,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/aiModule/core/manifestimov,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},

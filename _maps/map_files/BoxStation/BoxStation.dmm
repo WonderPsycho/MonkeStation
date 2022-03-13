@@ -5833,8 +5833,7 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "amQ" = (
@@ -18300,6 +18299,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/aiModule/core/manifestimov,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "bbo" = (

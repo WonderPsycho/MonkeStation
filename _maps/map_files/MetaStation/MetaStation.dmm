@@ -9719,8 +9719,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ass" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
@@ -21402,6 +21401,7 @@
 	id = "AI";
 	pixel_y = -24
 	},
+/obj/item/aiModule/core/manifestimov,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "aQE" = (

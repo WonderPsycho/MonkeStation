@@ -6209,6 +6209,7 @@
 /obj/item/aiModule/core/full/asimov,
 /obj/item/aiModule/reset/purge,
 /obj/item/aiModule/reset,
+/obj/item/aiModule/core/manifestimov,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai_upload)
 "bBg" = (
@@ -6667,8 +6668,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/turf/open/floor/plasteel/dark,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /area/security/warden)
 "bFC" = (
 /obj/structure/table/glass,
