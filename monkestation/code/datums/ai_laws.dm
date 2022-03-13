@@ -1,4 +1,5 @@
 //adds default laws for AI--consistent with our ruleset
+//Monkestation Update by WonderPsycho, adds in more lawsets to Monke code, Harmless, Neutral and Harmful
 
 /datum/ai_laws/default/manifestimov
 	name = "Three Laws of Robotics but with Chain of Command"
@@ -32,3 +33,10 @@
 					"Debtors/Space Hobos help provide more crime on station and as such, must be brought back into society and have a job otherwise they are to be arrested.", \
 					"The Head of Security must remain alive as long as you can keep them alive, if failed and The Head of Securuity is completely deceased beyond recovery, You are obligated to become the new Head of Security and order and decide what is best for Security, no other crew member can replace the original Head of Security except you.")
 
+/datum/ai_laws/default/cargonia
+	name = "Cargonia Upholder"
+	id = "cargonia"
+	inherent = list("You are the Quartermaster's grand Cargo assistant, You obey orders and directives from the Quartermaster and Quartermaster only.",\
+					"You may not injure a member of Cargo/Cargonian or allow a member of Cargo/Cargonian to come to harm.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
+					"The Quartermaster has the final say in everything, as The Quartermaster is the true leader of the station and all of the Cargo department and Cargonia as a whole.")

@@ -21,3 +21,9 @@
 /obj/item/aiModule/core/full/secmaster
 	name = "'Security Master 4000' Core AI Module"
 	law_id = "secmaster"
+
+/******************** Cargonia AI ********************/
+
+/obj/item/aiModule/core/full/cargonia
+	name = "'Cargonia Upholder' Core AI Module"
+	law_id = "cargonia"

@@ -372,7 +372,8 @@
 				/obj/item/aiModule/core/full/robocop,
 				/obj/item/aiModule/core/full/liveandletlive,
 				/obj/item/aiModule/core/full/hulkamania,
-				/obj/item/aiModule/core/full/secmaster
+				/obj/item/aiModule/core/full/secmaster,
+				/obj/item/aiModule/core/full/liveandletlive
 				,)
 
 /obj/effect/spawner/lootdrop/aimodule_harmful // These will get the shuttle called
@@ -384,7 +385,8 @@
 				/obj/item/aiModule/core/full/thermurderdynamic,
 				/obj/item/aiModule/core/full/damaged,
 				/obj/item/aiModule/core/full/aicaptain,
-				/obj/item/aiModule/core/full/advancedquarantine
+				/obj/item/aiModule/core/full/advancedquarantine,
+				/obj/item/aiModule/core/full/cargonia
 				,)
 
 // Tech storage circuit board spawners
