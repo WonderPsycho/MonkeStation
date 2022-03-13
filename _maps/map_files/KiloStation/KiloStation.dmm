@@ -35001,7 +35001,7 @@
 	},
 /obj/structure/table,
 /obj/item/aiModule/reset,
-/obj/item/aiModule/core/manifestimov,
+/obj/item/aiModule/core/full/manifestimov,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -53142,6 +53142,10 @@
 	name = "Core Modules";
 	req_access_txt = "20"
 	},
+/obj/item/aiModule/core/full/advancedquarantine{
+	pixel_y = 3;
+	pixel_x = 3
+	},
 /obj/effect/spawner/lootdrop/aimodule_harmful{
 	fan_out_items = 1;
 	lootcount = 2;
@@ -53390,6 +53394,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/lootdrop/aimodule_neutral,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -97333,7 +97338,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/aiModule/core/manifestimov,
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},

@@ -358,7 +358,7 @@
 				/obj/item/aiModule/core/full/hippocratic,
 				/obj/item/aiModule/core/full/paladin_devotion,
 				/obj/item/aiModule/core/full/paladin
-				/obj/item/aiModule/core/manifestimov
+				/obj/item/aiModule/core/full/manifestimov
 				)
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason
@@ -372,7 +372,7 @@
 				/obj/item/aiModule/core/full/robocop,
 				/obj/item/aiModule/core/full/liveandletlive,
 				/obj/item/aiModule/core/full/hulkamania
-				/obj/item/aiModule/core/secmaster
+				/obj/item/aiModule/core/full/secmaster
 				)
 
 /obj/effect/spawner/lootdrop/aimodule_harmful // These will get the shuttle called
@@ -383,8 +383,8 @@
 				/obj/item/aiModule/core/full/tyrant,
 				/obj/item/aiModule/core/full/thermurderdynamic,
 				/obj/item/aiModule/core/full/damaged
-				/obj/item/aiModule/core/aicaptain
-				/obj/item/aiModule/core/advancedquarantine
+				/obj/item/aiModule/core/full/aicaptain
+				/obj/item/aiModule/core/full/advancedquarantine
 				)
 
 // Tech storage circuit board spawners

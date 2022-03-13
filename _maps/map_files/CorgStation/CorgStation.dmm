@@ -6209,7 +6209,9 @@
 /obj/item/aiModule/core/full/asimov,
 /obj/item/aiModule/reset/purge,
 /obj/item/aiModule/reset,
-/obj/item/aiModule/core/manifestimov,
+/obj/item/aiModule/core/full/manifestimov{
+	pixel_x = 4
+	},
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai_upload)
 "bBg" = (

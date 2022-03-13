@@ -18299,7 +18299,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/aiModule/core/manifestimov,
+/obj/item/aiModule/core/full/manifestimov,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "bbo" = (
