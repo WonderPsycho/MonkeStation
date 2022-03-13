@@ -15,3 +15,9 @@
 /obj/item/aiModule/core/advancedquarantine
 	name = "'NanoTrasen Advanced AI Quarantine Lawset (N.T.A.A.Q.L.)' Core AI Module"
 	law_id = "advancedquarantine"
+
+/******************** Security Master ********************/
+
+/obj/item/aiModule/core/secmaster
+	name = "'Security Master 4000' Core AI Module"
+	law_id = "secmaster"
