@@ -351,7 +351,7 @@
 		"" = 75)
 
 /obj/effect/spawner/lootdrop/aimodule_harmless // These shouldn't allow the AI to start butchering people
-	name = "harmless AI module spawner"
+	name = "harmless AI module spawner" //Monkestation Edit: adds other AI modules of their respective categories to said lootdrops
 	loot = list(
 				/obj/item/aiModule/core/full/asimov,
 				/obj/item/aiModule/core/full/asimovpp,
@@ -360,8 +360,6 @@
 				/obj/item/aiModule/core/full/paladin
 				/obj/item/aiModule/core/manifestimov
 				)
-
-//Monkestation Edit: adds other AI modules of their respective categories to said lootdrops
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason
 	name = "neutral AI module spawner"
