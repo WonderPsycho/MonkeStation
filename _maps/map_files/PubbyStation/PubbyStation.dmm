@@ -58711,6 +58711,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"rmr" = (
+/obj/effect/turf_decal/bot,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "rnE" = (
 /turf/closed/mineral,
 /area/library/lounge)
@@ -100419,7 +100424,7 @@ beI
 bkt
 blH
 bmO
-bnQ
+rmr
 kPs
 bqi
 bry

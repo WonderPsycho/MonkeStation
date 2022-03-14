@@ -84990,6 +84990,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/techmaint,
 /area/science/robotics/lab)
 "tSy" = (
@@ -95870,10 +95871,7 @@
 /area/hallway/secondary/entry)
 "wzL" = (
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},

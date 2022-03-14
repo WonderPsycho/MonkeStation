@@ -109644,6 +109644,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"mPP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel,
+/area/science/robotics/mechbay)
 "mQn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -156698,7 +156705,7 @@ dlN
 dne
 dpc
 dqP
-dpc
+mPP
 dpc
 dpc
 dwB

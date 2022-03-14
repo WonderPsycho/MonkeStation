@@ -6667,8 +6667,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/turf/open/floor/plasteel/dark,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /area/security/warden)
 "bFC" = (
 /obj/structure/table/glass,
@@ -50040,6 +50039,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "lIt" = (
