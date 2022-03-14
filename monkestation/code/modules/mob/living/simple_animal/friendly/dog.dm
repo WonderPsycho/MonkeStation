@@ -24,6 +24,7 @@
 	name = "E-N"
 	real_name = "E-N"
 	desc = "It's a borgi."
+	icon = 'monkestation/icons/mob/pets.dmi'
 	icon_state = "borgi"
 	icon_living = "borgi"
 	icon_dead = "borgi_dead"
