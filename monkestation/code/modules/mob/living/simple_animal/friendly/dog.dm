@@ -38,11 +38,11 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(user as mob)
 	if(!emagged)
 		emagged = TRUE
-		visible_message(span_warning("[user] swipes a card through [src]."), span_notice("You overload [src]s internal reactor."))
+		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		addtimer(CALLBACK(src, .proc/explode), 1000)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
-	visible_message(span_warning("[src] makes an odd whining noise."))
+	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 
