@@ -9719,8 +9719,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ass" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
@@ -81913,6 +81912,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"rgH" = (
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "rhR" = (
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_y = -32
@@ -112488,7 +112491,7 @@ cCp
 cDc
 cEl
 cFg
-cFg
+rgH
 cFg
 cHR
 cIK

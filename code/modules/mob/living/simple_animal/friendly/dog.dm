@@ -57,6 +57,37 @@
 		regenerate_icons()
 	return ..()
 
+/mob/living/simple_animal/pet/dog/corgi/borgi
+	name = "E-N"
+	real_name = "E-N"
+	desc = "It's a borgi."
+	icon_state = "borgi"
+	icon_living = "borgi"
+	icon_dead = "borgi_dead"
+	var/emagged = FALSE
+	minbodytemp = 0
+	loot = list(/obj/effect/decal/cleanable/robot_debris)
+	del_on_death = TRUE
+	deathmessage = "blows apart!"
+	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
+	nofur = TRUE
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(user as mob)
+	if(!emagged)
+		emagged = TRUE
+		visible_message(span_warning("[user] swipes a card through [src]."), span_notice("You overload [src]s internal reactor."))
+		addtimer(CALLBACK(src, .proc/explode), 1000)
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
+	visible_message(span_warning("[src] makes an odd whining noise."))
+	explosion(get_turf(src), 0, 1, 4, 7)
+	death()
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
+	..()
+	//spark for no reason
+	if(prob(5))
+		do_sparks(3, 1, src)
 
 /mob/living/simple_animal/pet/dog/pug
 	name = "\improper pug"
