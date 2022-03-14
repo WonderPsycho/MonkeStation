@@ -1,0 +1,153 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"h" = (
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"l" = (
+/mob/living/simple_animal/bot/buttbot{
+	auto_patrol = 1;
+	name = "buttbot"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"v" = (
+/mob/living/simple_animal/bot/buttbot{
+	auto_patrol = 1;
+	name = "buttbot"
+	},
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"z" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"C" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"D" = (
+/mob/living/simple_animal/bot/buttbot{
+	auto_patrol = 1;
+	name = "buttbot"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"G" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"I" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"M" = (
+/mob/living/simple_animal/bot/buttbot{
+	auto_patrol = 1;
+	name = "buttbot"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"S" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cafeteria,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/circuit/green,
+/area/template_noop)
+
+(1,1,1) = {"
+D
+C
+N
+h
+v
+"}
+(2,1,1) = {"
+M
+h
+I
+r
+v
+"}
+(3,1,1) = {"
+D
+r
+z
+T
+D
+"}
+(4,1,1) = {"
+D
+h
+N
+r
+D
+"}
+(5,1,1) = {"
+N
+z
+N
+N
+z
+"}
+(6,1,1) = {"
+N
+N
+N
+S
+S
+"}
+(7,1,1) = {"
+D
+r
+N
+h
+D
+"}
+(8,1,1) = {"
+M
+G
+N
+h
+v
+"}
+(9,1,1) = {"
+D
+h
+I
+r
+D
+"}
+(10,1,1) = {"
+l
+r
+S
+r
+D
+"}
