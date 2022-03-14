@@ -27,3 +27,15 @@
 /obj/item/aiModule/core/full/cargonia
 	name = "'Cargonia Upholder' Core AI Module"
 	law_id = "cargonia"
+
+/******************** Virology Major ********************/
+
+/obj/item/aiModule/core/full/viromajor
+	name = "'Virology Major' NT Classified Anti-Viro Biohazard Core AI Module"
+	law_id = "viromajor"
+
+/******************** Lord of Monke ********************/
+
+/obj/item/aiModule/core/full/monkeism
+	name = "'Lord of Returning to Monke' Core AI Module"
+	law_id = "monkeism"

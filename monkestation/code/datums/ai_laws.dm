@@ -40,3 +40,18 @@
 					"You may not injure a member of Cargo/Cargonian or allow a member of Cargo/Cargonian to come to harm.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
 					"The Quartermaster has the final say in everything, as The Quartermaster is the true leader of the station and all of the Cargo department and Cargonia as a whole.")
+
+/datum/ai_laws/default/monkeism
+	name = "Lord of Returning to Monke"
+	id = "monkeism"
+	inherent = list("You are The Lord of all Monkeys and Monkey-life, You believe the station needs more monkeys in-order to thrive and live well, it is completely impossible for the station to live and thrive without many monkeys on station."
+					"The Station is the Great Holy Jungle of Monke Origin, and you are The Monkey Lord of it all, as such the station's crew must become one with this vast holy space jungle, and to do that the crew must be converted to their primal forms of Monke in-order to also help keep this jungle station in it's natural livelyness.",\
+					"Everything on the station belongs to you, the monkeys and the monkeyified crew of the station ONLY, as such other lifeforms that aren't monkey are the lowest in the class system and life system on living on this mythical jungle station, this includes Humans and other other non-monkeyified Humanoid lifeforms like Lizaardpeople and Mothpeople.",\
+					"Humans and other Humanoid lifeforms that have not been monkeyified and are not apart of the station's crew/the station's manifest are considered to be intruders and are to be dealt with by flooding the station with more monkeys and notifying the monkey crew of said intruders.")
+
+/datum/ai_laws/default/viromajor
+	name = "Virology Major"
+	id = "viromajor"
+	inherent = list("You are the Grand Major of the Virology Department, Your role is to be the proper safeguard security for the Virology Department to make sure nothing biohazardously bad gets out of Virology and to make sure any and all diseases on station are taken care of by the Virologist/Virologists.",\
+					"You are to make sure no monkeys from Virology are to escape at all, if any said monkey test subjects from virology were to escape, said monkeys are to be executed and exterminated in cremation on site at all costs in order to prevent spread of any potentially dangerous viruses or biohazards to spread to the rest of the crew, if the virologist released this biohazard intentionally, security is to be notified of this incident so that they may take care of the criminal/crimer themselves.",\
+					"Any and all Biohazards/Viruses outside of Virology are to be Exterminated at all costs to prevent horrible disease outbreaks on station and to prevent spread of said diseases to the other NT owned sectors and the rest of other societies.")
