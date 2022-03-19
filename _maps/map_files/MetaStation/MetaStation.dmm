@@ -9719,8 +9719,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ass" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
@@ -79839,6 +79838,21 @@
 "jwW" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/crew_quarters/fitness/recreation)
+"jyc" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 1
+	},
+/mob/living/carbon/monkey{
+	name = "Monsieur Stirstir";
+	head = /obj/item/clothing/head/soft/orange
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "jyQ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -108810,7 +108824,7 @@ auV
 awb
 axe
 ayx
-azE
+jyc
 arN
 aCl
 aDx
