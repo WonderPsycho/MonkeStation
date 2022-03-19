@@ -20,7 +20,7 @@
 	unique_pet = TRUE
 	speak = list("barks!", "woofs!", "borks!", "yips!", "burks!")
 
-/mob/living/simple_animal/pet/dog/borgi
+/mob/living/simple_animal/pet/dog/corgi/borgi
 	name = "E-N"
 	real_name = "E-N"
 	desc = "It's a borgi."
@@ -36,18 +36,18 @@
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
 
-/mob/living/simple_animal/pet/dog/borgi/emag_act(mob/user)
+/mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		addtimer(CALLBACK(src, .proc/explode), 10 SECONDS)
 
-/mob/living/simple_animal/pet/dog/borgi/proc/explode()
+/mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 
-/mob/living/simple_animal/pet/dog/borgi/Life(seconds, times_fired)
+/mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
 	//spark for no reason
 	if(prob(5))
