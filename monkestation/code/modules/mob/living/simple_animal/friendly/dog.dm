@@ -42,6 +42,7 @@
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 	    visible_message("<span class='reallybig warning'>[src] makes an odd whining noise.</span>")
 		addtimer(CALLBACK(src, .proc/explode), 10 SECONDS)
+	    visible_message("<span class='reallybig warning'>[src] makes an odd whining noise.</span>")
 	    explosion(get_turf(src), 0, 1, 4, 7)
 	    death()
 
