@@ -47,6 +47,11 @@
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 
+/mob/living/simple_animal/pet/dog/corgi/borgi/process()
+      if(world.time + 2 SECONDS > lastbeep)
+      playsound(loc, 'sound/items/timer.ogg')
+      lastbeep = world.time
+
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
 	//spark for no reason
