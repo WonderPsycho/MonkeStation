@@ -50,9 +50,9 @@
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/process()
-      if(world.time + 2 SECONDS > nextbeep)
-      	playsound(loc, 'sound/items/timer.ogg')
-      	nextbeep = world.time
+	if(world.time + 2 SECONDS > nextbeep)
+		playsound(loc, 'sound/items/timer.ogg')
+		nextbeep = world.time
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
