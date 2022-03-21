@@ -35,6 +35,8 @@
 	deathmessage = "blows apart!"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
+	var/nextbeep
+	var/beepsound = 'sound/items/timer.ogg'
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
@@ -48,9 +50,9 @@
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/process()
-      if(world.time + 2 SECONDS > lastbeep)
-      playsound(loc, 'sound/items/timer.ogg')
-      lastbeep = world.time
+      if(world.time + 2 SECONDS > nextbeep)
+      	playsound(loc, 'sound/items/timer.ogg')
+      	nextbeep = world.time
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
