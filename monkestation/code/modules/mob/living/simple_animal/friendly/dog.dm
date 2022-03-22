@@ -54,6 +54,6 @@
 	//spark for no reason
 	if(prob(5))
 		do_sparks(3, 1, src)
-	if(world.time + 2 SECONDS > next_beep)
+	if(emagged && (world.time + 2 SECONDS > next_beep))
 		playsound(src.loc, beepsound, 50)
 		next_beep = world.time
