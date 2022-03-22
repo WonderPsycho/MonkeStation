@@ -49,13 +49,11 @@
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/process()
-	if(world.time + 2 SECONDS > next_beep)
-		playsound(loc, beepsound, 50)
-		next_beep = world.time
-
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
 	//spark for no reason
 	if(prob(5))
 		do_sparks(3, 1, src)
+	if(world.time + 2 SECONDS > next_beep)
+		playsound(src.loc, beepsound, 50)
+		next_beep = world.time
