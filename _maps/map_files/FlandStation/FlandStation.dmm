@@ -23848,7 +23848,7 @@
 	dir = 5
 	},
 /mob/living/carbon/monkey{
-	name = "Monsieur Stirstir";
+	name = "Ook";
 	unique_name = 0
 	},
 /turf/open/floor/plasteel/dark,

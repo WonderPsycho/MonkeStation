@@ -102500,7 +102500,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /mob/living/carbon/monkey{
-	name = "Monsieur Stirstir";
+	name = "Ook";
 	unique_name = 0
 	},
 /turf/open/floor/plasteel/showroomfloor,
