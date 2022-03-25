@@ -5833,8 +5833,7 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "amQ" = (
@@ -54420,6 +54419,20 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"qbL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/mob/living/carbon/monkey{
+	name = "Monsieur Stirstir";
+	unique_name = 0
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "qcI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/sorting/mail/flip{
@@ -88989,7 +89002,7 @@ aiz
 ajg
 akl
 akR
-eGg
+qbL
 alx
 amR
 anw

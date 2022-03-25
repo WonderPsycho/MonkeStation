@@ -79849,7 +79849,7 @@
 	},
 /mob/living/carbon/monkey{
 	name = "Monsieur Stirstir";
-	head = /obj/item/clothing/head/soft/orange
+	unique_name = 0
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)

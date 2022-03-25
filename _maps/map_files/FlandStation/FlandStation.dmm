@@ -23836,6 +23836,23 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/storage)
+"fsB" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 5
+	},
+/mob/living/carbon/monkey{
+	name = "Monsieur Stirstir";
+	unique_name = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "fsJ" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/visible{
 	dir = 1
@@ -95870,10 +95887,7 @@
 /area/hallway/secondary/entry)
 "wzL" = (
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
@@ -135290,7 +135304,7 @@ uwz
 mdb
 uNi
 hrw
-oUo
+fsB
 kBH
 xiy
 fDh

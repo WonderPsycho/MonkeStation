@@ -62386,6 +62386,17 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer1,
 /turf/open/floor/plating,
 /area/science/mixing)
+"wPP" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/carbon/monkey{
+	name = "Monsieur Stirstir";
+	unique_name = 0
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "wQU" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable/yellow{
@@ -86754,7 +86765,7 @@ aqt
 arp
 asC
 atD
-auz
+wPP
 avA
 awJ
 ekg
