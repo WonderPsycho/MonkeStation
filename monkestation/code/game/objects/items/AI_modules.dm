@@ -39,3 +39,9 @@
 /obj/item/aiModule/core/full/monkeism
 	name = "'Lord of Returning to Monke' Core AI Module"
 	law_id = "monkeism"
+
+/******************** NT Surveillance ********************/
+
+/obj/item/aiModule/core/full/surveillance
+	name = "'NT Artificial Surveillance Protocol' Core AI Module"
+	law_id = "surveillance"
