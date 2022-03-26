@@ -36,7 +36,6 @@
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
 	var/next_beep
-	var/beepsound = 'sound/items/timer.ogg'
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
@@ -56,5 +55,5 @@
 	if(prob(5))
 		do_sparks(3, 1, src)
 	if(emagged && (world.time + 2 SECONDS > next_beep))
-		playsound(src.loc, beepsound, 50)
+		playsound(src.loc, 'sound/items/timer.ogg', 50)
 		next_beep = world.time
