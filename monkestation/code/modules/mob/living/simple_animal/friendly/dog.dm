@@ -36,6 +36,8 @@
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
 	var/next_beep
+	var/explosion_timer
+	var/TimerID
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
@@ -43,11 +45,13 @@
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>")
 		visible_message("<span class='notice'>You overload [src]s internal reactor.</span>")
 		visible_message("<span class='reallybig warning'>[src] makes an odd whining noise.</span>")
-		addtimer(CALLBACK(src, .proc/explode), 10 SECONDS)
+		TimerID = addtimer(CALLBACK(src, .proc/explode), 10 SECONDS, TIMER_STOPPABLE)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
+	if(TimerID)
+		deltimer(TimerID)
 	explosion(get_turf(src), 0, 1, 4, 7)
-	death()
+	death(src)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
