@@ -57,3 +57,6 @@
 	if(emagged && (world.time + 2 SECONDS > next_beep))
 		playsound(src.loc, 'sound/items/timer.ogg', 50)
 		next_beep = world.time
+	if(stat != DEAD)
+		death(src)
+
