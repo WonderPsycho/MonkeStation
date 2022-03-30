@@ -32,9 +32,12 @@
 	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = FALSE
-	deathmessage = "ceases to function.."
+	deathmessage = "ceases to function"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
+	var/exotic_blood = /datum/reagent/oil
+	var/blood_state = BLOOD_STATE_OIL
+	var/bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/next_beep
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
