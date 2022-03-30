@@ -31,8 +31,8 @@
 	var/emagged = FALSE
 	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
-	del_on_death = TRUE
-	deathmessage = "blows apart!"
+	del_on_death = FALSE
+	deathmessage = "ceases to function.."
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
 	var/next_beep
@@ -57,6 +57,3 @@
 	if(emagged && (world.time + 2 SECONDS > next_beep))
 		playsound(src.loc, 'sound/items/timer.ogg', 50)
 		next_beep = world.time
-	if(stat != DEAD)
-		death(src)
-
