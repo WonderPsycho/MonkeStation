@@ -50983,6 +50983,9 @@
 /area/security/checkpoint/medical)
 "bZa" = (
 /obj/effect/spawner/structure/window,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "FULLMEDBAYLOCKDOWN"
+	},
 /turf/open/floor/plating,
 /area/medical/medbay/central)
 "bZc" = (
@@ -50996,6 +50999,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "FULLMEDBAYLOCKDOWN"
+	},
 /turf/open/floor/plasteel/white/side,
 /area/medical/medbay/central)
 "bZd" = (
@@ -51004,6 +51010,9 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "FULLMEDBAYLOCKDOWN"
+	},
 /turf/open/floor/plasteel/white/side,
 /area/medical/medbay/central)
 "bZe" = (
@@ -52521,6 +52530,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "FULLMEDBAYLOCKDOWN"
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -53114,6 +53126,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "FULLMEDBAYLOCKDOWN"
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -55340,6 +55355,12 @@
 "cis" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/button{
+	id = "FULLMEDBAYLOCKDOWN";
+	pixel_y = 27;
+	pixel_x = 5;
+	name = "Medbay Public Lockdown Shutters Control"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
