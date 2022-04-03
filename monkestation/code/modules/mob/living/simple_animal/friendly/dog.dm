@@ -35,9 +35,7 @@
 	deathmessage = "ceases to function"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
-	var/exotic_blood = /datum/reagent/oil
-	var/blood_state = BLOOD_STATE_OIL
-	var/bloodiness = BLOOD_AMOUNT_PER_DECAL
+	var/blood_color = "#000000"
 	var/next_beep
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
