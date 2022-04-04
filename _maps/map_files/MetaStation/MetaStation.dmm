@@ -81778,7 +81778,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "qvo" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line,
 /mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
@@ -112496,7 +112496,7 @@ cEl
 cFg
 cFg
 cFg
-cHR
+qvo
 cIK
 cJJ
 cCq
@@ -112752,7 +112752,7 @@ cDd
 cEm
 cFf
 cFg
-qvo
+cFh
 cHR
 cIL
 cJK
