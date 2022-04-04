@@ -78544,10 +78544,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"eEo" = (
-/mob/living/simple_animal/pet/dog/corgi/borgi,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "eFN" = (
 /obj/structure/bodycontainer/crematorium{
 	dir = 1;
@@ -112493,7 +112489,7 @@ cCp
 cDc
 cEl
 cFg
-eEo
+cFg
 cFg
 cHR
 cIK
