@@ -1,5 +1,3 @@
-var/blood_color
-
 /mob/living/Initialize(mapload)
 	. = ..()
 	if(unique_name)
