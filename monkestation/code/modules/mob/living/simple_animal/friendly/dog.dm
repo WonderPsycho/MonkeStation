@@ -61,3 +61,7 @@
 	if(emagged && (world.time + 2 SECONDS > next_beep))
 		playsound(src.loc, 'sound/items/timer.ogg', 50)
 		next_beep = world.time
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/makeTrail(turf/T, turf/start, direction, spec_color)
+	spec_color = blood_color
+	..()
