@@ -42333,7 +42333,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cHT" = (
@@ -54890,6 +54889,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "qBw" = (

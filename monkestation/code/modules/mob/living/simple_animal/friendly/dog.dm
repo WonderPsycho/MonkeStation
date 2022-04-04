@@ -50,13 +50,14 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death(src)
-	playsound(src, null)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
-	//spark for no reason
+	if(stat == DEAD)
+		return
 	if(prob(5))
 		do_sparks(3, 1, src)
+	//spark for no reason
 	if(emagged && (world.time + 2 SECONDS > next_beep))
 		playsound(src.loc, 'sound/items/timer.ogg', 50)
 		next_beep = world.time

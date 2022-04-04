@@ -17217,6 +17217,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
+"dQG" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/robotics/lab)
 "dQS" = (
 /obj/machinery/power/emitter/anchored{
 	dir = 4;
@@ -84990,7 +84997,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/techmaint,
 /area/science/robotics/lab)
 "tSy" = (
@@ -139163,7 +139169,7 @@ voK
 jxB
 rLs
 oIR
-dve
+dQG
 pGK
 lip
 xdL
