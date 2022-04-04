@@ -17451,7 +17451,6 @@
 	},
 /area/maintenance/port/fore)
 "aAC" = (
-/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "aAD" = (
@@ -21899,6 +21898,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "aHN" = (
