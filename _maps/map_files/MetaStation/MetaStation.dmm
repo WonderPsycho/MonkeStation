@@ -81777,6 +81777,11 @@
 /mob/living/simple_animal/bot/cleanbot/medbay,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
+"qvo" = (
+/obj/effect/turf_decal/bot,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "qzv" = (
 /obj/structure/cable/white{
 	icon_state = "2-4"
@@ -112747,7 +112752,7 @@ cDd
 cEm
 cFf
 cFg
-cFh
+qvo
 cHR
 cIL
 cJK
