@@ -83204,6 +83204,10 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
+"wGV" = (
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "wHH" = (
 /obj/structure/sign/departments/minsky/medical/clone/cloning2,
 /turf/closed/wall,
@@ -112489,7 +112493,7 @@ cCp
 cDc
 cEl
 cFg
-cFg
+wGV
 cFg
 cHR
 cIK
