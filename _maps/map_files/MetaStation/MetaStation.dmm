@@ -79447,11 +79447,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
-"iuq" = (
-/obj/effect/turf_decal/bot,
-/mob/living/simple_animal/pet/dog/corgi/borgi,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "iuC" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;35;47;49"
@@ -112752,7 +112747,7 @@ cDd
 cEm
 cFf
 cFg
-iuq
+cFh
 cHR
 cIL
 cJK
