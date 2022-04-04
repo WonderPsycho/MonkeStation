@@ -37,6 +37,7 @@
 	nofur = TRUE
 	var/blood_color = "#000000"
 	var/next_beep
+	var/chan
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
@@ -49,6 +50,7 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death(src)
+	playsound(src, null)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
