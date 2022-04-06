@@ -15249,6 +15249,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMr" = (
@@ -15279,6 +15280,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMt" = (
@@ -15308,6 +15310,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMv" = (
@@ -15324,6 +15327,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
@@ -15817,6 +15822,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/minor,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aNR" = (
@@ -16309,6 +16316,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aOZ" = (
@@ -16652,6 +16660,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aQe" = (
@@ -53511,6 +53520,13 @@
 	dir = 1
 	},
 /area/hallway/secondary/exit/departure_lounge)
+"kKr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "kKM" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -55476,6 +55492,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"nsv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "nsy" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -60899,11 +60920,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
-"uyY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/pizzaparty,
-/turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
 "uza" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -103770,7 +103786,7 @@ aEd
 aMr
 rda
 tFt
-aNO
+nsv
 aRp
 aSk
 aTm
@@ -104283,7 +104299,7 @@ aKj
 aEd
 aMt
 bJi
-aNO
+kKr
 aNO
 aNP
 cDa
@@ -104540,7 +104556,7 @@ aEd
 aEd
 aMu
 ltY
-uyY
+aNO
 aQf
 aRq
 cDa
