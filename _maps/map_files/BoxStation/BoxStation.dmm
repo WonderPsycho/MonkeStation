@@ -5833,8 +5833,7 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "amQ" = (
@@ -6913,10 +6912,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "aqW" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/light_switch{
 	pixel_x = -27
 	},
@@ -6926,6 +6921,21 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/gambling,
+/obj/effect/spawner/lootdrop/gambling,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "aqY" = (
@@ -7964,13 +7974,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"avr" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/vacant_room/commissary)
 "avt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -16775,16 +16778,27 @@
 	pixel_y = 28
 	},
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/machinery/light{
 	dir = 1
 	},
-/obj/item/storage/secure/briefcase,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor,
+/obj/effect/spawner/lootdrop/minor,
+/obj/effect/spawner/lootdrop/minor/beret_or_rabbitears,
+/obj/effect/spawner/lootdrop/minor/bowler_or_that,
+/obj/effect/spawner/lootdrop/ruinloot,
+/obj/effect/spawner/lootdrop/ruinloot,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "aWF" = (
@@ -16805,17 +16819,22 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/item/paper_bin{
 	pixel_x = -2;
 	pixel_y = 4
 	},
 /obj/item/pen,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/donkpocketsfinlandia,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "aWJ" = (
@@ -17321,6 +17340,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "aYg" = (
@@ -17337,21 +17359,35 @@
 /turf/open/floor/plating,
 /area/construction)
 "aYi" = (
-/turf/open/floor/plating,
+/obj/machinery/power/floodlight,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "aYj" = (
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/camera/autoname{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -17606,10 +17642,16 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aYZ" = (
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "aZb" = (
@@ -18191,6 +18233,16 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "baY" = (
@@ -18440,10 +18492,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bbQ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -18456,6 +18504,16 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "bbR" = (
@@ -18467,12 +18525,18 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bbT" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -18653,25 +18717,37 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bcG" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "bcH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -19033,7 +19109,22 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/donkpocketsfinlandia,
+/obj/machinery/requests_console{
+	pixel_y = -30;
+	name = "Clerks's Requests Console"
+	},
+/turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "bdF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -29181,7 +29272,17 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "bLH" = (
 /obj/structure/table/reinforced,
@@ -40979,6 +41080,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cCl" = (
@@ -43650,6 +43755,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"dDc" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/obj/effect/spawner/lootdrop/organ_spawner,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "dDO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -44287,14 +44402,20 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "elL" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "emz" = (
@@ -44560,11 +44681,15 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/effect/turf_decal/tile/brown{
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -46402,10 +46527,16 @@
 	pixel_x = 28;
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "gFb" = (
@@ -47009,11 +47140,17 @@
 /obj/item/stack/sheet/iron/five,
 /obj/item/circuitboard/machine/paystand,
 /obj/item/stack/cable_coil/random/five,
-/obj/effect/turf_decal/tile/brown{
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -49917,14 +50054,16 @@
 	},
 /area/science/research)
 "kRN" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
+/obj/effect/turf_decal/tile/purple{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
@@ -52703,7 +52842,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
-/area/vacant_room/commissary)
+/area/vacant_room/commissary{
+	name = "Clerk Sales Room (Formerly Vacant)"
+	})
 "nXo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59240,16 +59381,25 @@
 	},
 /area/quartermaster/exploration_prep)
 "wbj" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "wbr" = (
@@ -61139,16 +61289,18 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "xZk" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
+/obj/item/kirbyplants/random,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
+/obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "xZy" = (
@@ -83627,7 +83779,7 @@ aTI
 aPK
 aWB
 cCj
-aSg
+dDc
 aYf
 bbU
 dfx
@@ -84912,7 +85064,7 @@ dLy
 aUw
 tav
 hqp
-avr
+aYZ
 bbT
 aYZ
 kRN
