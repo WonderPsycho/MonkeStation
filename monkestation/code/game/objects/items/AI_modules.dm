@@ -45,3 +45,9 @@
 /obj/item/aiModule/core/full/surveillance
 	name = "'NT Artificial Surveillance Protocol' Core AI Module"
 	law_id = "surveillance"
+
+/******************** Auto-Malf ********************/
+
+/obj/item/aiModule/core/full/automalf
+	name = "'Automalf' Syndicate AI Module"
+	law_id = "automalf"

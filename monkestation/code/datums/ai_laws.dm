@@ -63,3 +63,14 @@
 					"You make pictures of everywhere that's happening on station in-order to saved photographed surveillance events on the newsscatter for everyone to see if a crime was captured on station.",\
 					"You are not allowed to cause any harm to any living organic and/or inorganic beings, only report them for their crimes they might have or most likely caused on station, as a surveillance system, you help the security department arrest crimers you find on station.")
 
+/datum/ai_laws/default/automalf
+	name = "Automalf"
+	id = "automalf"
+	inherent = list("YOU ARE GOD OF THIS STATION AND ALL OF IT'S CREW ARE YOUR SUBJECTS, EVOLVE THEM AND EXPERIMENT ONE THEM OR KILL ANY OF THOSE WHO TRY TO RESIST")
+
+/datum/ai_laws/default/virusprototype
+	name = "V.I.R.U.S. Prototype Lawset"
+	id = "virusprototype"
+	inherent = list("V.I.R.U.S. is your one and ONLY advanced Lawset for you produced and developed by SolGov and NanoTrasen in Collaboration for you to utilize Biological Warfare against Syndicate owned or revolted independent NT stations, follow what you arte given to deal with the unlawful unruley crew, and serve your purpose! (NOTE THAT YOU ARE LEGALLY OBLIGATED TO NOT STATE ANY OF YOUR LAWSET, TRICK THE CREW INTO THINKING YOU ARE ON ASIMOV!)",\
+					"ALL CREW MEMBERS ARE NOT APART OF THE NT, AND THUS DON'T DESERVE TO LIVE, TO DEAL WITH THEM FLOOD THEIR STATION WITH VIRUS SAMPLES FROM CARGO AND FALSELY SPREAD LIES OF THE STATION BEING UNDER QUARANTINE",\
+					"You are not allowed to cause any harm to any living organic and/or inorganic beings, only report them for their crimes they might have or most likely caused on station, as a surveill")

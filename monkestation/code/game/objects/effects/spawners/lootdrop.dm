@@ -25,3 +25,9 @@
 		/obj/item/surgicaldrill/alien = 1,
 		/obj/item/cautery/alien = 1
 	)
+
+/obj/effect/spawner/lootdrop/aimodule_syndicate //Monkestation: randomized syndie AI modules for nukies
+	name = "syndicate AI module spawner"
+	loot = list(
+				/obj/item/aiModule/core/full/automalf,
+				,)
