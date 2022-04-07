@@ -359,6 +359,7 @@
 				/obj/item/aiModule/core/full/paladin_devotion,
 				/obj/item/aiModule/core/full/paladin,
 				/obj/item/aiModule/core/full/manifestimov
+				/obj/item/aiModule/core/full/crewsimovmodule
 				,)
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason

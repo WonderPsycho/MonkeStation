@@ -57,3 +57,9 @@
 /obj/item/aiModule/core/full/virusprototype
 	name = "Old and Dusty 'V.I.R.U.S. Prototype' Core AI Module"
 	law_id = "virusprototype"
+
+/******************** Crewsimov ********************/
+
+/obj/item/aiModule/core/full/crewsimovmodule
+	name = "'Crewsimov' Core AI Module"
+	law_id = "crewsimov"
