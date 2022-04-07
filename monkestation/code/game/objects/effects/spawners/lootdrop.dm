@@ -30,4 +30,4 @@
 	name = "syndicate AI module spawner"
 	loot = list(
 				/obj/item/aiModule/core/full/automalf,
-				,)
+				/obj/item/aiModule/core/full/virusprototype,)

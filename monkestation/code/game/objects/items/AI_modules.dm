@@ -51,3 +51,9 @@
 /obj/item/aiModule/core/full/automalf
 	name = "'Automalf' Syndicate AI Module"
 	law_id = "automalf"
+
+/******************** V.I.R.U.S. Prototype ********************/
+
+/obj/item/aiModule/core/full/virusprototype
+	name = "Old and Dusty 'V.I.R.U.S. Prototype' Core AI Module"
+	law_id = "virusprototype"
