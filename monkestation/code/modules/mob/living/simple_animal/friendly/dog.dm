@@ -35,7 +35,6 @@
 	deathmessage = "ceases to function"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
-	var/blood_color = "#000000"
 	var/next_beep
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
@@ -62,5 +61,5 @@
 		next_beep = world.time
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/makeTrail(turf/T, turf/start, direction, spec_color)
-	spec_color = blood_color
+	spec_color = "#000000"
 	..()
