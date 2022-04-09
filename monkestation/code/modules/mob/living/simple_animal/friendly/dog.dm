@@ -37,7 +37,6 @@
 	nofur = TRUE
 	var/blood_color = "#000000"
 	var/next_beep
-	var/chan
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
