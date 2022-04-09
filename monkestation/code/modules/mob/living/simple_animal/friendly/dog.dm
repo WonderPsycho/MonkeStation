@@ -40,8 +40,7 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		visible_message("<span class='warning'>[user] swipes a card through [src].</span>")
-		user.visible_message("<span class='notice'>You overload [src]s internal reactor.</span>")
+		user.visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		visible_message("<span class='reallybig warning'>[src] makes an odd whining noise.</span>")
 		addtimer(CALLBACK(src, .proc/explode), 10 SECONDS, TIMER_STOPPABLE)
 
