@@ -46,6 +46,7 @@
 		addtimer(CALLBACK(src, .proc/explode), 10 SECONDS, TIMER_STOPPABLE)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
+	emagged = FALSE
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death(src)
 
