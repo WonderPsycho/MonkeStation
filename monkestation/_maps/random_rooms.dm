@@ -55,3 +55,12 @@
 	template_width = 10
 	weight = 2
 	stock = 1
+
+/datum/map_template/random_room/buttbotroom
+	name = "Old Butt Bot Parade Room"
+	room_id = "buttbotroomarmy"
+	mappath = "monkestation/_maps/RandomRooms/10x5/buttbotroomarmy.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	stock = 2
