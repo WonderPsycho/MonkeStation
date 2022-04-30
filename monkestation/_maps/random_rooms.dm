@@ -64,3 +64,21 @@
 	template_height = 5
 	template_width = 10
 	stock = 2
+
+/datum/map_template/random_room/cultroom
+	name = "Ancient Blood Cult Maint Room"
+	room_id = "culttestroom"
+	mappath = "monkestation/_maps/RandomRooms/10x5/culttestroom.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	stock = 4
+
+/datum/map_template/random_room/bigmonkeroom
+	name = "Large Monkey Jungle Room"
+	room_id = "LARGERMONKEROOM"
+	mappath = "monkestation/_maps/RandomRooms/10x5/LARGERMONKEROOM.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	stock = 1
