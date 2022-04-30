@@ -2,13 +2,51 @@
 "a" = (
 /turf/open/floor/plating,
 /area/template_noop)
+"f" = (
+/obj/item/clothing/suit/cultrobes,
+/turf/open/floor/plasteel/cult,
+/area/template_noop)
 "h" = (
 /obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cult,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/turf/closed/wall/mineral/cult,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/turf/open/floor/plasteel/cult,
+/area/template_noop)
+"x" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/cult,
+/area/template_noop)
+"F" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cult,
 /area/template_noop)
 "K" = (
 /obj/effect/rune,
 /obj/effect/decal/cleanable/blood/gibs/up,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/cult,
+/area/template_noop)
+"U" = (
+/obj/item/clothing/head/culthood,
+/turf/open/floor/plating,
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "Y" = (
@@ -17,72 +55,72 @@
 /area/template_noop)
 
 (1,1,1) = {"
+F
 a
-a
-a
-a
+f
+l
 a
 "}
 (2,1,1) = {"
-a
-a
-a
+F
+U
+l
 K
-a
+F
 "}
 (3,1,1) = {"
-a
-h
+l
+i
 Y
-a
-a
+m
+l
 "}
 (4,1,1) = {"
-a
-a
+j
+j
+x
 h
-h
-a
+j
 "}
 (5,1,1) = {"
-a
-a
-a
+m
+F
+F
 h
-a
+l
 "}
 (6,1,1) = {"
 a
-a
-a
-a
-a
+l
+l
+l
+m
 "}
 (7,1,1) = {"
+l
+l
 a
-a
-a
-a
-a
+l
+l
 "}
 (8,1,1) = {"
 a
 a
-a
+l
 a
 a
 "}
 (9,1,1) = {"
+X
 a
+X
 a
-a
-a
-a
+l
 "}
 (10,1,1) = {"
+l
 a
-a
-a
-a
-a
+X
+l
+l
 "}
