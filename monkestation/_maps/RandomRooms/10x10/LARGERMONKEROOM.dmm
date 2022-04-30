@@ -2,13 +2,6 @@
 "a" = (
 /turf/open/floor/grass,
 /area/template_noop)
-"b" = (
-/obj/structure/flora/ausbushes/stalkybush,
-/obj/item/seeds/banana{
-	pixel_x = -14
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "c" = (
 /mob/living/carbon/monkey,
 /obj/item/grown/bananapeel,
@@ -41,12 +34,6 @@
 /obj/item/grown/bananapeel{
 	pixel_y = -7;
 	pixel_x = 1
-	},
-/turf/open/floor/grass,
-/area/template_noop)
-"k" = (
-/obj/item/seeds/banana{
-	pixel_y = 12
 	},
 /turf/open/floor/grass,
 /area/template_noop)
@@ -85,32 +72,8 @@
 	},
 /turf/open/floor/grass,
 /area/template_noop)
-"r" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_y = -12;
-	pixel_x = 11
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_y = -10
-	},
-/turf/open/floor/grass,
-/area/template_noop)
-"s" = (
-/obj/structure/flora/ausbushes/stalkybush,
-/obj/item/seeds/banana{
-	pixel_y = -6
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "t" = (
 /obj/structure/flora/ausbushes/stalkybush,
-/turf/open/floor/grass,
-/area/template_noop)
-"u" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_y = -12;
-	pixel_x = 10
-	},
 /turf/open/floor/grass,
 /area/template_noop)
 "v" = (
@@ -118,47 +81,13 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/grass,
 /area/template_noop)
-"w" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_y = 6;
-	pixel_x = 5
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "x" = (
 /obj/structure/flora/junglebush/large,
-/turf/open/floor/grass,
-/area/template_noop)
-"y" = (
-/obj/item/seeds/banana{
-	pixel_x = 18;
-	pixel_y = -12
-	},
-/turf/open/floor/grass,
-/area/template_noop)
-"z" = (
-/obj/structure/flora/junglebush,
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 9;
-	pixel_y = -5
-	},
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
 /mob/living/carbon/monkey,
 /obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/grass,
-/area/template_noop)
-"B" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_y = 12;
-	pixel_x = 12
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_y = -13;
-	pixel_x = 10
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
@@ -199,14 +128,6 @@
 /obj/item/grown/bananapeel,
 /turf/open/floor/grass,
 /area/template_noop)
-"M" = (
-/obj/structure/flora/ausbushes/pointybush,
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 9;
-	pixel_y = 14
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "N" = (
 /obj/structure/statue/bananium/clown,
 /turf/open/floor/grass,
@@ -221,13 +142,6 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/grass,
 /area/template_noop)
-"Q" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 12;
-	pixel_y = -10
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "R" = (
 /mob/living/carbon/monkey,
 /mob/living/carbon/monkey,
@@ -240,26 +154,6 @@
 /area/template_noop)
 "T" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/turf/open/floor/grass,
-/area/template_noop)
-"U" = (
-/obj/item/seeds/banana{
-	pixel_y = -17
-	},
-/turf/open/floor/grass,
-/area/template_noop)
-"V" = (
-/obj/structure/flora/junglebush,
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 15
-	},
-/turf/open/floor/grass,
-/area/template_noop)
-"W" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = -15;
-	pixel_y = -9
-	},
 /turf/open/floor/grass,
 /area/template_noop)
 "X" = (
@@ -284,12 +178,12 @@ L
 a
 j
 T
-u
+a
 H
 C
 a
 a
-w
+a
 "}
 (2,1,1) = {"
 n
@@ -300,23 +194,23 @@ T
 Z
 Y
 A
-V
+h
 n
 "}
 (3,1,1) = {"
 a
 g
-M
+P
 a
 H
 R
 I
 H
-r
+a
 H
 "}
 (4,1,1) = {"
-z
+h
 n
 H
 H
@@ -330,11 +224,11 @@ T
 (5,1,1) = {"
 a
 X
-k
+a
 X
 I
 H
-U
+a
 c
 c
 l
@@ -353,13 +247,13 @@ p
 "}
 (7,1,1) = {"
 H
-y
+a
 o
-B
+a
 n
-W
+a
 E
-b
+t
 H
 S
 "}
@@ -372,7 +266,7 @@ h
 f
 a
 H
-s
+t
 a
 "}
 (9,1,1) = {"
@@ -381,7 +275,7 @@ F
 a
 q
 H
-Q
+a
 v
 c
 T
