@@ -70,7 +70,7 @@
 	room_id = "culttestroom"
 	mappath = "monkestation/_maps/RandomRooms/10x5/culttestroom.dmm"
 	centerspawner = FALSE
-	template_height = 10
+	template_height = 5
 	template_width = 10
 	stock = 4
 
