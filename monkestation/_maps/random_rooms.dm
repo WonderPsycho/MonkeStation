@@ -77,8 +77,19 @@
 /datum/map_template/random_room/bigmonkeroom
 	name = "Large Monkey Jungle Room"
 	room_id = "LARGERMONKEROOM"
-	mappath = "monkestation/_maps/RandomRooms/10x5/LARGERMONKEROOM.dmm"
+	mappath = "monkestation/_maps/RandomRooms/10x10/LARGERMONKEROOM.dmm"
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
 	stock = 1
+
+
+/datum/map_template/random_room/abandonedbiohazardsecurityroom
+	name = "Cockroach Infested Biohazard Security Room"
+	room_id = "abandonedbiohazardsecurityroom"
+	mappath = "monkestation/_maps/RandomRooms/5x4/abandonedbiohazardsecurityroom.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	stock = 3
+	weight = 4
