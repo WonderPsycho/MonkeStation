@@ -19,7 +19,7 @@
 	items = list(
 		/obj/item/clothing/suit/chickensuit,
 		/obj/item/clothing/head/chicken,
-		/obj/item/reagent_containers/food/snacks/egg)
+		/obj/item/food/egg)
 
 /obj/effect/spawner/bundle/costume/gladiator
 	name = "gladiator costume spawner"
@@ -62,6 +62,7 @@
 	items = list(
 		/obj/item/clothing/accessory/waistcoat,
 		/obj/item/clothing/under/suit/black,
+		/obj/item/clothing/neck/tie/black,
 		/obj/item/clothing/head/that)
 
 /obj/effect/spawner/bundle/costume/highlander
@@ -138,7 +139,7 @@
 /obj/effect/spawner/bundle/costume/marisawizard
 	name = "marisa wizard costume spawner"
 	items = list(
-		/obj/item/clothing/shoes/sandal/marisa,
+		/obj/item/clothing/shoes/sneakers/marisa,
 		/obj/item/clothing/head/wizard/marisa/fake,
 		/obj/item/clothing/suit/wizrobe/marisa/fake)
 

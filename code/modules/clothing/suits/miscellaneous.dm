@@ -183,6 +183,19 @@
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
+//monkestation edit: add monkeyfriend trait
+/obj/item/clothing/suit/monkeysuit/equipped(mob/living/user, slot)
+	. = ..()
+	var/mob/living/carbon/C = user
+	var/obj/item/clothing/mask/gas/monkeymask/M
+	if(M == C.wear_mask)
+		ADD_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+
+/obj/item/clothing/suit/monkeysuit/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+//monkestation edit end
+
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"
 	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
@@ -192,7 +205,7 @@
 	body_parts_covered = ARMS|CHEST
 	actions_types = list(/datum/action/item_action/toggle_wings)
 
-/obj/item/clothing/suit/toggle/owlwings/Initialize()
+/obj/item/clothing/suit/toggle/owlwings/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_vest_allowed
 
@@ -263,7 +276,7 @@
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
 
-/obj/item/clothing/suit/poncho/ponchoshame/Initialize()
+/obj/item/clothing/suit/poncho/ponchoshame/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
@@ -611,7 +624,7 @@
 	armor = list("melee" = 25, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
-/obj/item/clothing/suit/hooded/wintercoat/captain/Initialize()
+/obj/item/clothing/suit/hooded/wintercoat/captain/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
@@ -625,7 +638,7 @@
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
-/obj/item/clothing/suit/hooded/wintercoat/security/Initialize()
+/obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
@@ -721,7 +734,7 @@
 	icon_state = "old_coatsecurity"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/old
 
-/obj/item/clothing/suit/hooded/wintercoat/security/old/Initialize()
+/obj/item/clothing/suit/hooded/wintercoat/security/old/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
@@ -798,18 +811,16 @@
 
 /obj/item/clothing/under/costume/joker
 	name = "comedian suit"
-	desc = "The worst part of having a mental illness is people expect you to behave as if you don’t."
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
 	icon_state = "joker"
 	item_state = "joker"
-	item_color = "joker"
 	can_adjust = FALSE
 
 /obj/item/clothing/suit/joker
 	name = "comedian coat"
-	desc = "I mean, don’t you have to be funny to be a comedian?"
+	desc = "I mean, don't you have to be funny to be a comedian?"
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
-	item_color = "joker_coat"
 
 /obj/item/clothing/suit/toggle/softshell
 	name = "softshell jacket"

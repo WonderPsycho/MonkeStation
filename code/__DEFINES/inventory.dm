@@ -89,8 +89,10 @@
 #define DIGITIGRADE_STYLE 	2
 
 //flags for outfits that have mutantrace variants (try not to use this): Currently only needed if you're trying to add tight fitting bootyshorts
-#define NO_MUTANTRACE_VARIATION		0
-#define MUTANTRACE_VARIATION		1
+//This system takes priority over Sprite Sheets.
+#define NO_VARIATION			(1<<0)
+#define DIGITIGRADE_VARIATION	(1<<1)
+#define DIGITIGRADE_VARIATION_NO_NEW_ICON (1<<2)
 
 #define NOT_DIGITIGRADE				0
 #define FULL_DIGITIGRADE			1
@@ -161,7 +163,8 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/reagent_containers/spray/pepper,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
-	/obj/item/tank/internals/plasmaman)))
+	/obj/item/tank/internals/plasmaman,
+	/obj/item/clothing/mask/breath/sec_bandana)))//MonkeStation Edit: Adds Sec Bandanas to the list.
 
 GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/ammo_box,

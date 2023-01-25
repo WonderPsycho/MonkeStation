@@ -33,7 +33,7 @@
 
 /obj/item/clothing/mask/gas/welding/up
 
-/obj/item/clothing/mask/gas/welding/up/Initialize()
+/obj/item/clothing/mask/gas/welding/up/Initialize(mapload)
 	. = ..()
 	visor_toggling()
 
@@ -59,6 +59,7 @@
 	clothing_flags = MASKINTERNALS | SHOWEROKAY
 	icon_state = "clown"
 	item_state = "clown_hat"
+	dye_color = "clown"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
@@ -136,6 +137,19 @@
 	item_state = "monkeymask"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
+
+//monkestation edit: add monkeyfriend trait
+/obj/item/clothing/mask/gas/monkeymask/equipped(mob/living/user, slot)
+	. = ..()
+	var/mob/living/carbon/human/C = user
+	var/obj/item/clothing/suit/monkeysuit/S
+	if(S == C.wear_suit)
+		ADD_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/gas/monkeymask/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+//monkestation edit end
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"

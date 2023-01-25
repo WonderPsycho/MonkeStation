@@ -101,7 +101,7 @@
 /obj/item/assembly/flash/handheld/strong
 	bulb = /obj/item/flashbulb/recharging/revolution
 
-/obj/item/assembly/flash/Initialize()
+/obj/item/assembly/flash/Initialize(mapload)
 	. = ..()
 	bulb = new bulb
 
@@ -205,7 +205,7 @@
 	if(isturf(target_loc) || (ismob(target_loc) && isturf(target_loc.loc)))
 		return viewers(range, get_turf(target_loc))
 	else
-		return typecache_filter_list(target_loc.GetAllContents(), GLOB.typecache_living)
+		return typecache_filter_list(target_loc.get_all_contents_type(), GLOB.typecache_living)
 
 /obj/item/assembly/flash/proc/try_use_flash(mob/user = null)
 	if(!bulb || (world.time < last_trigger + cooldown))

@@ -21,18 +21,18 @@ const ICON_BY_CATEGORY_NAME = {
 };
 
 const PAINT_COLORS = {
-  grey: '#bbbbbb',
-  amethyst: '#a365ff',
-  blue: '#4466ff',
-  brown: '#b26438',
-  cyan: '#48eae8',
-  dark: '#808080',
-  green: '#1edd00',
-  orange: '#ffa030',
-  purple: '#b535ea',
-  red: '#ff3333',
-  violet: '#6e00f6',
-  yellow: '#ffce26',
+  grey: '#eeeeee',
+  blue: '#0000FF',
+  red: '#ff0000',
+  green: '#00FF00',
+  orange: '#ff7B00',
+  cyan: '#00FFFF',
+  dark: '#454545',
+  yellow: '#ffff00',
+  brown: '#997c4f',
+  pink: 'ff3cc8',
+  purple: '#800080',
+  violet: '#6927c5',
 };
 
 const TOOLS = [
@@ -127,7 +127,7 @@ export const RapidPipeDispenser = (props, context) => {
             <Section>
               {rootCategoryIndex === 0 && (
                 <Box mb={1}>
-                  {[1, 2, 3].map(layer => (
+                  {[1, 2, 3, 4, 5].map(layer => (
                     <Button.Checkbox
                       key={layer}
                       fluid

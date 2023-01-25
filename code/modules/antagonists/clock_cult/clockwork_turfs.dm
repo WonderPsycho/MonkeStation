@@ -37,6 +37,9 @@
 /turf/closed/wall/clockwork
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
+	icon = 'monkestation/code/modules/bitmask_smoothing/turf/walls/clockwork_wall.dmi'
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
@@ -48,7 +51,7 @@
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
 
-/turf/closed/wall/clockwork/Initialize()
+/turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
@@ -147,12 +150,12 @@
 	. = ..()
 	if(d_state == INTACT)
 		realappearence.icon_state = "clockwork_wall"
-		smooth = SMOOTH_TRUE
-		queue_smooth_neighbors(src)
-		queue_smooth(src)
+		smoothing_flags = SMOOTH_BITMASK  //MONKESTATION CHANGE
+		QUEUE_SMOOTH_NEIGHBORS(src) //MONKESTATION CHANGE
+		QUEUE_SMOOTH(src) //MONKESTATION CHANGE
 	else
 		realappearence.icon_state = "clockwork_wall-[d_state]"
-		smooth = SMOOTH_FALSE
+		smoothing_flags = NONE  //MONKESTATION CHANGE
 		clear_smooth_overlays()
 	realappearence.update_icon()
 	return
@@ -176,7 +179,7 @@
 /turf/open/floor/clockwork/Bless() //Who needs holy blessings when you have DADDY RATVAR? <- I did not write this, just saying
 	return
 
-/turf/open/floor/clockwork/Initialize()
+/turf/open/floor/clockwork/Initialize(mapload)
 	. = ..()
 	if(uses_overlay)
 		new /obj/effect/temp_visual/ratvar/floor(src)
@@ -277,7 +280,10 @@
 /obj/structure/lattice/clockwork
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
-	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
+	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/lattice_clockwork.dmi' //MONKESTATION CHANGE
+	icon_state = "lattice_clockwork-0" //MONKESTATION CHANGE
+	base_icon_state = "lattice_clockwork" //MONKESTATION CHANGE
+//	icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
@@ -286,14 +292,18 @@
 		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/clockwork/ratvar_act()
-	if(ISODD(x+y))
-		icon = 'icons/obj/smooth_structures/lattice_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
+	var/area/lattice_area= src.loc //MONKESTATION CHANGE
+	if(istype(lattice_area, /area/reebe/city_of_cogs) || istype(lattice_area, /area) ) //MONKESTATION CHANGE
+//		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi' MONKESTATION CHANGE
+		icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/lattice_clockwork.dmi'
 		pixel_x = 0
 		pixel_y = 0
+	else
+//		icon = 'icons/obj/smooth_structures/lattice_clockwork_large.dmi' MONKESTATION CHANGE
+		icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/lattice_clockwork_large.dmi'
+		pixel_x = -9
+		pixel_y = -9
+
 	return TRUE
 
 //=================================================
@@ -302,12 +312,17 @@
 
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
-	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/catwalk_clockwork.dmi' //MONKESTATION CHANGE
+	icon_state = "catwalk_clockwork-0" //MONKESTATION CHANGE
+	base_icon_state = "catwalk_clockwork" //MONKESTATION CHANGE
+//	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	/* //MONKESTATION REMOVAL
 	canSmoothWith = list(/obj/structure/lattice,
 	/turf/open/floor,
 	/turf/closed/wall,
 	/obj/structure/falsewall)
 	smooth = SMOOTH_MORE
+	*/ //MONKESTATION REMOVAL
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
@@ -319,14 +334,17 @@
 		resistance_flags |= INDESTRUCTIBLE
 
 /obj/structure/lattice/catwalk/clockwork/ratvar_act()
-	if(ISODD(x+y))
-		icon = 'icons/obj/smooth_structures/catwalk_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	var/area/lattice_area= src.loc //MONKESTATION CHANGE
+	if(istype(lattice_area, /area/reebe/city_of_cogs) || !istype(lattice_area, /area/reebe) ) //MONKESTATION CHANGE
+//		icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi' //MONKESTATION CHANGE
+		icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/catwalk_clockwork.dmi'
 		pixel_x = 0
 		pixel_y = 0
+	else
+//		icon = 'icons/obj/smooth_structures/catwalk_clockwork_large.dmi' //MONKESTATION CHANGE
+		icon = 'monkestation/code/modules/bitmask_smoothing/obj/smooth_structures/catwalk_clockwork_large.dmi'
+		pixel_x = -9
+		pixel_y = -9
 	return TRUE
 
 //=================================================
@@ -350,7 +368,7 @@
 	var/construction_state = GEAR_SECURE //Pinion airlocks have custom deconstruction
 	allow_repaint = FALSE
 
-/obj/machinery/door/airlock/clockwork/Initialize()
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(loc)
 	new /obj/effect/temp_visual/ratvar/beam/door(loc)
@@ -479,7 +497,7 @@
 	desc = "A strangely-shaped grille."
 	broken_type = /obj/structure/grille/ratvar/broken
 
-/obj/structure/grille/ratvar/Initialize()
+/obj/structure/grille/ratvar/Initialize(mapload)
 	. = ..()
 	if(broken)
 		new /obj/effect/temp_visual/ratvar/grille/broken(get_turf(src))
@@ -557,8 +575,7 @@
 
 /obj/structure/window/reinforced/clockwork/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	//smooth = SMOOTH_TRUE //MONKETSTATION REMOVAL
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	dir = FULLTILE_WINDOW_DIR

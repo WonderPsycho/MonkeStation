@@ -71,8 +71,8 @@
 	if(date)
 		new /obj/effect/temp_visual/love_heart/invisible(get_turf(date.loc), owner)
 		if(get_dist(get_turf(owner), get_turf(date)) < 7)
-			owner.heal_overall_damage(1, 1, BODYPART_ORGANIC)
-			date.heal_overall_damage(1, 1, BODYPART_ORGANIC)
+			owner.heal_overall_damage(1, 1, BODYTYPE_ORGANIC)
+			date.heal_overall_damage(1, 1, BODYTYPE_ORGANIC)
 
 /datum/status_effect/throat_soothed
 	id = "throat_soothed"
@@ -148,3 +148,19 @@
 	. = ..()
 	if(.)
 		listening_in = tracker
+
+/*
+ * A status effect used for preventing caltrop message spam
+ *
+ * While a mob has this status effect, they won't recieve any messages about
+ * stepping on caltrops. But they will be stunned and damaged regardless.
+ *
+ * The status effect itself has no effect, other than to disappear after
+ * a second.
+ */
+/datum/status_effect/caltropped
+	id = "caltropped"
+	duration = 1 SECONDS
+	tick_interval = INFINITY
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null

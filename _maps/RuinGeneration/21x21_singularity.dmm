@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plasteel,
@@ -15,9 +15,21 @@
 "g" = (
 /turf/closed/wall,
 /area/ruin)
+"h" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
 "j" = (
 /obj/structure/sign/warning/radiation{
 	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
+"k" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
@@ -37,6 +49,17 @@
 /obj/structure/sign/warning/radiation{
 	pixel_y = -32
 	},
+/turf/open/floor/plasteel,
+/area/ruin)
+"s" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin)
+"t" = (
+/turf/template_noop/open,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/ruin)
 "x" = (
@@ -70,9 +93,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
+"J" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
 "N" = (
 /obj/effect/decal/fakelattice,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "R" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -125,7 +154,7 @@ z
 c
 c
 c
-c
+s
 c
 c
 c
@@ -147,9 +176,9 @@ c
 c
 c
 c
-c
-c
-c
+J
+w
+h
 c
 c
 c
@@ -236,15 +265,15 @@ c
 c
 c
 C
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 C
 x
 c
@@ -261,11 +290,11 @@ c
 R
 N
 o
-X
+t
 S
 S
 S
-X
+t
 o
 N
 R
@@ -282,15 +311,15 @@ c
 c
 c
 R
-X
-X
-X
+t
+t
+t
 a
-X
+t
 a
-X
-X
-X
+t
+t
+t
 R
 E
 W
@@ -301,7 +330,7 @@ g
 (10,1,1) = {"
 c
 c
-c
+s
 c
 c
 R
@@ -317,37 +346,37 @@ N
 R
 E
 c
-c
+s
 c
 c
 "}
 (11,1,1) = {"
 d
-c
-c
+J
+w
 c
 c
 C
-X
+t
 S
-X
+t
 S
 l
 S
-X
+t
 S
-X
+t
 C
 x
 c
-c
-c
+w
+h
 A
 "}
 (12,1,1) = {"
 c
 c
-c
+k
 c
 c
 R
@@ -363,7 +392,7 @@ N
 R
 E
 c
-c
+k
 c
 c
 "}
@@ -374,15 +403,15 @@ c
 c
 c
 R
-X
-X
-X
+t
+t
+t
 a
-X
+t
 a
-X
-X
-X
+t
+t
+t
 R
 E
 W
@@ -399,11 +428,11 @@ c
 R
 N
 o
-X
+t
 S
 S
 S
-X
+t
 o
 N
 R
@@ -420,15 +449,15 @@ c
 c
 c
 C
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 N
-X
+t
 C
 x
 c
@@ -515,9 +544,9 @@ c
 c
 c
 c
-c
-c
-c
+J
+w
+h
 c
 c
 c
@@ -539,7 +568,7 @@ z
 c
 c
 c
-c
+k
 c
 c
 c

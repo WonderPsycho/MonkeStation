@@ -18,6 +18,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_MIME
+	bounty_types = CIV_JOB_RANDOM
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Fool"
 
@@ -75,7 +76,7 @@
 
 /obj/item/book/mimery/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if (usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return

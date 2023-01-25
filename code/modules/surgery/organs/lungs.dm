@@ -43,7 +43,8 @@
 
 	var/SA_para_min = 1 //nitrous values
 	var/SA_sleep_min = 5
-	var/BZ_trip_balls_min = 1 //BZ gas
+	var/BZ_trip_balls_min = 0.1 //BZ gas
+	var/BZ_brain_damage_min = 1
 	var/gas_stimulation_min = 0.002 //Nitryl and Stimulum
 
 	var/cold_message = "your face freezing and an icicle forming"
@@ -88,7 +89,7 @@
 		return
 
 	if(!breath || (breath.total_moles() == 0))
-		if(H.reagents.has_reagent(crit_stabilizing_reagent, needs_metabolizing = TRUE))
+		if(H.reagents.has_reagent(crit_stabilizing_reagent))
 			return
 		if(H.health >= H.crit_threshold)
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
@@ -156,14 +157,13 @@
 			mole_adjustments[entry] = -required_moles
 			mole_adjustments[breath_results[entry]] = required_moles
 		if(required_pp < safe_min)
-			var/multiplier = 0
+			var/multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles)
 			if(required_moles > 0)
-				multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles) / required_moles
+				multiplier /= required_moles
 			for(var/adjustment in mole_adjustments)
 				mole_adjustments[adjustment] *= multiplier
 			if(alert_category)
 				H.throw_alert(alert_category, alert_type)
-			H.throw_alert(alert_category, alert_type)
 		else
 			H.failed_last_breath = FALSE
 			if(H.health >= H.crit_threshold)
@@ -179,12 +179,10 @@
 		var/alert_type = null
 		if(ispath(breathing_class))
 			breathing_class = breathing_classes[breathing_class]
-			var/list/gases = breathing_class.gases
 			alert_category = breathing_class.high_alert_category
 			alert_type = breathing_class.high_alert_datum
 			danger_reagent = breathing_class.danger_reagent
-			for(var/gas in gases)
-				found_pp += PP(breath, gas)
+			found_pp = breathing_class.get_effective_pp(breath)
 		else
 			danger_reagent = danger_reagents[entry]
 			if(entry in breath_alert_info)
@@ -203,17 +201,19 @@
 		else if(alert_category)
 			H.clear_alert(alert_category)
 	var/list/breath_reagents = GLOB.gas_data.breath_reagents
+	var/static/datum/reagents/reagents_holder = new
+	reagents_holder.clear_reagents()
+	reagents_holder.chem_temp = breath.return_temperature()
 	for(var/gas in breath.get_gases())
 		if(gas in breath_reagents)
 			var/datum/reagent/R = breath_reagents[gas]
-			H.reagents.add_reagent(R, PP(breath,gas))
+			H.reagents.add_reagent(R, (breath.total_moles() * initial(R.molarity)) * 2) // this is a bruh moment as vapor reacts from outside but we need to add to the inside
+			reagents_holder.add_reagent(R, (breath.total_moles() * initial(R.molarity)) * 2) //hate having to add a minimum but like at the same time breath code sucks
 			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.get_moles(gas) : -breath.get_moles(gas)
+	reagents_holder.reaction(H, VAPOR, from_gas = 1)
 
 	for(var/gas in mole_adjustments)
 		breath.adjust_moles(gas, mole_adjustments[gas])
-
-
-	//-- TRACES --//
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 
@@ -231,17 +231,16 @@
 		else
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
-
 	// BZ
 
 		var/bz_pp = PP(breath, GAS_BZ)
-		if(bz_pp > BZ_trip_balls_min)
+		if(bz_pp > BZ_brain_damage_min)
 			H.hallucination += 10
 			H.reagents.add_reagent(/datum/reagent/bz_metabolites,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
-		else if(bz_pp > 0.01)
+		else if(bz_pp > BZ_trip_balls_min)
 			H.hallucination += 5
 			H.reagents.add_reagent(/datum/reagent/bz_metabolites,1)
 
@@ -262,64 +261,151 @@
 			H.reagents.add_reagent(/datum/reagent/nitryl,1)
 
 		breath.adjust_moles(GAS_NITRYL, -gas_breathed)
+	// Freon
+		var/freon_pp = PP(breath,GAS_FREON)
+		if (prob(freon_pp))
+			to_chat(H, span_alert("Your mouth feels like it's burning!"))
+		if (freon_pp >40)
+			H.emote("gasp")
+			H.adjustFireLoss(15)
+			if (prob(freon_pp/2))
+				to_chat(H, span_alert("Your throat closes up!"))
+				H.silent = max(H.silent, 3)
+		else
+			H.adjustFireLoss(freon_pp/4)
+		gas_breathed = breath.get_moles(GAS_FREON)
+		if (gas_breathed > gas_stimulation_min)
+			H.reagents.add_reagent(/datum/reagent/freon,1)
+
+		breath.adjust_moles(GAS_FREON, -gas_breathed)
+
+	// Healium
+		var/healium_pp = PP(breath,GAS_HEALIUM)
+		if(healium_pp > SA_sleep_min)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/healium)
+			H.reagents.add_reagent(/datum/reagent/healium,max(0, 1- existing))
+			H.adjustFireLoss(-7)
+			H.adjustToxLoss(-5)
+			H.adjustBruteLoss(-5)
+		gas_breathed = breath.get_moles(GAS_HEALIUM)
+		breath.adjust_moles(GAS_HEALIUM, -gas_breathed)
+
+	// Pluonium
+		// Inert
+
+	// Zauker
+		var/zauker_pp = PP(breath,GAS_ZAUKER)
+		if(zauker_pp > safe_breath_max)
+			H.adjustBruteLoss(25)
+			H.adjustOxyLoss(5)
+			H.adjustFireLoss(8)
+			H.adjustToxLoss(8)
+		gas_breathed = breath.get_moles(GAS_ZAUKER)
+		breath.adjust_moles(GAS_ZAUKER, -gas_breathed)
+
+	// Halon
+		gas_breathed = breath.get_moles(GAS_HALON)
+		if(gas_breathed > gas_stimulation_min)
+			H.adjustOxyLoss(5)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/halon)
+			H.reagents.add_reagent(/datum/reagent/halon,max(0, 1 - existing))
+		gas_breathed = breath.get_moles(GAS_HALON)
+		breath.adjust_moles(GAS_HALON, -gas_breathed)
+
+	// Hexane
+		gas_breathed = breath.get_moles(GAS_HEXANE)
+		if(gas_breathed > gas_stimulation_min)
+			H.hallucination += 50
+			H.reagents.add_reagent(/datum/reagent/hexane,5)
+			if(prob(33))
+				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
+		breath.adjust_moles(GAS_HEXANE, -gas_breathed)
 
 	// Stimulum
 		gas_breathed = PP(breath,GAS_STIMULUM)
 		if (gas_breathed > gas_stimulation_min)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
-			H.reagents.add_reagent(/datum/reagent/stimulum,max(0, 1 - existing))
+			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
 		breath.adjust_moles(GAS_STIMULUM, -gas_breathed)
 
 	// Miasma
 		if (breath.get_moles(GAS_MIASMA))
 			var/miasma_pp = PP(breath,GAS_MIASMA)
+			if(miasma_pp > MINIMUM_MOLES_DELTA_TO_MOVE)
+				//MonkeStation Edit: Miasma Rework Issue#183
+				//Miasma sickness
+				if(prob(0.5 * miasma_pp))
+					var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(TRUE, 2, 3)
+					miasma_disease.name = "Unknown"
+					miasma_disease.try_infect(owner)
 
-			//Miasma sickness
-			if(prob(0.5 * miasma_pp))
-				var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3, infected = src)
-				miasma_disease.name = "Unknown"
-				miasma_disease.try_infect(owner)
-
-			// Miasma side effects
-			switch(miasma_pp)
-				if(0.25 to 5)
-					// At lower pp, give out a little warning
-					SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
-					if(prob(5))
+				// Miasma side effects
+				switch(miasma_pp)
+					if(1 to 5)
+						// At lower pp, give out a little warning
+						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
 						to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
-				if(5 to 15)
-					//At somewhat higher pp, warning becomes more obvious
-					if(prob(15))
+					if(6 to 15)
+						//At somewhat higher pp, warning becomes more obvious
 						to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
 						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
-				if(15 to 30)
-					//Small chance to vomit. By now, people have internals on anyway
-					if(prob(5))
+					if(16 to 30)
+						//Small chance to vomit. By now, people have internals on anyway
 						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
 						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
-						owner.vomit()
-				if(30 to INFINITY)
-					//Higher chance to vomit. Let the horror start
-					if(prob(15))
+						if(prob(5))
+							owner.vomit()
+					if(31 to INFINITY)
+						//Higher chance to vomit. Let the horror start
 						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
 						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
-						owner.vomit()
-				else
-					SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
+						if(prob(15))
+							owner.vomit()
+					else
+						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
 
-			// In a full miasma atmosphere with 101.34 pKa, about 10 disgust per breath, is pretty low compared to threshholds
-			// Then again, this is a purely hypothetical scenario and hardly reachable
-			owner.adjust_disgust(0.1 * miasma_pp)
+				// In a full miasma atmosphere with 101.34 pKa, about 10 disgust per breath, is pretty low compared to threshholds
+				// Then again, this is a purely hypothetical scenario and hardly reachable
+				owner.adjust_disgust(0.1 * miasma_pp)
 
-			breath.adjust_moles(GAS_MIASMA, -gas_breathed)
+				breath.adjust_moles(GAS_MIASMA, -gas_breathed)
 
 		// Clear out moods when no miasma at all
 		else
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
 
+		//NUCLEIUM added. Waste Gas from RBMK Nuclear Reactor	//Monkestation Edit
+		if(breath.get_moles(GAS_NUCLEIUM))
+			var/nucleium_pp = PP(breath, GAS_NUCLEIUM)
+			switch(nucleium_pp)
+				if(0.1 to 5)
+					H.adjustFireLoss(1)
+					H.radiation += 5
+				if(5 to 15)
+					H.adjustFireLoss(2)
+					H.radiation += 10
+				if(15 to 30)
+					H.adjustFireLoss(3)
+					H.radiation += 20
+				if(30 to INFINITY)
+					H.adjustFireLoss(4)
+					H.radiation += 30
+
+			if(prob(nucleium_pp/4))
+				to_chat(owner, "<span class='warning'>Your lungs feel like they are disintergrating!</span>")
+			if(prob(nucleium_pp))
+				H.emote("gasp")
+			if(nucleium_pp > 15)
+				if(prob(2))
+					to_chat(owner, "<span class='userdanger'>Your lungs violently disintergrate!</span>")
+					src.Remove(H, 1)
+					QDEL_NULL(src)
+					return
+			breath.adjust_moles(GAS_NUCLEIUM, -gas_breathed)
+		// Monkestation Edit End
+
 		handle_breath_temperature(breath, H)
 	return TRUE
-
 
 /obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
@@ -336,7 +422,6 @@
 	else
 		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 		H.failed_last_breath = TRUE
-
 
 /obj/item/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.return_temperature()
@@ -375,10 +460,6 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
-	return S
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"

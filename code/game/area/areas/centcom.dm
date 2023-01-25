@@ -47,7 +47,7 @@
 	icon_state = "supplypod_loading"
 	var/loading_id = ""
 
-/area/centcom/supplypod/loading/Initialize()
+/area/centcom/supplypod/loading/Initialize(mapload)
 	. = ..()
 	if(!loading_id)
 		CRASH("[type] created without a loading_id")
@@ -104,11 +104,11 @@
 
 /area/tdome/tdomeadmin
 	name = "Thunderdome (Admin.)"
-	icon_state = "purple"
+	icon_state = "thunder_admin"
 
 /area/tdome/tdomeobserve
 	name = "Thunderdome (Observer.)"
-	icon_state = "purple"
+	icon_state = "thunder_observe"
 
 
 //ENEMY
@@ -133,6 +133,7 @@
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	ambientsounds = list('monkestation/sound/ambience/ayyambi0.ogg','monkestation/sound/ambience/ayyambi1.ogg','monkestation/sound/ambience/ayyambi2.ogg','monkestation/sound/ambience/ayyambi3.ogg') //MonkeStation Edit: ayylmao
 
 //Syndicates
 /area/syndicate_mothership

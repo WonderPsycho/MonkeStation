@@ -60,8 +60,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.category = category_name
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
-		switch(rand(1, 5))
-			if(1 to 3 || A.cost == 1)
+		switch(A.cost == 1 ? 1 : rand(1, 5))
+			if(1 to 3)
 				if(A.cost <= 3)
 					//Bulk discount
 					var/count = rand(3,7)
@@ -531,7 +531,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Super Energy Chainsaw"
 	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud. It's blade has been enhanced to do even more damage and knock victims down briefly."
 	item = /obj/item/chainsaw/energy/doom
-	cost = 22
+	player_minimum = 50 //MonkeStation Edit: Jesus Christ this thing is OP.
+	cost = 60
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/dangerous/doublesword
@@ -539,7 +540,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The double-bladed energy sword does slightly more damage than a standard energy sword and will deflect \
 			all energy projectiles, but requires two hands to wield."
 	item = /obj/item/dualsaber
-	player_minimum = 25
+	player_minimum = 35
 	cost = 18
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
@@ -615,7 +616,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
 			deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
 	item = /obj/item/melee/powerfist
-	cost = 6
+	cost = 8
 
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
@@ -1073,7 +1074,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bombanana"
 	desc = "A banana with an explosive taste! discard the peel quickly, as it will explode with the force of a Syndicate minibomb \
 		a few seconds after the banana is eaten."
-	item = /obj/item/reagent_containers/food/snacks/grown/banana/bombanana
+	item = /obj/item/food/grown/banana/bombanana
 	cost = 4 //it is a bit cheaper than a minibomb because you have to take off your helmet to eat it, which is how you arm it
 	surplus = 0
 	purchasable_from = UPLINK_CLOWN_OPS
@@ -1503,6 +1504,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools
 	category = "Misc. Gadgets"
 
+/datum/uplink_item/device_tools/super_pointy_tape
+	name = "Super Pointy Tape"
+	desc = "An all-purpose super pointy tape roll. The tape is built with hundreds of tiny metal needles, the roll comes with in 5 pieces. When added to items the \
+			item that was taped will embed when thrown at people. Taping people's mouths with it will hurt them if pulled off by someone else."
+	item = /obj/item/stack/sticky_tape/pointy/super
+	cost = 1
+
 /datum/uplink_item/device_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
 	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. \
@@ -1701,7 +1709,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Stimpack"
 	desc = "Stimpacks, the tool for many great heroes, make you mostly immune to any form of slowdown (including damage slowdown) \
 			or stamina damage for about 5 minutes after injection."
-	item = /obj/item/reagent_containers/hypospray/medipen/pumpup
+	item = /obj/item/reagent_containers/hypospray/medipen/stimulants
 	cost = 5
 	surplus = 90
 
@@ -1774,6 +1782,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 3
+
+/datum/uplink_item/device_tools/whetstone
+	name = "Whetstone"
+	desc = "Salvaged a good sharp weapon?  Wish it were a bit sharper? \
+			Our deep-kitchen chefs have smuggled out some quality whetstones. \
+			Good for making a bad blade good, or a good blade better!"
+	item = /obj/item/sharpener
+	cost = 2
 
 // Implants
 /datum/uplink_item/implants
@@ -2163,9 +2179,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 20
 
 /datum/uplink_item/role_restricted/anxiety
-	name = "Anxiety Culture Bottle"
-	desc = "A bottle of pure contagious autism.\
-			At least, that's what the label says"
+	name = "Severe Anxiety Culture Bottle"
+	desc = "This culture bottle will cause the host to produce fully-grown \
+	specimens of Arthropoda Rhopalocera in large quantities upon injection \
+	into a suitable host."
 	item = /obj/item/reagent_containers/glass/bottle/anxiety
 	cost = 4
 	restricted_roles = list("Virologist")
@@ -2270,7 +2287,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	head after three seconds uninterrupted."
 	cost = 4
 	item = /obj/item/reverse_bear_trap
-	restricted_roles = list("Clown")
+	restricted_roles = list("Clown", "Curator") //MonkeStation Edit
 
 /datum/uplink_item/role_restricted/reverse_revolver
 	name = "Reverse Revolver"

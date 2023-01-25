@@ -19,6 +19,7 @@
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
+	worn_icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
@@ -152,7 +153,7 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/plasmacutter/Initialize()
+/obj/item/gun/energy/plasmacutter/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/plasma_cutter.ogg')
 
@@ -164,15 +165,15 @@
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user)
 	var/charge_multiplier = 0 //2 = Refined stack, 1 = Ore
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
-		charge_multiplier = 2
+		charge_multiplier = 5 // MonkeStation Edit
 	if(istype(I, /obj/item/stack/ore/plasma))
-		charge_multiplier = 1
+		charge_multiplier = 3 //MonkeStation Edit
 	if(charge_multiplier)
 		if(cell.charge == cell.maxcharge)
 			to_chat(user, "<span class='notice'>You try to insert [I] into [src], but it's fully charged.</span>") //my cell is round and full
 			return
 		I.use(1)
-		cell.give(50*charge_multiplier)
+		cell.give(100*charge_multiplier) //MonkeStation Edit
 		to_chat(user, "<span class='notice'>You insert [I] in [src], recharging it.</span>")
 	else
 		..()
@@ -319,6 +320,7 @@
 	use_cyborg_cell = TRUE
 	automatic = 1
 	fire_rate = 6
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return

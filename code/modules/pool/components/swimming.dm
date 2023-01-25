@@ -54,7 +54,7 @@
 	var/mob/living/L = parent
 	if(!L.can_interact_with(clicked_turf))
 		return
-	if(is_blocked_turf(clicked_turf))
+	if(clicked_turf.is_blocked_turf())
 		return
 	if(istype(clicked_turf, /turf/open/indestructible/sound/pool))
 		return
@@ -120,7 +120,7 @@
 	var/obj/item/pool/helditem = victim.get_active_held_item()
 	if(istype(helditem) && ISWIELDED(helditem))
 		return
-	return ((!(victim.mobility_flags & MOBILITY_STAND)) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
+	return (victim.body_position == LYING_DOWN && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
 
 /datum/component/swimming/proc/drown(mob/living/victim)
 	if(victim.losebreath < 1)

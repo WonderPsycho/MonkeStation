@@ -26,6 +26,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER
+	bounty_types = CIV_JOB_SEC
 	departments = DEPARTMENT_SECURITY
 	rpg_title = "Guard"
 
@@ -54,6 +55,8 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 		else
 			department = pick_n_take(GLOB.available_depts)
 	var/ears = null
+	var/suit = null //monkestation edit: add departmental sec outfits
+	var/head = null //monkestation edit: add departmental sec outfits
 	var/accessory = null
 	var/list/dep_access = null
 	var/destination = null
@@ -65,25 +68,32 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			destination = /area/security/checkpoint/supply
 			spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 			accessory = /obj/item/clothing/accessory/armband/cargo
+			suit = /obj/item/clothing/suit/armor/secduster/cargo //monkestation edit: add departmental sec outfits
+			head = /obj/item/clothing/head/helmet/hat/cowboy/cargo //monkestation edit: add departmental sec outfits
 		if(SEC_DEPT_ENGINEERING)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
 			dep_access = list(ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
 			destination = /area/security/checkpoint/engineering
 			spawn_point = locate(/obj/effect/landmark/start/depsec/engineering) in GLOB.department_security_spawns
 			accessory = /obj/item/clothing/accessory/armband/engine
+			suit = /obj/item/clothing/suit/armor/secduster/engineering //monkestation edit: add departmental sec outfits
+			head = /obj/item/clothing/head/helmet/hat/cowboy/engineering //monkestation edit: add departmental sec outfits
 		if(SEC_DEPT_MEDICAL)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/med
 			dep_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING)
 			destination = /area/security/checkpoint/medical
 			spawn_point = locate(/obj/effect/landmark/start/depsec/medical) in GLOB.department_security_spawns
 			accessory =  /obj/item/clothing/accessory/armband/medblue
+			suit = /obj/item/clothing/suit/armor/secduster/medical //monkestation edit: add departmental sec outfits
+			head = /obj/item/clothing/head/helmet/hat/cowboy/medical //monkestation edit: add departmental sec outfits
 		if(SEC_DEPT_SCIENCE)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
 			dep_access = list(ACCESS_RESEARCH, ACCESS_TOX, ACCESS_AUX_BASE)
 			destination = /area/security/checkpoint/science
 			spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 			accessory = /obj/item/clothing/accessory/armband/science
-
+			suit = /obj/item/clothing/suit/armor/secduster/science //monkestation edit: add departmental sec outfits
+			head = /obj/item/clothing/head/helmet/hat/cowboy/science //monkestation edit: add departmental sec outfits
 	if(accessory)
 		var/obj/item/clothing/under/U = H.w_uniform
 		U.attach_accessory(new accessory)
@@ -91,7 +101,21 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 		if(H.ears)
 			qdel(H.ears)
 		H.equip_to_slot_or_del(new ears(H),ITEM_SLOT_EARS)
-
+	//monkestation edit start: add dept sec outfits (I'm sorry)
+	if(suit)
+		for(var/obj/item/gun/energy/disabler/stored in H.contents)
+			if(H.wear_suit)
+				qdel(H.wear_suit)
+			H.equip_to_slot_or_del(new suit(H),ITEM_SLOT_OCLOTHING)
+			H.equip_to_slot_or_del(stored,ITEM_SLOT_SUITSTORE)
+	if(head)
+		if(H.dna.species.id == SPECIES_PLASMAMAN) // we REALLY don't want to delete plasmamen's helmets
+			H.equip_to_slot_or_del(new head(H),ITEM_SLOT_BACKPACK, TRUE) // also don't want to just delete the new hat, so we put the hat in their backpack instead
+		else
+			if(H.head)
+				qdel(H.head)
+			H.equip_to_slot_or_del(new head(H),ITEM_SLOT_HEAD)
+	//monkestation edit end
 	var/obj/item/card/id/W = H.wear_id
 	W.access |= dep_access
 
@@ -128,9 +152,9 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	belt = /obj/item/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/officer
+	head = /obj/item/clothing/head/helmet/hat/cowboy //monkestation edit: cowboy sec
+	suit = /obj/item/clothing/suit/armor/secduster //monkestation edit: cowboy sec
 	gloves = /obj/item/clothing/gloves/color/black
-	head = /obj/item/clothing/head/helmet/sec
-	suit = /obj/item/clothing/suit/armor/vest/alt
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/restraints/handcuffs
 	r_pocket = /obj/item/assembly/flash/handheld
@@ -148,7 +172,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
 
 
-/obj/item/radio/headset/headset_sec/alt/department/Initialize()
+/obj/item/radio/headset/headset_sec/alt/department/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/radio(src)
 	secure_radio_connections = new

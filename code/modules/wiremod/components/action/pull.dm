@@ -11,7 +11,7 @@
 	var/datum/port/input/target
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/pull/Initialize()
+/obj/item/circuit_component/pull/Initialize(mapload)
 	. = ..()
 	target = add_input_port("Target", PORT_TYPE_ATOM)
 
@@ -26,9 +26,10 @@
 
 	var/atom/target_atom = target.input_value
 	if(!target_atom)
+		debug_world_log("clickednontarget!")
 		return
 
-	var/mob/shell = parent.shell
+	var/mob/living/circuit_drone/shell = parent.shell
 	if(!istype(shell) || get_dist(shell, target_atom) > 1 || shell.z != target_atom.z)
 		return
 

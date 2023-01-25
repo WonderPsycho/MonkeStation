@@ -2,6 +2,7 @@
 	desc = "An aging combat exosuit utilized by the Nanotrasen corporation. Originally developed to combat hostile alien lifeforms."
 	name = "\improper Durand"
 	icon_state = "durand"
+	base_icon_state = "durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400
@@ -14,7 +15,7 @@
 	var/obj/durand_shield/shield
 
 
-/obj/mecha/combat/durand/Initialize()
+/obj/mecha/combat/durand/Initialize(mapload)
 	. = ..()
 	shield = new /obj/durand_shield(loc, src, layer, dir)
 	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, .proc/relay)

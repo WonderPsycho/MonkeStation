@@ -39,7 +39,7 @@
 	var/extinguish_fires = TRUE
 	var/stationary_mode = FALSE
 
-/mob/living/simple_animal/bot/firebot/Initialize()
+/mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
 	update_icon()
 	var/datum/job/engineer/J = new/datum/job/engineer
@@ -171,7 +171,7 @@
 	if(!..())
 		return
 
-	if(IsStun() || IsParalyzed())
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		old_target_fire = target_fire
 		target_fire = null
 		mode = BOT_IDLE
@@ -288,7 +288,7 @@
 	if(!on)
 		icon_state = "firebot0"
 		return
-	if(IsStun() || IsParalyzed())
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		icon_state = "firebots1"
 	else if(stationary_mode) //Bot has yellow light to indicate stationary mode.
 		icon_state = "firebots1"

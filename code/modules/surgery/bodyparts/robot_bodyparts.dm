@@ -13,12 +13,17 @@
 /obj/item/bodypart/l_arm/robot
 	name = "cyborg left arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
+	limb_id = "robotic"
 	attack_verb = list("slapped", "punched")
 	item_state = "buildpipe"
-	icon = 'icons/mob/augmentation/augments.dmi'
+	static_icon =  'icons/mob/augmentation/augments.dmi'
+	icon = null
 	flags_1 = CONDUCT_1
 	icon_state = "borg_l_arm"
-	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -30,16 +35,23 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	dmg_overlay_type = "robotic"
 
 /obj/item/bodypart/r_arm/robot
 	name = "cyborg right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb = list("slapped", "punched")
 	item_state = "buildpipe"
-	icon = 'icons/mob/augmentation/augments.dmi'
+	static_icon =  'icons/mob/augmentation/augments.dmi'
+	icon = null
+	limb_id = "robotic"
 	flags_1 = CONDUCT_1
 	icon_state = "borg_r_arm"
-	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -52,15 +64,21 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	dmg_overlay_type = "robotic"
 /obj/item/bodypart/l_leg/robot
 	name = "cyborg left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb = list("kicked", "stomped")
 	item_state = "buildpipe"
-	icon = 'icons/mob/augmentation/augments.dmi'
+	static_icon =  'icons/mob/augmentation/augments.dmi'
+	icon = null
+	limb_id = "robotic"
 	flags_1 = CONDUCT_1
 	icon_state = "borg_l_leg"
-	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -73,15 +91,21 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	dmg_overlay_type = "robotic"
 /obj/item/bodypart/r_leg/robot
 	name = "cyborg right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	attack_verb = list("kicked", "stomped")
 	item_state = "buildpipe"
-	icon = 'icons/mob/augmentation/augments.dmi'
+	static_icon =  'icons/mob/augmentation/augments.dmi'
+	icon = null
+	limb_id = "robotic"
 	flags_1 = CONDUCT_1
 	icon_state = "borg_r_leg"
-	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -94,14 +118,20 @@
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
 
+	dmg_overlay_type = "robotic"
 /obj/item/bodypart/chest/robot
 	name = "cyborg torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	item_state = "buildpipe"
-	icon = 'icons/mob/augmentation/augments.dmi'
+	static_icon =  'icons/mob/augmentation/augments.dmi'
+	icon = null
+	limb_id = "robotic"
 	flags_1 = CONDUCT_1
 	icon_state = "borg_chest"
-	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -116,6 +146,8 @@
 
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
+
+	dmg_overlay_type = "robotic"
 
 /obj/item/bodypart/chest/robot/get_cell()
 	return cell
@@ -200,10 +232,15 @@
 	name = "cyborg head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	item_state = "buildpipe"
-	icon = 'icons/mob/augmentation/augments.dmi'
+	static_icon = 'icons/mob/augmentation/augments.dmi'
+	limb_id = "robotic"
+	icon = null
 	flags_1 = CONDUCT_1
 	icon_state = "borg_head"
-	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
+	change_exempt_flags = BP_BLOCK_CHANGE_SPECIES
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -215,6 +252,8 @@
 	light_burn_msg = ROBOTIC_LIGHT_BURN_MSG
 	medium_burn_msg = ROBOTIC_MEDIUM_BURN_MSG
 	heavy_burn_msg = ROBOTIC_HEAVY_BURN_MSG
+
+	dmg_overlay_type = "robotic"
 
 	var/obj/item/assembly/flash/handheld/flash1 = null
 	var/obj/item/assembly/flash/handheld/flash2 = null
@@ -296,7 +335,7 @@
 /obj/item/bodypart/l_arm/robot/surplus
 	name = "surplus prosthetic left arm"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
-	icon = 'icons/mob/augmentation/surplus_augments.dmi'
+	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 20
@@ -304,7 +343,7 @@
 /obj/item/bodypart/r_arm/robot/surplus
 	name = "surplus prosthetic right arm"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
-	icon = 'icons/mob/augmentation/surplus_augments.dmi'
+	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 20
@@ -312,7 +351,7 @@
 /obj/item/bodypart/l_leg/robot/surplus
 	name = "surplus prosthetic left leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
-	icon = 'icons/mob/augmentation/surplus_augments.dmi'
+	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 20
@@ -320,7 +359,7 @@
 /obj/item/bodypart/r_leg/robot/surplus
 	name = "surplus prosthetic right leg"
 	desc = "A skeletal, robotic limb. Outdated and fragile, but it's still better than nothing."
-	icon = 'icons/mob/augmentation/surplus_augments.dmi'
+	static_icon =  'icons/mob/augmentation/surplus_augments.dmi'
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 20

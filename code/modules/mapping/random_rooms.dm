@@ -4,8 +4,14 @@
 	var/centerspawner = TRUE
 	var/template_height = 0
 	var/template_width = 0
-	var/weight = 10 //weight a room has to appear
-	var/stock = 1 //how many times this room can appear in a round
+
+	///The weight this room has in the random-selection process.
+	///Higher weights are more likely to be picked.
+	///10 is the default weight. 20 is twice more likely; 5 is half as likely as default.
+	///0 here does NOT disable the spawn, it just makes it extremely unlikely
+	var/weight = 10
+	///how many times this room can appear in a round
+	var/stock = 1
 
 /datum/map_template/random_room/sk_rdm001
 	name = "Maintenance Storage"
@@ -15,7 +21,6 @@
 	template_height = 3
 	template_width = 3
 	weight = 2
-
 
 /datum/map_template/random_room/sk_rdm002
 	name = "Maintenance Shrine"
@@ -1349,6 +1354,38 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
+
+/datum/map_template/random_room/sk_rdm158
+	name = "Chapel Storage"
+	room_id = "sk_rdm158_chapelstorage"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm158_kilochapelstorage.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+
+/datum/map_template/random_room/sk_rdm159
+	name = "Snake Pit"
+	room_id = "sk_rdm159_kilosnakepit"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm159_kilosnakepit.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+
+/datum/map_template/random_room/sk_rdm160
+	name = "Run Down Bar"
+	room_id = "sk_rdm160_kilomaintbar"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm160_kilomaintbar.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+
+/datum/map_template/random_room/sk_rdm161
+	name = "Bank Vault"
+	room_id = "sk_rdm161_kilovault"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm161_kilovault.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 5
 
 //Flandstation Dedicated Random Room
 

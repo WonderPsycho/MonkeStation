@@ -1,5 +1,12 @@
 #define STARTING_PAYCHECKS 5
 
+//MonkeStation Edit: /tg/ Mail Port
+/// How much mail the Economy SS will create per payday
+#define MAX_MAIL_PER_MINUTE 3
+/// Probability of using letters of envelope sprites on all letters.
+#define FULL_CRATE_LETTER_ODDS 70
+//MonkeStation Edit End
+
 #define PAYCHECK_ASSISTANT 10
 #define PAYCHECK_MINIMAL 10
 #define PAYCHECK_EASY 15
@@ -26,3 +33,19 @@
 #define ACCOUNT_SEC_NAME "Defense Budget"
 
 #define NO_FREEBIES "commies go home"
+
+//Monkestation edit begin
+//Defines that set what kind of civilian bounties should be applied mid-round.
+#define CIV_JOB_BASIC 1
+#define CIV_JOB_ROBO 2
+#define CIV_JOB_CHEF 3
+#define CIV_JOB_SEC 4
+#define CIV_JOB_BAR 5
+#define CIV_JOB_CHEM 6
+#define CIV_JOB_VIRO 7
+#define CIV_JOB_SCI 8
+#define CIV_JOB_ENG 9
+#define CIV_JOB_MINE 10
+#define CIV_JOB_MED 11
+#define CIV_JOB_GROW 12
+#define CIV_JOB_RANDOM 13

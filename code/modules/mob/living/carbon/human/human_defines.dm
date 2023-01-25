@@ -4,27 +4,27 @@
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	pressure_resistance = 25
 	can_buckle = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	//Hair colour and style
+	///Hair color
 	var/hair_color = "000"
+	///Hair style
 	var/hair_style = "Bald"
-
-	//Facial hair colour and style
+	///Colour used for the hair gradient.
+	var/gradient_color = "000"
+	///Style used for the hair gradient.
+	var/gradient_style
+	///Facial hair colour
 	var/facial_hair_color = "000"
+	///Facial hair style
 	var/facial_hair_style = "Shaved"
-
 	//Eye colour
 	var/eye_color = "000"
-
+	var/custom_color //Monkestation edit - a color for sprite accessories, currently only used for anime trait.
 	var/skin_tone = "caucasian1"	//Skin tone
-
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
-
 	var/age = 30		//Player's age
-
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/underwear_color = "000"
 	var/undershirt = "Nude" //Which undershirt the player wants
@@ -55,11 +55,10 @@
 	var/list/datum/bioware = list()
 
 	var/creamed = FALSE //to use with creampie overlays
-	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/simple_animal/slime, /mob/living/simple_animal/parrot, /mob/living/carbon/monkey))
+	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/simple_animal/slime, /mob/living/simple_animal/hostile/alien_mimic, /mob/living/simple_animal/parrot, /mob/living/carbon/monkey)) //Monkestation Edit: Added alien_mimic
 	var/lastpuke = 0
 	var/last_fire_update
 	var/account_id
 
-	//MonkeStation Edit: Emote Hotkey Cooldowns
-	var/emote_cooling_down = FALSE
-
+	///human specific screwyhuds from hallucinations (define key (bodypart) to int value (severity)) - see /datum/hallucination/fake_health_doll
+	var/hallucination_screwydoll

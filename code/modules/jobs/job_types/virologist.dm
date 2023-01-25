@@ -21,6 +21,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+	bounty_types = CIV_JOB_VIRO
 	departments = DEPARTMENT_MEDICAL
 	rpg_title = "Plague Doctor"
 
@@ -33,7 +34,7 @@
 	name = "Virologist"
 	jobtype = /datum/job/virologist
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/viro
 	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist

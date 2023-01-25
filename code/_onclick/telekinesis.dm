@@ -73,13 +73,12 @@
 	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
-	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
 
 	var/atom/movable/focus = null
 	var/mob/living/carbon/tk_user = null
 
-/obj/item/tk_grab/Initialize()
+/obj/item/tk_grab/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -93,10 +92,10 @@
 		update_icon()
 
 /obj/item/tk_grab/dropped(mob/user)
+	..()
 	if(focus && user && loc != user && loc != user.loc) // drop_item() gets called when you tk-attack a table/closet with an item
 		if(focus.Adjacent(loc))
 			focus.forceMove(loc)
-	. = ..()
 
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
@@ -135,7 +134,7 @@
 		target.attack_self_tk(user)
 		update_icon()
 		return
-	
+
 	if(focus.buckled_mobs)
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
 		return

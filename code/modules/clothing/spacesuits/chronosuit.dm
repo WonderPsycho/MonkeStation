@@ -9,9 +9,9 @@
 	var/obj/item/clothing/suit/space/chronos/suit
 
 /obj/item/clothing/head/helmet/space/chronos/dropped()
+	..()
 	if(suit)
 		suit.deactivate(1, 1)
-	..()
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	dropped()
@@ -36,7 +36,7 @@
 	var/teleporting = 0
 	var/phase_timer_id
 
-/obj/item/clothing/suit/space/chronos/Initialize()
+/obj/item/clothing/suit/space/chronos/Initialize(mapload)
 	teleport_now.chronosuit = src
 	teleport_now.target = src
 	return ..()
@@ -59,9 +59,9 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped()
+	..()
 	if(activated)
 		deactivate()
-	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	dropped()
@@ -222,7 +222,7 @@
 			teleport_now.Remove(user)
 			if(user.wear_suit == src)
 				if(hard_landing)
-					user.electrocute_act(35, src, safety = 1)
+					user.electrocute_act(35, src, flags = SHOCK_NOGLOVES)
 					user.Paralyze(200)
 				if(!silent)
 					to_chat(user, "\nroot@ChronosuitMK4# chronowalk4 --stop\n")
@@ -270,7 +270,7 @@
 	if(target_ui)
 		QDEL_NULL(target_ui)
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/living/user, direction)
 	if(!holder)
 		qdel(src)
 		return

@@ -12,9 +12,11 @@
 	icon = 'icons/turf/floors/bamboo_mat.dmi'
 	icon_state = "bamboo"
 	floor_tile = /obj/item/stack/tile/bamboo
+	/* //MONKESTATION REMOVAL
 	broken_states = list("damaged")
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/open/floor/bamboo)
+	*/ //MONKESTATION REMOVAL END
 	flags_1 = NONE
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
@@ -30,7 +32,7 @@
 	desc = "Stylish dark wood."
 	icon_state = "wood"
 	floor_tile = /obj/item/stack/tile/wood
-	broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
+	//broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7") //MONKESTATION REMOVAL
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
 	clawfootstep = FOOTSTEP_WOOD_CLAW
@@ -102,7 +104,7 @@
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
 
-/turf/open/floor/grass/Initialize()
+/turf/open/floor/grass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -164,7 +166,7 @@
 	floor_tile = /obj/item/stack/tile/fairygrass/pink
 	light_color = "#FFB3DA"
 	color = "#FFB3DA"
-	
+
 /turf/open/floor/grass/fairy/dark
 	name = "dark fairygrass patch"
 	floor_tile = /obj/item/stack/tile/fairygrass/dark
@@ -205,7 +207,7 @@
 	initial_gas_mix = OPENTURF_LOW_PRESSURE
 	slowdown = 0
 
-/turf/open/floor/grass/snow/basalt/Initialize()
+/turf/open/floor/grass/snow/basalt/Initialize(mapload)
 	. = ..()
 	if(prob(15))
 		icon_state = "basalt[rand(0, 12)]"
@@ -230,7 +232,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/open/floor/grass/fakebasalt/Initialize()
+/turf/open/floor/grass/fakebasalt/Initialize(mapload)
 	. = ..()
 	if(prob(15))
 		icon_state = "basalt[rand(0, 12)]"
@@ -243,9 +245,9 @@
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
-	broken_states = list("damaged")
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/open/floor/carpet)
+	//broken_states = list("damaged") //MONKESTATION REMOVAL
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
+	//anSmoothWith = list(/turf/open/floor/carpet) //MONKESTATION REMOVAL
 	flags_1 = NONE
 	bullet_bounce_sound = null
 	footstep = FOOTSTEP_CARPET
@@ -258,7 +260,7 @@
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
 
-/turf/open/floor/carpet/Initialize()
+/turf/open/floor/carpet/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -266,65 +268,71 @@
 	if(!..())
 		return 0
 	if(!broken && !burnt)
-		if(smooth)
-			queue_smooth(src)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) //MONKESTATION CHANGE
+			QUEUE_SMOOTH(src) //MONKESTATION CHANGE
 	else
 		make_plating()
-		if(smooth)
-			queue_smooth_neighbors(src)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) //MONKESTATION CHANGE
+			QUEUE_SMOOTH_NEIGHBORS(src) //MONKESTATION CHANGE
 
 /turf/open/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/black
-	canSmoothWith = list(/turf/open/floor/carpet/black)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLACK)
+	//canSmoothWith = list(/turf/open/floor/carpet/black) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/blue
 	icon = 'icons/turf/floors/carpet_blue.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/blue
-	canSmoothWith = list(/turf/open/floor/carpet/blue)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_BLUE)
+	//canSmoothWith = list(/turf/open/floor/carpet/blue) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/cyan
 	icon = 'icons/turf/floors/carpet_cyan.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/cyan
-	canSmoothWith = list(/turf/open/floor/carpet/cyan)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_CYAN)
+	//canSmoothWith = list(/turf/open/floor/carpet/cyan) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/green
 	icon = 'icons/turf/floors/carpet_green.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/green
-	canSmoothWith = list(/turf/open/floor/carpet/green)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_GREEN)
+	//canSmoothWith = list(/turf/open/floor/carpet/green) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/orange
 	icon = 'icons/turf/floors/carpet_orange.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/orange
-	canSmoothWith = list(/turf/open/floor/carpet/orange)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_ORANGE)
+	//canSmoothWith = list(/turf/open/floor/carpet/orange) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/purple
 	icon = 'icons/turf/floors/carpet_purple.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/purple
-	canSmoothWith = list(/turf/open/floor/carpet/purple)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_PURPLE)
+	//canSmoothWith = list(/turf/open/floor/carpet/purple) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/red
 	icon = 'icons/turf/floors/carpet_red.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/red
-	canSmoothWith = list(/turf/open/floor/carpet/red)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET_RED)
+	//canSmoothWith = list(/turf/open/floor/carpet/red) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/royalblack
-	canSmoothWith = list(/turf/open/floor/carpet/royalblack)
+	//canSmoothWith = list(/turf/open/floor/carpet/royalblack) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/royalblue
 	icon = 'icons/turf/floors/carpet_royalblue.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
-	canSmoothWith = list(/turf/open/floor/carpet/royalblue)
+	//canSmoothWith = list(/turf/open/floor/carpet/royalblue) //MONKESTATION REMOVAL
 
 /turf/open/floor/carpet/grimy
 	name = "grimy carpet"
 	desc = "Hold on, wasn't this made with steel once?"
 	icon = 'icons/turf/floors/carpet_grimy.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/grimy
-	canSmoothWith = list(/turf/open/floor/carpet/grimy)
-
+	//canSmoothWith = list(/turf/open/floor/carpet/grimy) //MONKESTATION REMOVAL
 /turf/open/floor/eighties
 	name = "retro floor"
 	desc = "This one takes you back."
@@ -355,9 +363,9 @@
 
 /turf/open/floor/fakepit
 	desc = "A clever illusion designed to look like a bottomless pit."
-	smooth = SMOOTH_TRUE | SMOOTH_BORDER | SMOOTH_MORE
-	canSmoothWith = list(/turf/open/floor/fakepit)
 	icon = 'icons/turf/floors/Chasms.dmi'
+	//smooth = SMOOTH_TRUE | SMOOTH_BORDER | SMOOTH_MORE //MONKESTATION REMOVAL
+	//canSmoothWith = list(/turf/open/floor/fakepit) //MONKESTATION REMOVAL
 	icon_state = "smooth"
 	tiled_dirt = FALSE
 
@@ -374,7 +382,7 @@
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
 
-/turf/open/floor/fakespace/Initialize()
+/turf/open/floor/fakespace/Initialize(mapload)
 	. = ..()
 	icon_state = SPACE_ICON_STATE
 

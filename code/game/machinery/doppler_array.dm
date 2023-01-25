@@ -18,7 +18,7 @@
 	/// List of all explosion records in the form of /datum/data/tachyon_record
 	var/list/records = list()
 
-/obj/machinery/doppler_array/Initialize()
+/obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
 	printer_ready = world.time + PRINTER_TIMEOUT
@@ -138,7 +138,7 @@
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
 	SIGNAL_HANDLER
 
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return FALSE
 	var/turf/zone = get_turf(src)
 	if(zone.get_virtual_z_level() != epicenter.get_virtual_z_level())
@@ -186,15 +186,16 @@
 	return TRUE
 
 /obj/machinery/doppler_array/power_change()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
 		if(powered() && anchored)
 			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
+			set_machine_stat(machine_stat & ~NOPOWER)
 		else
 			icon_state = "[initial(icon_state)]-off"
-			stat |= NOPOWER
+			set_machine_stat(machine_stat | NOPOWER)
+	return ..()
 
 //Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
 /obj/machinery/doppler_array/integrated
@@ -253,7 +254,7 @@
 		say("Data already captured. Aborting.")
 		return
 
-/obj/machinery/doppler_array/research/science/Initialize()
+/obj/machinery/doppler_array/research/science/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 

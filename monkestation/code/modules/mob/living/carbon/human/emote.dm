@@ -3,16 +3,19 @@
 
 /datum/emote/living/carbon/human/superfart/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
+	if(user.stat > SOFT_CRIT) //Only superfart in softcrit or less.
+		return
 	if(!user.getorgan(/obj/item/organ/butt) || !ishuman(user))
 		to_chat(user, "<span class='warning'>You don't have a butt!</span>")
 		return
+	var/mob/living/carbon/human/ass_holder = user
 	var/obj/item/organ/butt/booty = user.getorgan(/obj/item/organ/butt)
 	if(booty.cooling_down)
 		return
 	booty.cooling_down = TRUE
-	var/turf/Location
+	var/turf/Location = get_turf(ass_holder)
 
-	//BIBLEFART
+	//BIBLEFART/
 	//This goes above all else because it's an instagib.
 	for(var/obj/item/storage/book/bible/Holy in Location)
 		if(Holy)
@@ -30,11 +33,11 @@
 				dyn_explosion(Location, 1, 0)
 			return
 
-	playsound(user, "monkestation/sound/effects/superfart.ogg", 100, TRUE, pressure_affected = FALSE)
+	playsound(ass_holder, "monkestation/sound/effects/superfart.ogg", 100, FALSE, pressure_affected = FALSE)
 	spawn(8)
 		Location = get_turf(user)
 		switch(rand(1000))
-			if(1) //Ass Rod
+			if(0) //Ass Rod
 				var/butt_end
 				var/butt_x
 				var/butt_y
@@ -52,14 +55,14 @@
 						butt_x = (TRANSITIONEDGE+1)
 						butt_y = user.y
 				butt_end = locate(butt_x, butt_y, Location.z)
-				user.visible_message("<span class='warning'><b>[user]</b> blows their ass off with such force, they explode!</span>", "<span class='warning'>Holy shit, your butt flies off into the galaxy!</span>")
+				user.visible_message("<span class='warning'><b>[ass_holder]</b> blows their ass off with such force, they explode!</span>", "<span class='warning'>Holy shit, your butt flies off into the galaxy!</span>")
 				priority_announce("What the fuck was that?!", "General Alert", SSstation.announcer.get_rand_alert_sound())
 				user.gib()
 				qdel(booty)
 				new /obj/effect/immovablerod/butt(Location, butt_end)
 				return
-			if(2 to 11) 	//explosive fart
-				user.visible_message("<span class='warning'>[user]'s ass explodes violently!</span>")
+			if(1 to 11) 	//explosive fart
+				user.visible_message("<span class='warning'>[ass_holder]'s ass explodes violently!</span>")
 				dyn_explosion(Location, 5, 5)
 				return
 			if(12 to 1000)		//Regular superfart
@@ -67,7 +70,7 @@
 					var/atom/target = get_edge_target_turf(user, user.dir)
 					user.throw_at(target, 1, 20, spin = FALSE)
 				Location.atmos_spawn_air(booty.atmos_gas)
-				user.visible_message("<span class='warning'>[user]'s butt goes flying off!</span>")
+				user.visible_message("<span class='warning'>[ass_holder]'s butt goes flying off!</span>")
 				new /obj/effect/decal/cleanable/blood(Location)
 				user.nutrition = max(user.nutrition - rand(10, 40), NUTRITION_LEVEL_STARVING)
 				booty.Remove(user)
@@ -78,3 +81,4 @@
 						Struck.apply_damage(20, "brute", BODY_ZONE_HEAD)
 		spawn(20)
 			booty.cooling_down = FALSE
+

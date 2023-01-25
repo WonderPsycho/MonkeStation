@@ -48,8 +48,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Rename Station Name", "set_name"),
 			list("Reset Station Name", "reset_name"),
 			list("Set Night Shift Mode", "night_shift_set"),
-			list("Spawn as Test Dummy", "testdummy")
-			)//MonkeStation Edit: Test Dummy Secret
+			list("Spawn as Test Dummy", "testdummy"), //MonkeStation Edit: Test Dummy Secret
+			)
 
 		data["Categories"]["Shuttles"] += list(
 			list("Move Ferry", "moveferry"),
@@ -87,11 +87,10 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Set each movement direction manually", "custommovement"),
 			list("Reset movement directions to default", "resetmovement"),
 			list("Change bomb cap", "changebombcap"),
-			list("Mass Purrbation", "masspurrbation"),
-			list("Mass Remove Purrbation", "massremovepurrbation"),
 			list("Fully Immerse Everyone", "massimmerse"),
 			list("Un-Fully Immerse Everyone", "unmassimmerse"),
-			list("Make All Animals Playable", "animalsentience")
+			list("Make All Animals Playable", "animalsentience"),
+			list("Call Emergency Meeting", "amogus") //MonkeStation Edit: AMOGUS
 			)
 
 	if(check_rights(R_DEBUG,0))
@@ -201,6 +200,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			spawn_as_dummy(usr)
+
+		//Emergency Meeting
+		if("amogus")
+			if(!check_rights(R_ADMIN))
+				return
+			call_emergency_meeting(usr)
 		//MonkeStation Edit End
 
 		if("reset_name")
@@ -470,7 +475,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 				SEND_SOUND(H, sound(SSstation.announcer.event_sounds[ANNOUNCER_ANIMES]))
 
-				if(H.dna.species.id == "human")
+				if(H.dna.species.id == SPECIES_HUMAN)
 					if(H.dna.features["tail_human"] == "None" || H.dna.features["ears"] == "None")
 						var/obj/item/organ/ears/cat/ears = new
 						var/obj/item/organ/tail/cat/tail = new
@@ -663,20 +668,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			toggle_all_ctf(usr)
-		if("masspurrbation")
-			if(!check_rights(R_FUN))
-				return
-			mass_purrbation()
-			message_admins("[key_name_admin(usr)] has put everyone on \
-				purrbation!")
-			log_admin("[key_name(usr)] has put everyone on purrbation.")
-		if("massremovepurrbation")
-			if(!check_rights(R_FUN))
-				return
-			mass_remove_purrbation()
-			message_admins("[key_name_admin(usr)] has removed everyone from \
-				purrbation.")
-			log_admin("[key_name(usr)] has removed everyone from purrbation.")
+
 
 		if("massimmerse")
 			if(!check_rights(R_FUN))

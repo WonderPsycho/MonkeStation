@@ -6,9 +6,6 @@
 /datum/reagent/fuel/unholywater
 	can_synth = FALSE //Far too powerful for botany
 
-/datum/reagent/mutationtoxin/felinid
-	can_synth = TRUE //The following mutation toxins, excluding golem, are all possible to get through the already existing Unstable Mutation Toxin
-
 /datum/reagent/mutationtoxin/lizard
 	can_synth = TRUE
 
@@ -19,9 +16,6 @@
 	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/apid
-	can_synth = TRUE
-
-/datum/reagent/mutationtoxin/squid
 	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/skeleton
@@ -181,3 +175,30 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/effected = M
 		effected.emote("fart")
+
+//Acetone Sticker Removal
+/datum/reagent/acetone/reaction_mob(mob/living/M, method, reac_volume, show_message, touch_protection)
+	. = ..()
+	if(method == TOUCH || VAPOR)
+		for(var/obj/item/stickable/dummy_holder/dummy_stickable in M.vis_contents)
+			M.visible_message("<span class='notice'>[M]'s stickers slide off!</span>")
+			for(var/obj/item/stickable/dropping in dummy_stickable.contents)
+				dropping.forceMove(get_turf(M))
+			M.vis_contents -= dummy_stickable
+
+
+/datum/reagent/acetone/reaction_obj(obj/O, volume)
+	. = ..()
+	for(var/obj/item/stickable/dummy_holder/dummy_stickable in O.vis_contents)
+		O.visible_message("<span class='notice'>The stickers slide right off of [O]!</span>")
+		for(var/obj/item/stickable/dropping in dummy_stickable.contents)
+			dropping.forceMove(get_turf(O))
+		O.vis_contents -= dummy_stickable
+
+/datum/reagent/acetone/reaction_turf(turf/T, volume)
+	. = ..()
+	for(var/obj/item/stickable/dummy_holder/dummy_stickable in T.vis_contents)
+		T.visible_message("<span class='notice'>The stickers attached to [T] lose their grip and fall off!</span>")
+		for(var/obj/item/stickable/dropping in dummy_stickable.contents)
+			dropping.forceMove(get_turf(T))
+		T.vis_contents -= dummy_stickable

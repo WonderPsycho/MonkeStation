@@ -1,7 +1,7 @@
 #define DECONVERTER_STATION_WIN "gamemode_station_win"
 #define DECONVERTER_REVS_WIN "gamemode_revs_win"
 //How often to check for promotion possibility
-#define HEAD_UPDATE_PERIOD 300
+#define HEAD_UPDATE_PERIOD 30 SECONDS
 
 /datum/antagonist/rev
 	name = "Revolutionary"
@@ -194,7 +194,7 @@
 			var/mob/living/carbon/carbon_mob = rev_mind.current
 			carbon_mob.silent = max(carbon_mob.silent, 5)
 			carbon_mob.flash_act(1, 1)
-		rev_mind.current.Stun(100)
+		rev_mind.current.Stun(10 SECONDS)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
 	rev_mind.special_role = ROLE_REV
 	return TRUE
@@ -304,8 +304,19 @@
 /datum/team/revolution
 	name = "Revolution"
 	var/max_headrevs = 3
+	var/announced_revolution = FALSE
 	var/list/ex_headrevs = list() // Dynamic removes revs on loss, used to keep a list for the roundend report.
 	var/list/ex_revs = list()
+
+/datum/team/revolution/New(starting_members)
+	. = ..()
+	addtimer(CALLBACK(src, .proc/announce_revolution), 25 MINUTES)
+
+/datum/team/revolution/proc/announce_revolution()
+	if(announced_revolution)
+		return
+	announced_revolution = TRUE
+	priority_announce("Behavior unacceptable to the Corporation has been detected on your station.\nAll crew are required to quell any and all unionization attempts by any means necessary.\nGlory to Nanotrasen.", null, SSstation.announcer.get_rand_report_sound(), null, "Central Command Loyalty Monitoring Division")
 
 /datum/team/revolution/proc/update_objectives(initial = FALSE)
 	var/untracked_heads = SSjob.get_all_heads()
@@ -314,7 +325,7 @@
 	for(var/datum/mind/M in untracked_heads)
 		var/datum/objective/mutiny/new_target = new()
 		new_target.team = src
-		new_target.target = M
+		new_target.set_target(M)
 		new_target.update_explanation_text()
 		objectives += new_target
 	for(var/datum/mind/M in members)
@@ -333,8 +344,9 @@
 
 /datum/team/revolution/proc/update_heads()
 	if(SSticker.HasRoundStarted())
-		var/list/datum/mind/head_revolutionaries = head_revolutionaries()
+
 		var/list/datum/mind/heads = SSjob.get_all_heads()
+		var/list/datum/mind/head_revolutionaries = head_revolutionaries()
 		var/list/sec = SSjob.get_all_sec()
 
 		if(head_revolutionaries.len < max_headrevs && head_revolutionaries.len < round(heads.len - ((8 - sec.len) / 3)))
@@ -342,7 +354,7 @@
 			var/list/datum/mind/promotable = list()
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
-				if(khrushchev.current && !khrushchev.current.incapacitated() && !khrushchev.current.restrained() && khrushchev.current.client && khrushchev.current.stat != DEAD)
+				if(khrushchev.current && !khrushchev.current.incapacitated() && !HAS_TRAIT(khrushchev.current, TRAIT_RESTRAINED) && khrushchev.current.client)
 					if(ROLE_REV in khrushchev.current.client.prefs.be_special)
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev
@@ -445,7 +457,6 @@
 		priority_announce("A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials. \
 		For the safety of our staff, we have blacklisted your station for new employment of security and command. \
 		[pick(world.file2list("strings/anti_union_propaganda.txt"))]", null, SSstation.announcer.get_rand_report_sound(), null, "Central Command Loyalty Monitoring Division")
-		addtimer(CALLBACK(SSshuttle.emergency, /obj/docking_port/mobile/emergency.proc/request, null, 1), 50)
 
 /// Mutates the ticker to report that the revs have won
 /datum/team/revolution/proc/round_result(finished)

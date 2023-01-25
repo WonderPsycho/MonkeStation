@@ -10,7 +10,6 @@
 	anchored = FALSE
 	density = TRUE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
-	stat = 0
 	verb_say = "states"
 	var/cooldown = 0
 
@@ -23,8 +22,9 @@
 		if(user)
 			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
 		return
-	for(var/obj/singularity/singulo in GLOB.singularities)
-		if(singulo.get_virtual_z_level() == get_virtual_z_level())
+	for(var/datum/component/singularity/singulo as() in GLOB.singularities)
+		var/atom/singulo_atom = singulo.parent
+		if(singulo_atom.get_virtual_z_level() == get_virtual_z_level())
 			singulo.target = src
 	icon_state = "[icontype]1"
 	active = 1
@@ -33,7 +33,7 @@
 
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
-	for(var/obj/singularity/singulo in GLOB.singularities)
+	for(var/datum/component/singularity/singulo as() in GLOB.singularities)
 		if(singulo.target == src)
 			singulo.target = null
 	icon_state = "[icontype]0"
@@ -62,7 +62,7 @@
 			return
 
 		if(anchored)
-			setAnchored(FALSE)
+			set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>")
 			disconnect_from_network()
 			return
@@ -70,7 +70,7 @@
 			if(!connect_to_network())
 				to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
 				return
-			setAnchored(TRUE)
+			set_anchored(TRUE)
 			to_chat(user, "<span class='notice'>You bolt \the [src] to the floor and attach it to the cable.</span>")
 			return
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
@@ -94,7 +94,8 @@
 		add_load(1500)
 		if(cooldown <= world.time)
 			cooldown = world.time + 80
-			for(var/obj/singularity/singulo in GLOB.singularities)
+			for(var/datum/component/singularity/singulo_component as() in GLOB.singularities)
+				var/atom/singulo = singulo_component.parent
 				if(singulo.get_virtual_z_level() == get_virtual_z_level())
 					say("[singulo] is now [get_dist(src,singulo)] standard lengths away to the [dir2text(get_dir(src,singulo))]")
 	else

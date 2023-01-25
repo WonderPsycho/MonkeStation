@@ -10,9 +10,11 @@
 	canmove = TRUE
 	density = FALSE		//Thought I couldn't fix this one easily, phew
 	// Run speed delay is multiplied with this for vehicle move delay.
-	var/delay_multiplier = 6.7
+	var/delay_multiplier = 3 //MonkeStation Edit: Better Speed
+	has_engine = FALSE
+	waddles = FALSE
 
-/obj/vehicle/ridden/wheelchair/Initialize()
+/obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 0
@@ -20,6 +22,7 @@
 	D.set_vehicle_dir_layer(NORTH, ABOVE_MOB_LAYER)
 	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
 	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	ADD_TRAIT(src, TRAIT_NO_IMMOBILIZE, INNATE_TRAIT)
 
 /obj/vehicle/ridden/wheelchair/ComponentInitialize()	//Since it's technically a chair I want it to have chair properties
 	. = ..()
@@ -38,7 +41,7 @@
 
 /obj/vehicle/ridden/wheelchair/driver_move(mob/living/user, direction)
 	if(istype(user))
-		if(canmove && (user.get_num_arms() < arms_required))
+		if(canmove && (user.usable_hands < arms_required))
 			to_chat(user, "<span class='warning'>You don't have enough arms to operate the wheels!</span>")
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
@@ -50,7 +53,7 @@
 	var/datum/component/riding/D = GetComponent(/datum/component/riding)
 	//1.5 (movespeed as of this change) multiplied by 6.7 gets ABOUT 10 (rounded), the old constant for the wheelchair that gets divided by how many arms they have
 	//if that made no sense this simply makes the wheelchair speed change along with movement speed delay
-	D.vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * delay_multiplier) / clamp(user.get_num_arms(), arms_required, 2)
+	D.vehicle_move_delay = (round(CONFIG_GET(number/movedelay/run_delay) * delay_multiplier) / clamp(user.usable_hands, 1, 2)) * (user.InCritical()? 3 : 1)
 
 /obj/vehicle/ridden/wheelchair/Moved()
 	. = ..()
@@ -59,6 +62,11 @@
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()
 
+//monkestation edit - make wheelchair from other players unbuckles take time
+/obj/vehicle/ridden/wheelchair/unbuckle_mob(mob/living/buckled_mob, force)
+	if((usr != buckled_mob && do_after(usr, 2 SECONDS, null, buckled_mob)) || usr == buckled_mob)
+		. = ..()
+//monkestation edit end
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	. = ..()
@@ -110,5 +118,5 @@
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))
 		var/datum/component/riding/D = GetComponent(/datum/component/riding)
-		D.vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 6.7) / user.get_num_arms()
+		D.vehicle_move_delay = (round(CONFIG_GET(number/movedelay/run_delay) * 3) / max(user.usable_hands, 1)) * (user.InCritical()? 3 : 1) //MonkeStation Edit: Better Speeds
 	return ..()

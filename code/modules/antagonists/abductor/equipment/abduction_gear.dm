@@ -30,7 +30,7 @@
 	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70, "stamina" = 30)
 	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90, "stamina" = 60)
 
-/obj/item/clothing/suit/armor/abductor/vest/Initialize()
+/obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
@@ -283,7 +283,7 @@
 		radio_off_mob(M)
 
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
-	var/list/all_items = M.GetAllContents()
+	var/list/all_items = M.get_all_contents_type()
 
 	for(var/obj/I in all_items)
 		if(istype(I, /obj/item/radio/))
@@ -427,10 +427,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 #define BATON_CUFF 2
 #define BATON_PROBE 3
 #define BATON_MODES 4
+#define BATON_CHARGE_RATE 5 SECONDS //MonkeStation Edit: Baton Charges
 
 /obj/item/abductor/baton
 	name = "advanced baton"
-	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
+	desc = "A self-charging quad-mode baton used for incapacitation and restraining of specimens." //MonkeStation Edit: Baton Charges
 	var/mode = BATON_STUN
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
@@ -438,6 +439,20 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	var/charges = 3 //MonkeStation Edit: Baton Charges
+
+//MonkeStation Edit: Baton Charges
+/obj/item/abductor/baton/proc/recharge_baton()
+	if(charges <= 3)
+		charges++
+		playsound(src,'sound/effects/empulse.ogg',33)
+
+//Currently, with the existing charge rate, an abductor may stun and sleep one target rapidly without concern
+//At two targets, the second target will have enough time to call out for help before the abductor can actually sleep them.
+//At three targets, the first one will be able to get up before the first can be slept.
+//At four targets, there aren't enough charges to keep them all down, nor slept.
+//Update this if you ever change the recharge rate!
+//MonkeStation Edit End
 
 /obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
@@ -474,6 +489,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!AbductorCheck(user))
 		return
 
+	if(!charges)
+		to_chat(user, "<span class='notice'>The baton is recharging!</span>")
+		..()
+		return
+
 	if(iscyborg(target))
 		..()
 		return
@@ -490,6 +510,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
+
+//MonkeStation Edit Start: Baton Charges
+	charges--
+	addtimer(CALLBACK(src, .proc/recharge_baton), BATON_CHARGE_RATE)
+//MonkeStation Edit End
 
 	switch (mode)
 		if(BATON_STUN)
@@ -513,7 +538,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.visible_message("<span class='danger'>[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
 		return
-	L.Paralyze(140)
+	L.Paralyze(5 SECONDS)  //MonkeStation Edit: Reduction of abductor stuns.
 	L.apply_effect(EFFECT_STUTTER, 7)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
 
@@ -538,7 +563,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-		L.Sleeping(1200)
+		L.Sleeping(30 SECONDS) //MonkeStation Edit: Reduction of abductor sleeps
 		log_combat(user, L, "put to sleep")
 	else
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
@@ -556,13 +581,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		return
 	var/mob/living/carbon/C = L
 	if(!C.handcuffed)
-		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+		if(C.canBeHandcuffed())
 			playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 			C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 									"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-			if(do_mob(user, C, 30) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_mob(user, C, 30) && C.canBeHandcuffed())
 				if(!C.handcuffed)
-					C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
+					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
 					C.update_handcuffed()
 					to_chat(user, "<span class='notice'>You restrain [C].</span>")
 					log_combat(user, C, "handcuffed")
@@ -614,7 +639,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/datum/effect_system/spark_spread/S = new
 	S.set_up(4,0,user.loc)
 	S.start()
-	. = ..()
+	..()
 
 /obj/item/abductor/baton/examine(mob/user)
 	. = ..()
@@ -627,6 +652,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			. += "<span class='warning'>The baton is in restraining mode.</span>"
 		if(BATON_PROBE)
 			. += "<span class='warning'>The baton is in probing mode.</span>"
+	. += "<span class='warning'>It has [charges] charges ready.</span>" //MonkeStation Edit: Charges on Examination
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -784,6 +810,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
 	framestackamount = 1
+	smoothing_flags = NONE
+	smoothing_groups = null
 	canSmoothWith = null
 	frame = /obj/structure/table_frame/abductor
 
@@ -801,9 +829,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	/// Amount to inject per second
 	var/inject_am = 0.5
 
-	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone)
+	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone, /datum/reagent/space_cleaner/sterilizine, /datum/reagent/consumable/ethanol) //MonkeStation Edit: Sterilizing Abductors
 
-/obj/structure/table/optable/abductor/Initialize()
+/obj/structure/table/optable/abductor/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -821,6 +849,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	. = PROCESS_KILL
 	for(var/mob/living/carbon/C in get_turf(src))
 		. = TRUE
+		C.drunkenness = 49 //MonkeStation Edit: UFOs don't exist, just smell the alcohol on his breath!
 		for(var/chemical in injected_reagents)
 			if(C.reagents.get_reagent_amount(chemical) < inject_am * delta_time)
 				C.reagents.add_reagent(chemical, inject_am * delta_time)
@@ -854,3 +883,5 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "bl_suit"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0, stamina = 0)
 	can_adjust = 0
+
+#undef BATON_CHARGE_RATE //MonkeStation Edit: Baton Charges

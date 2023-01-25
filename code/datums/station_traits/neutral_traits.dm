@@ -36,20 +36,6 @@
 	report_message = "Something seems to be wrong with the PDAs issued to you all this shift. Nothing too bad though."
 	trait_to_give = STATION_TRAIT_PDA_GLITCHED
 
-/datum/station_trait/announcement_intern
-	name = "Announcement Intern"
-	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 3
-	show_in_report = TRUE
-	report_message = "Please be nice to him."
-	blacklist = list(/datum/station_trait/announcement_medbot,
-	/datum/station_trait/announcement_baystation
-	)
-
-/datum/station_trait/announcement_intern/New()
-	. = ..()
-	SSstation.announcer = /datum/centcom_announcer/intern
-
 /datum/station_trait/announcement_medbot
 	name = "Announcement \"System\""
 	trait_type = STATION_TRAIT_NEUTRAL
@@ -58,7 +44,8 @@
 	report_message = "Our announcement system is under scheduled maintanance at the moment. Thankfully, we have a backup."
 	blacklist = list(
 		/datum/station_trait/announcement_intern,
-		/datum/station_trait/announcement_baystation
+		/datum/station_trait/announcement_baystation,
+		/datum/station_trait/announcement_duke
 		)
 
 /datum/station_trait/announcement_medbot/New()
@@ -72,7 +59,8 @@
 	show_in_report = TRUE
 	report_message = "We lost the primary datatape that holds the announcement system's voice responses. We did however find an older backup."
 	blacklist = list(/datum/station_trait/announcement_intern,
-	/datum/station_trait/announcement_medbot
+	/datum/station_trait/announcement_medbot,
+	/datum/station_trait/announcement_duke
 	)
 
 /datum/station_trait/announcement_baystation/New()

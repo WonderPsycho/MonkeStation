@@ -15,9 +15,9 @@
 	var/max_syringes = 1
 	var/has_syringe_overlay = TRUE ///If it has an overlay for inserted syringes. If true, the overlay is determined by the number of syringes inserted into it.
 
-/obj/item/gun/syringe/Initialize()
+/obj/item/gun/syringe/Initialize(mapload)
 	. = ..()
-	update_icon()	
+	update_icon()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
 /obj/item/gun/syringe/handle_atom_del(atom/A)
@@ -61,6 +61,10 @@
 
 /obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
 	if(istype(A, /obj/item/reagent_containers/syringe))
+		var/obj/item/reagent_containers/syringe/incoming_syringe = A //to check shootability //monkestation edit
+		if(!incoming_syringe.shootable) //monkestation edit: no more lethal or bluespace syringes
+			to_chat(user, "<span class='warning'>[A] is too large to fit in the [src]!</span>") //monkestation edit
+			return FALSE //monkestation edit
 		if(syringes.len < max_syringes)
 			if(!user.transferItemToLoc(A, src))
 				return FALSE
@@ -103,7 +107,7 @@
 	name = "modified syringe gun"
 	desc = "A syringe gun that has been modified to fit DNA injectors instead of normal syringes."
 
-/obj/item/gun/syringe/dna/Initialize()
+/obj/item/gun/syringe/dna/Initialize(mapload)
 	. = ..()
 	chambered = new /obj/item/ammo_casing/dnainjector(src)
 

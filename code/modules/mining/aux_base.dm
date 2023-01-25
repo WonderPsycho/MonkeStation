@@ -26,7 +26,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	clockwork = TRUE
 	circuit = /obj/item/circuitboard/computer/auxillary_base
 
-/obj/machinery/computer/auxillary_base/Initialize()
+/obj/machinery/computer/auxillary_base/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "NT_AUX")
 
@@ -54,7 +54,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			var/obj/machinery/porta_turret/aux_base/T = PDT
 			var/integrity = max((T.obj_integrity-T.integrity_failure)/(T.max_integrity-T.integrity_failure)*100, 0)
 			var/status
-			if(T.stat & BROKEN)
+			if(T.machine_stat & BROKEN)
 				status = "<span class='bad'>ERROR</span>"
 			else if(!T.on)
 				status = "Disabled"
@@ -172,7 +172,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	landing_zone.width = base_dock.width
 	landing_zone.height = base_dock.height
 	landing_zone.setDir(base_dock.dir)
-	landing_zone.area_type = A.type
 
 	possible_destinations += "[landing_zone.id];"
 
@@ -181,6 +180,11 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	to_chat(user, "<span class='notice'>Landing zone set.</span>")
 	return ZONE_SET
 
+/obj/docking_port/mobile/auxillary_base/Initialize(mapload)
+	. = ..()
+	for(var/area/A in shuttle_areas)
+		for(var/turf/T in A.contents)
+			underlying_turf_area[T] = GLOB.areas_by_type[/area/construction/mining/aux_base]
 
 /obj/item/assault_pod/mining
 	name = "Landing Field Designator"
@@ -257,7 +261,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	dwidth = 3
 	width = 7
 	height = 5
-	area_type = /area/construction/mining/aux_base
 
 /obj/structure/mining_shuttle_beacon
 	name = "mining shuttle beacon"
@@ -306,8 +309,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		var/obj/docking_port/stationary/SM = S //SM is declared outside so it can be checked for null
 		if(SM.id == "mining_home" || SM.id == "mining_away")
 
-			var/area/A = get_area(landing_spot)
-
 			Mport = new(landing_spot)
 			Mport.id = "landing_zone_dock"
 			Mport.name = "auxillary base landing site"
@@ -316,7 +317,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			Mport.width = SM.width
 			Mport.height = SM.height
 			Mport.setDir(dir)
-			Mport.area_type = A.type
 
 			break
 	if(!Mport)

@@ -51,6 +51,10 @@
 #define CRYOKINESIS /datum/mutation/human/cryokinesis
 #define CLUWNEMUT   /datum/mutation/human/cluwne
 #define WAXSALIVA   /datum/mutation/human/wax_saliva
+#define STRONGWINGS /datum/mutation/human/strongwings
+#define CATCLAWS    /datum/mutation/human/catclaws
+#define OVERLOAD    /datum/mutation/human/overload
+#define ACIDOOZE    /datum/mutation/human/acidooze
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -101,31 +105,32 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS		1
-#define HAIR			2
-#define FACEHAIR		3
-#define EYECOLOR		4
-#define LIPS			5
-#define NOBLOOD			6
-#define NOTRANSSTING	7
-#define MUTCOLORS_PARTSONLY	8	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
-#define NOZOMBIE		9
-#define DIGITIGRADE		10	//! Uses weird leg sprites. Optional for Lizards, required for ashwalkers. Don't give it to other races unless you make sprites for this (see human_parts_greyscale.dmi)
+#define SKINTONES		1
+#define MUTCOLORS		2
+#define HAIR			3
+#define FACEHAIR		4
+#define EYECOLOR		5
+#define LIPS			6
+#define NOBLOOD			7
+#define NOTRANSSTING	8
+#define MUTCOLORS_PARTSONLY	9	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
+#define NOZOMBIE		10
 #define NO_UNDERWEAR	11
 #define NOLIVER			12
 #define NOSTOMACH		13
 #define NO_DNA_COPY     14
 #define DRINKSBLOOD		15
 #define NOFLASH			16
-#define DYNCOLORS		17 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
+#define DYNCOLORS		17 //! This is only for ethereals.  Set uses_skintones in the species datum to true and add to the global skintone list if you want set skin colors for your
 #define AGENDER			18
 #define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
-#define NOREAGENTS     20 //! DO NOT PROCESS REAGENTS
-#define REVIVESBYHEALING 21 // Will revive on heal when healing and total HP > 0.
-#define NOHUSK			22 // Can't be husked.
-#define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
+#define ALTEYESPRITES	20 //! used if we need alternate eye placement
+#define NOREAGENTS     21 //! DO NOT PROCESS REAGENTS
+#define REVIVESBYHEALING 22 // Will revive on heal when healing and total HP > 0.
+#define NOHUSK			23 // Can't be husked.
 #define NOMOUTH			24
 #define NOSOCKS       25 // You cannot wear socks.
+#define CUSTOM			26 //monkestation edit - for custom colors on sprite accessories (currently only used for anime trait)
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
@@ -149,6 +154,7 @@
 #define ORGAN_SLOT_HEART_AID "heartdrive"
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
+#define ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT "brain_surgical"
 #define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_WINGS "wings"
 //MonkeStation Edit: Butt Organ

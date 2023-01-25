@@ -10,25 +10,25 @@
 					/obj/item/restraints/handcuffs/cable/zipties = 10,
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/assembly/flash/handheld = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,
+					/obj/item/book/manual/wiki/security_space_law = 3,
+					/obj/item/food/donut = 4, //MonkeStation Edit: Reduction of free food
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/holosign_creator/security = 3,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/club = 5)
-	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2,
-					  /obj/item/storage/fancy/donut_box = 2)
+	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2) //MonkeStation Edit: Reduction of free food
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
 				   /obj/item/coin/antagtoken = 1,
 				   /obj/item/grenade/barrier = 4,
-				   /obj/item/clothing/head/helmet/blueshirt = 1,
 				   /obj/item/clothing/suit/armor/vest/blueshirt = 1,
 				   /obj/item/grenade/stingbang = 1)
 	refill_canister = /obj/item/vending_refill/security
 	default_price = 100
 	extra_price = 150
 	payment_department = ACCOUNT_SEC
+	light_mask = "sec-light-mask"
 
 /obj/machinery/vending/security/pre_throw(obj/item/I)
 	if(istype(I, /obj/item/grenade))

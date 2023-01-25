@@ -15,9 +15,9 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-	var/max_range = 5
+	var/max_range = 10
 
-/obj/item/circuit_component/tostring/Initialize()
+/obj/item/circuit_component/tostring/Initialize(mapload)
 	. = ..()
 	input_port = add_input_port("Input", PORT_TYPE_ANY)
 
@@ -42,3 +42,5 @@
 			return
 
 	output.set_output("[input_value]")
+
+//MONKESTATION EDIT: Upped max range to 10, the shorter range makes sense on some other components, but not this one

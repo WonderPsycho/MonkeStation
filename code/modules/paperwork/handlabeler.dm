@@ -4,6 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler0"
 	item_state = "flight"
+	w_class = WEIGHT_CLASS_TINY
 	var/label = null
 	var/labels_left = 30
 	var/mode = 0
@@ -15,7 +16,7 @@
 	var/old_real_name = user.real_name
 	user.real_name += " (suicide)"
 	// no conflicts with their identification card
-	for(var/atom/A in user.GetAllContents())
+	for(var/atom/A in user.get_all_contents_type())
 		if(istype(A, /obj/item/card/id))
 			var/obj/item/card/id/their_card = A
 

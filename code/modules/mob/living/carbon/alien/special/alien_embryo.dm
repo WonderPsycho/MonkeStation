@@ -4,6 +4,7 @@
 	name = "alien embryo"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/toxin/acid = 10)
 	var/stage = 0
 	var/bursting = FALSE
 
@@ -16,10 +17,6 @@
 		if(prob(10))
 			AttemptGrow(0)
 
-/obj/item/organ/body_egg/alien_embryo/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/acid, 10)
-	return S
 
 /obj/item/organ/body_egg/alien_embryo/on_life()
 	. = ..()
@@ -92,17 +89,20 @@
 	var/mob/living/carbon/alien/larva/new_xeno = new(xeno_loc)
 	new_xeno.key = ghost.key
 	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg',0,0,0,100))	//To get the player's attention
-	new_xeno.mobility_flags = NONE //so we don't move during the bursting animation
+	ADD_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type) //so we don't move during the bursting animation
+	ADD_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
 	new_xeno.notransform = 1
 	new_xeno.invisibility = INVISIBILITY_MAXIMUM
 
 	sleep(6)
 
 	if(QDELETED(src) || QDELETED(owner))
-		return
+		qdel(new_xeno)
+		CRASH("AttemptGrow failed due to the early qdeletion of source or owner.")
 
 	if(new_xeno)
-		new_xeno.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		REMOVE_TRAIT(new_xeno, TRAIT_IMMOBILIZED, type)
+		REMOVE_TRAIT(new_xeno, TRAIT_HANDS_BLOCKED, type)
 		new_xeno.notransform = 0
 		new_xeno.invisibility = 0
 

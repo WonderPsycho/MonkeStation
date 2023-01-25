@@ -1,3 +1,14 @@
+/// The chance for a manifest or crate to be created with errors
+#define MANIFEST_ERROR_CHANCE 5
+
+// MANIFEST BITFLAGS
+/// Determines if the station name will be incorrect on the manifest
+#define MANIFEST_ERROR_NAME (1 << 0)
+/// Determines if contents will be deleted from the manifest but still be present in the crate
+#define MANIFEST_ERROR_CONTENTS (1 << 1)
+/// Determines if contents will be deleted from the crate but still be present in the manifest
+#define MANIFEST_ERROR_ITEM (1 << 2)
+
 /obj/item/paper/fluff/jobs/cargo/manifest
 	var/order_cost = 0
 	var/order_id = 0
@@ -43,7 +54,7 @@
 	var/obj/item/paper/P = new(T)
 
 	P.name = "requisition form - #[id] ([pack.name])"
-	P.info += "<h2>[station_name()] Supply Requisition</h2>"
+	P.info += "<h2>[GLOB.station_name] Supply Requisition</h2>"
 	P.info += "<hr/>"
 	P.info += "Order #[id]<br/>"
 	P.info += "Item: [pack.name]<br/>"
@@ -60,7 +71,7 @@
 /datum/supply_order/proc/generateManifest(obj/structure/closet/crate/C, var/owner, var/packname) //generates-the-manifests.
 	var/obj/item/paper/fluff/jobs/cargo/manifest/P = new(C, id, 0)
 
-	var/station_name = (P.errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
+	var/station_name = (P.errors & MANIFEST_ERROR_NAME) ? new_station_name() : GLOB.station_name
 
 	P.name = "shipping manifest - [packname?"#[id] ([pack.name])":"(Grouped Item Crate)"]"
 	P.info += "<h2>[command_name()] Shipping Manifest</h2>"
@@ -114,3 +125,8 @@
 		new I(miscbox)
 	generateManifest(miscbox, misc_own, "")
 	return
+
+#undef MANIFEST_ERROR_CHANCE
+#undef MANIFEST_ERROR_NAME
+#undef MANIFEST_ERROR_CONTENTS
+#undef MANIFEST_ERROR_ITEM

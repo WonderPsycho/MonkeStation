@@ -10,6 +10,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	icon_state = "drone_clock"
 	icon_living = "drone_clock"
 	icon_dead = "drone_clock_dead"
+	density = TRUE
 	health = 30
 	maxHealth = 30
 	faction = list("neutral", "silicon", "turret", "ratvar")
@@ -28,7 +29,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	discovery_points = 2000
 
 //No you can't go wielding guns like that.
-/mob/living/simple_animal/drone/cogscarab/Initialize()
+/mob/living/simple_animal/drone/cogscarab/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOGUNS, "cogscarab")
 	GLOB.cogscarabs += src

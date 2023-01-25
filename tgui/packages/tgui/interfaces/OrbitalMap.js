@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 // :fearful:
 
 // Made by powerfulbacon
@@ -18,6 +19,9 @@ export const OrbitalMap = (props, context) => {
     shuttleName = "",
     update_index = -1,
     interdictionTime = 0,
+    designatorInserted = false,
+    designatorId = null,
+    shuttleId = null,
   } = data;
   const [
     zoomScale,
@@ -168,6 +172,30 @@ export const OrbitalMap = (props, context) => {
                       Not linked to a shuttle.
                     </NoticeBox>
                   ))}
+              {
+                !!designatorInserted
+              && (designatorId ? !shuttleId : shuttleId) && (
+                  <>
+                    <Divider />
+                    <Section title="Designator Linking" >
+                      {
+                        designatorId
+                          ? (
+                            <Button
+                              content="Download shuttle link from designator"
+                              onClick={() => act('updateLinkedId')} />
+                          )
+                          : (
+                            <Button
+                              content="Upload shuttle link to designator"
+                              onClick={() => act('updateDesignatorId')} />
+                          )
+                      }
+                    </Section>
+                  </>
+                )
+              }
+
             </Section>
           </ScrollableBox>
         </div>

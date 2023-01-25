@@ -26,6 +26,7 @@
 	var/skip_confirmation = FALSE
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
+	. = ..()
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
 			max_potency = 95
@@ -59,7 +60,7 @@
 /obj/machinery/plantgenes/update_icon()
 	..()
 	cut_overlays()
-	if((stat & (BROKEN|NOPOWER)))
+	if((machine_stat & (BROKEN|NOPOWER)))
 		icon_state = "dnamod-off"
 	else
 		icon_state = "dnamod"
@@ -303,6 +304,7 @@
 			if(G)
 				if(!istype(G, /datum/plant_gene/core))
 					seed.genes -= G
+					G.on_remove(seed)
 					if(istype(G, /datum/plant_gene/reagent))
 						seed.reagents_from_genes()
 				repaint_seed()
@@ -342,6 +344,7 @@
 
 		if(operation == "insert" && !istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
 			seed.genes += disk.gene.Copy()
+			disk.gene.on_add(seed)
 			if(istype(disk.gene, /datum/plant_gene/reagent))
 				seed.reagents_from_genes()
 			repaint_seed()
@@ -443,17 +446,18 @@
 	var/read_only = 0 //Well, it's still a floppy disk
 	obj_flags = UNIQUE_RENAME
 
-/obj/item/disk/plantgene/Initialize()
+/obj/item/disk/plantgene/Initialize(mapload)
 	. = ..()
 	add_overlay("datadisk_gene")
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
 
-/obj/item/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/update_name()
 	if(gene)
 		name = "[gene.get_name()] (plant data disk)"
 	else
 		name = "plant data disk"
+	return ..()
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	read_only = !read_only

@@ -18,6 +18,7 @@ Assistant
 	paycheck = PAYCHECK_ASSISTANT // Get a job. Job reassignment changes your paycheck now. Get over it.
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	bounty_types = CIV_JOB_BASIC
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Lout"
 
@@ -34,6 +35,7 @@ Assistant
 /datum/outfit/job/assistant
 	name = "Assistant"
 	jobtype = /datum/job/assistant
+	belt = /obj/item/pda/assistant
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -41,9 +43,9 @@ Assistant
 		if(H.jumpsuit_style == PREF_SUIT)
 			uniform = /obj/item/clothing/under/color/grey
 		else
-			uniform = /obj/item/clothing/under/skirt/color/grey
+			uniform = /obj/item/clothing/under/color/jumpskirt/grey
 	else
 		if(H.jumpsuit_style == PREF_SUIT)
 			uniform = /obj/item/clothing/under/color/random
 		else
-			uniform = /obj/item/clothing/under/skirt/color/random
+			uniform = /obj/item/clothing/under/color/jumpskirt/random

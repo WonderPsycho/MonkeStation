@@ -7,12 +7,12 @@
 	if(.)
 		return
 	if(mover.throwing)
-		return (!density || !(mobility_flags & MOBILITY_STAND) || (mover.throwing.thrower == src && !ismob(mover)))
+		return (!density || body_position == LYING_DOWN || (mover.throwing.thrower == src && !ismob(mover)))
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover) && (mover in buckled_mobs))
 		return TRUE
-	return !mover.density || !(mobility_flags & MOBILITY_STAND)
+	return . || !mover.density || body_position == LYING_DOWN
 
 /mob/living/toggle_move_intent()
 	. = ..()
@@ -42,7 +42,7 @@
 	if(pulling)
 		if(isliving(pulling))
 			var/mob/living/L = pulling
-			if(!slowed_by_drag || (L.mobility_flags & MOBILITY_STAND) || L.buckled || grab_state >= GRAB_AGGRESSIVE)
+			if(!slowed_by_drag || L.body_position == STANDING_UP || L.buckled || grab_state >= GRAB_AGGRESSIVE)
 				remove_movespeed_modifier(MOVESPEED_ID_BULKY_DRAGGING)
 				return
 			add_movespeed_modifier(MOVESPEED_ID_BULKY_DRAGGING, multiplicative_slowdown = PULL_PRONE_SLOWDOWN)
@@ -58,3 +58,9 @@
 
 /mob/living/canZMove(dir, turf/target)
 	return can_zTravel(target, dir) && (movement_type & FLYING)
+
+/mob/living/zMove(dir, feedback = FALSE)
+	if(dir != UP && dir != DOWN)
+		return FALSE
+	var/turf/source = get_turf(src)
+	source.travel_z(src, get_step_multiz(src, dir), (dir == UP))

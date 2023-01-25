@@ -1,7 +1,7 @@
 /obj/item/organ/butt
 	name = "butt"
 	desc = "extremely treasured body part"
-	alternate_worn_icon = 'monkestation/icons/mob/head.dmi' //Wearable on the head
+	worn_icon = 'monkestation/icons/obj/worn_butts.dmi' //Wearable on the head
 	icon = 'monkestation/icons/obj/butts.dmi'
 	icon_state = "ass"
 	zone = BODY_ZONE_PRECISE_GROIN
@@ -42,6 +42,7 @@
 			spawn(120)
 				Location = get_turf(user)
 				dyn_explosion(Location, 20,10)
+				cooling_down = FALSE
 		else
 			playsound(user, pick(sound_effect), 50, TRUE)
 			Location.atmos_spawn_air(atmos_gas)
@@ -162,21 +163,21 @@
 			var/turf/T = get_step(get_step(Person, NORTH), NORTH)
 			T.Beam(Person, icon_state="lightning[rand(1,12)]", time = 15)
 			Person.Paralyze(15)
-			to_chat(Person, "<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>")
+			Person.visible_message("<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>","<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
 			playsound(user,'sound/magic/lightningshock.ogg', 50, 1)
 			playsound(user,	'monkestation/sound/misc/dagothgod.ogg', 80)
 			Person.electrocution_animation(15)
 			spawn(15)
-				to_chat(Person,"<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
 				Person.gib()
 				dyn_explosion(Location, 1, 0)
 				cooling_down = FALSE
 			return
 
 	//EMOTE MESSAGE/MOB TARGETED FARTS
-	for(var/mob/Targeted in Location)
+	var/hit_target = FALSE
+	for(var/mob/living/Targeted in Location)
 		if(Targeted != user)
-			to_chat(user,"[user] [pick(
+			user.visible_message("[user] [pick(
 										"farts in [Targeted]'s face!",
 										"gives [Targeted] the silent but deadly treatment!",
 										"rips mad ass in [Targeted]'s mug!",
@@ -185,43 +186,10 @@
 										"poots, singing [Targeted]'s eyebrows!",
 										"humiliates [Targeted] like never before!",
 										"gets real close to [Targeted]'s face and cuts the cheese!")]")
+			hit_target = TRUE
 			break
-		else
-			user.audible_message("[pick(
-								"rears up and lets loose a fart of tremendous magnitude!",
-								"farts!",
-								"toots.",
-								"harvests methane from uranus at mach 3!",
-								"assists global warming!",
-								"farts and waves their hand dismissively.",
-								"farts and pretends nothing happened.",
-								"is a farting motherfucker!",
-								"farts.",
-								"unleashes their unholy rectal vapor!",
-								"assblasts gently.",
-								"lets out a wet sounding one!",
-								"exorcises a ferocious colonic demon!",
-								"pledges ass-legience to the flag!",
-								"cracks open a tin of beans!",
-								"tears themselves a new one!",
-								"looses some pure assgas!",
-								"displays the most sophisticated type of humor.",
-								"strains to get the fart out. Is that <font color='red'>blood</font>?",
-								"sighs and farts simultaneously.",
-								"contributes to the erosion of the ozone layer!",
-								"just farts. It's natural, everyone does it.",
-								"had one too many tacos this week!",
-								"has the phantom shits.",
-								"flexes their bunghole.",
-								"'s ass sings the song that ends the earth!",
-								"had to go and ruin the mood!",
-								"unflinchingly farts. True confidence.",
-								"farts so loud it startles them!",
-								"lets loose the farts of justice!",
-								"rips a juicy one!",
-								"'s ass breathes a sigh of relief.",
-								"breaks wind and a nearby wine glass!",
-								"finally achieves the perfect fart. All downhill from here.")]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+	if(!hit_target)
+		user.audible_message("[pick(world.file2list("strings/farts.txt"))]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
 
 	//SOUND HANDLING
@@ -230,9 +198,7 @@
 	//GAS CREATION, ASS DETACHMENT & COOLDOWNS
 	if(!cooling_down)
 		cooling_down = TRUE
-		if(!Location.has_gravity())
-			var/atom/target = get_edge_target_turf(user, user.dir)
-			user.throw_at(target, 1, 0.25, spin = FALSE)
+		user.newtonian_move(user.dir)
 		Location.atmos_spawn_air(atmos_gas)
 		if(prob(true_instability))
 			user.visible_message("<span class='warning'>[user]'s butt goes flying off!</span>")

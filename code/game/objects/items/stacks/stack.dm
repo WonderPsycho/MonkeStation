@@ -1,3 +1,9 @@
+//stack recipe placement check types
+/// Checks if there is an object of the result type in any of the cardinal directions
+#define STACK_CHECK_CARDINALS "cardinals"
+/// Checks if there is an object of the result type within one tile
+#define STACK_CHECK_ADJACENT "adjacent"
+
 /* Stack type objects!
  * Contains:
  * 		Stacks
@@ -24,8 +30,11 @@
 	var/novariants = TRUE //Determines whether the item should update it's sprites based on amount.
 	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
 	var/obj/structure/table/tableVariant // we tables now (stores table variant to be built from this stack)
+	/// Amount of matter for RCD
+	var/matter_amount = 0
 
 /obj/item/stack/on_grind()
+	. = ..()
 	for(var/i in 1 to grind_results.len) //This should only call if it's ground, so no need to check if grind_results exists
 		grind_results[grind_results[i]] *= get_amount() //Gets the key at position i, then the reagent amount of that key, then multiplies it by stack size
 
@@ -60,6 +69,15 @@
 		amount -= max_amount
 		ui_update()
 		new type(loc, max_amount, FALSE)
+
+/obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
+	if(is_cyborg)
+		return source.energy < cost
+	if(amount < 1)
+		if(delete_if_zero)
+			qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
@@ -236,8 +254,7 @@
 
 			else if(istype(O, /obj/item/restraints/handcuffs/cable))
 				var/obj/item/cuffs = O
-				cuffs.item_color = item_color
-				cuffs.update_icon()
+				cuffs.color = color
 
 			if(QDELETED(O))
 				return //It's a stack and has already been merged
@@ -481,3 +498,6 @@
 /datum/stack_recipe_list/New(title, recipes)
 	src.title = title
 	src.recipes = recipes
+
+#undef STACK_CHECK_CARDINALS
+#undef STACK_CHECK_ADJACENT

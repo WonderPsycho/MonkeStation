@@ -15,7 +15,7 @@
 	var/action_background_icon_state = "bg_spell"
 	var/base_action = /datum/action/spell_action
 
-/obj/effect/proc_holder/Initialize()
+/obj/effect/proc_holder/Initialize(mapload)
 	. = ..()
 	if(has_action)
 		action = new base_action(src)
@@ -280,7 +280,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound,50,1)
 
-/obj/effect/proc_holder/spell/Initialize()
+/obj/effect/proc_holder/spell/Initialize(mapload)
 	. = ..()
 
 	if(!casting_clothes_base)
@@ -571,7 +571,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf in getline(A,B))
+	for(var/turf/turf in get_line(A,B))
 		for(var/atom/movable/AM in turf)
 			if(!AM.CanPass(dummy,turf,1))
 				qdel(dummy)
@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay.alpha = 180
 
 	if(!text_overlay)
-		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
+		text_overlay = image(loc = action.button)
 		text_overlay.maptext_width = 64
 		text_overlay.maptext_height = 64
 		text_overlay.maptext_x = -8

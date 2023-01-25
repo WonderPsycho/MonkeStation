@@ -18,6 +18,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
+	bounty_types = CIV_JOB_RANDOM
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Jester"
 
@@ -50,7 +51,7 @@
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/storage/box/stickers,
 		/obj/item/sticker_roll/status
@@ -79,3 +80,4 @@
 
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
 	H.dna.add_mutation(CLOWNMUT)
+	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)

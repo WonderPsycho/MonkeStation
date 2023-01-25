@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	var/message_cooldown
 	var/breakout_time = 600
 
-/obj/structure/bodycontainer/Initialize()
+/obj/structure/bodycontainer/Initialize(mapload)
 	. = ..()
 	GLOB.bodycontainers += src
 	recursive_organ_check(src)
@@ -45,10 +45,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	..()
 	update_icon()
 
-/obj/structure/bodycontainer/update_icon()
-	return
-
-/obj/structure/bodycontainer/relaymove(mob/user)
+/obj/structure/bodycontainer/relaymove(mob/living/user, direction)
 	if(user.stat || !isturf(loc))
 		return
 	if(locked)
@@ -159,7 +156,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	var/beep_cooldown = 50
 	var/next_beep = 0
 
-/obj/structure/bodycontainer/morgue/Initialize()
+/obj/structure/bodycontainer/morgue/Initialize(mapload)
 	. = ..()
 	connected = new/obj/structure/tray/m_tray(src)
 	connected.connected = src
@@ -174,28 +171,31 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	beeper = !beeper
 	to_chat(user, "<span class='notice'>You turn the speaker function [beeper ? "on" : "off"].</span>")
 
-/obj/structure/bodycontainer/morgue/update_icon()
-	if (!connected || connected.loc != src) // Open or tray is gone.
+/obj/structure/bodycontainer/morgue/update_icon_state()
+	if(!connected || connected.loc != src) // Open or tray is gone.
 		icon_state = "morgue0"
-	else
-		if(contents.len == 1)  // Empty
-			icon_state = "morgue1"
-		else
-			icon_state = "morgue2" // Dead, brainded mob.
-			var/list/compiled = recursive_mob_check(src, 0, 0) // Search for mobs in all contents.
-			if(!length(compiled)) // No mobs?
-				icon_state = "morgue3"
-				return
+		return ..()
 
-			for(var/mob/living/M in compiled)
-				var/mob/living/mob_occupant = get_mob_or_brainmob(M)
-				if(mob_occupant.client && !mob_occupant.suiciding && !(HAS_TRAIT(mob_occupant, TRAIT_BADDNA)) && !mob_occupant.hellbound)
-					icon_state = "morgue4" // Cloneable
-					if(mob_occupant.stat == DEAD && beeper)
-						if(world.time > next_beep)
-							playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, 0) //Clone them you blind fucks
-							next_beep = world.time + beep_cooldown
-					break
+	if(contents.len == 1)  // Empty
+		icon_state = "morgue1"
+		return ..()
+
+	var/list/compiled = get_all_contents_type(/mob/living) // Search for mobs in all contents.
+	if(!length(compiled)) // No mobs?
+		icon_state = "morgue3"
+		return ..()
+
+	for(var/mob/living/M in compiled)
+		var/mob/living/mob_occupant = get_mob_or_brainmob(M)
+		if(mob_occupant.client && !mob_occupant.suiciding && !(HAS_TRAIT(mob_occupant, TRAIT_BADDNA)))
+			icon_state = "morgue4" // Revivable
+			if(mob_occupant.stat == DEAD && beeper && COOLDOWN_FINISHED(src, next_beep))
+				playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, FALSE) //Revive them you blind fucks
+				COOLDOWN_START(src, next_beep, beep_cooldown)
+			return ..()
+
+	icon_state = "morgue2" // Dead, brainded mob.
+	return ..()
 
 
 /obj/item/paper/guides/jobs/medical/morgue
@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	GLOB.crematoriums.Add(src)
 	..()
 
-/obj/structure/bodycontainer/crematorium/Initialize()
+/obj/structure/bodycontainer/crematorium/Initialize(mapload)
 	. = ..()
 	connected = new /obj/structure/tray/c_tray(src)
 	connected.connected = src
@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(locked)
 		return //don't let you cremate something twice or w/e
 	// Make sure we don't delete the actual morgue and its tray
-	var/list/conts = GetAllContents() - src - connected
+	var/list/conts = get_all_contents_type() - src - connected
 
 	if(!conts.len)
 		audible_message("<span class='italics'>You hear a hollow crackle.</span>")
@@ -301,10 +301,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/structure/bodycontainer/crematorium/creamatorium/cremate(mob/user)
 	var/list/icecreams = new()
-	for(var/i_scream in GetAllContents(/mob/living))
-		var/obj/item/reagent_containers/food/snacks/icecream/IC = new()
-		IC.set_cone_type("waffle")
-		IC.add_mob_flavor(i_scream)
+	for(var/i_scream in get_all_contents_type(/mob/living))
+		var/obj/item/food/icecream/IC = new(null, list(ICE_CREAM_MOB = list(null, i_scream)))
 		icecreams += IC
 	. = ..()
 	for(var/obj/IC in icecreams)
@@ -373,7 +371,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	if(isliving(user))
 		var/mob/living/L = user
-		if(!(L.mobility_flags & MOBILITY_STAND))
+		if(L.body_position == LYING_DOWN)
 			return
 	O.forceMove(src.loc)
 	if (user != O)

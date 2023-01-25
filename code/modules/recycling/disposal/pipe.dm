@@ -3,7 +3,7 @@
 /obj/structure/disposalpipe
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
-	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
+	icon = 'monkestation/icons/obj/atmospherics/pipes/disposal.dmi'
 	anchored = TRUE
 	density = FALSE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
@@ -13,10 +13,11 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	layer = DISPOSAL_PIPE_LAYER			// slightly lower than wires and other pipes
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
-	var/dpdir = NONE					// bitmask of pipe directions
-	var/initialize_dirs = NONE			// bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
-	var/flip_type						// If set, the pipe is flippable and becomes this type when flipped
 
+	var/dpdir = NONE // bitmask of pipe directions
+	var/initialize_dirs = NONE // bitflags of pipe directions added on init, see \code\_DEFINES\pipe_construction.dm
+	var/flip_type // If set, the pipe is flippable and becomes this type when flipped
+	var/low_volume = FALSE // Lower sound volumes for special traps
 
 /obj/structure/disposalpipe/Initialize(mapload, obj/structure/disposalconstruct/make_from)
 	. = ..()
@@ -61,17 +62,15 @@
 	var/turf/T = H.nextloc()
 	var/obj/structure/disposalpipe/P = H.findpipe(T)
 
-	if(P)
-		// find other holder in next loc, if inactive merge it with current
-		var/obj/structure/disposalholder/H2 = locate() in P
-		if(H2 && !H2.active)
-			H.merge(H2)
+	if(!P) // if there wasn't a pipe, then they'll be expelled.
+		return
+	// find other holder in next loc, if inactive merge it with current
+	var/obj/structure/disposalholder/H2 = locate() in P
+	if(H2 && !H2.active)
+		H.merge(H2)
 
-		H.forceMove(P)
-		return P
-	else			// if wasn't a pipe, then they're now in our turf
-		H.forceMove(get_turf(src))
-		return null
+	H.forceMove(P)
+	return P
 
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
@@ -86,6 +85,8 @@
 // expel the held objects into a turf
 // called when there is a break in the pipe
 /obj/structure/disposalpipe/proc/expel(obj/structure/disposalholder/H, turf/T, direction)
+	if(!T)
+		T = get_turf(src)
 	var/turf/target
 	var/eject_range = 5
 	var/turf/open/floor/floorturf
@@ -107,13 +108,11 @@
 	else if(floorturf)
 		target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
 
-	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-	for(var/A in H)
-		var/atom/movable/AM = A
-		AM.forceMove(get_turf(src))
-		AM.pipe_eject(direction)
-		if(target)
-			AM.throw_at(target, eject_range, 1)
+	if(low_volume == TRUE)
+		playsound(src, 'sound/machines/hiss.ogg', 15, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
+	else
+		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
+	pipe_eject(H, direction, TRUE, target, eject_range)
 	H.vent_gas(T)
 	qdel(H)
 
@@ -230,7 +229,7 @@
 		pipe_type = PIPE_TYPE_NODE\
 	)
 
-/obj/structure/disposalpipe/trunk/Initialize()
+/obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	getlinked()
 

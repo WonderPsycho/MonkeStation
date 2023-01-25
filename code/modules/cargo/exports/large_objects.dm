@@ -3,7 +3,7 @@
 	k_elasticity = 0
 	unit_name = "crate"
 	export_types = list(/obj/structure/closet/crate)
-	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden)
+	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden, /obj/structure/closet/crate/mail)
 
 /datum/export/large/crate/total_printout(datum/export_report/ex, notes = TRUE) // That's why a goddamn metal crate costs that much.
 	. = ..()
@@ -79,7 +79,7 @@
 /datum/export/large/tesla_coil
 	cost = 450
 	unit_name = "tesla coil"
-	export_types = list(/obj/machinery/power/tesla_coil)
+	export_types = list(/obj/machinery/power/energy_accumulator/tesla_coil)
 
 /datum/export/large/pa
 	cost = 350
@@ -99,7 +99,7 @@
 /datum/export/large/grounding_rod
 	cost = 350
 	unit_name = "grounding rod"
-	export_types = list(/obj/machinery/power/grounding_rod)
+	export_types = list(/obj/machinery/power/energy_accumulator/grounding_rod)
 
 /datum/export/large/tesla_gen
 	cost = 4000
@@ -137,6 +137,7 @@
 	cost = 10 //Base cost of canister. You get more for nice gases inside.
 	unit_name = "Gas Canister"
 	export_types = list(/obj/machinery/portable_atmospherics/canister)
+
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/worth = 10
@@ -144,7 +145,9 @@
 	worth += C.air_contents.get_moles(GAS_BZ)*4
 	worth += C.air_contents.get_moles(GAS_STIMULUM)*100
 	worth += C.air_contents.get_moles(GAS_HYPERNOB)*1000
-	worth += C.air_contents.get_moles(GAS_MIASMA)*10
+	worth += C.air_contents.get_moles(GAS_MIASMA)*4 //MonkeStation Edit: Reduction of Miasma Value
 	worth += C.air_contents.get_moles(GAS_TRITIUM)*5
 	worth += C.air_contents.get_moles(GAS_PLUOXIUM)*5
+	//NUCLEIUM added. Waste Gas from RBMK Nuclear Reactor	//Monkestation Edit
+	worth += C.air_contents.get_moles(GAS_NUCLEIUM)*5
 	return worth

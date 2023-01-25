@@ -116,7 +116,7 @@
 	var/max_portal_pairs = 3
 	var/atmos_link_override
 
-/obj/item/hand_tele/Initialize()
+/obj/item/hand_tele/Initialize(mapload)
 	. = ..()
 	active_portal_pairs = list()
 
@@ -308,7 +308,7 @@
 	var/mob/living/carbon/C = user
 	var/teleport_distance = rand(minimum_teleport_distance,maximum_teleport_distance)
 	var/turf/destination = get_teleport_loc(current_location,C,teleport_distance,0,0,0,0,0,0)
-	var/list/bagholding = user.GetAllContents(/obj/item/storage/backpack/holding)
+	var/list/bagholding = user.get_all_contents_type(/obj/item/storage/backpack/holding)
 
 	if(isclosedturf(destination))
 		if(!EMP_D && !(bagholding.len))

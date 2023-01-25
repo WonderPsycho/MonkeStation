@@ -3,6 +3,9 @@
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
+	icon_state = "white"
+	item_state = "wgloves"
+	worn_icon_state = "wgloves"
 	siemens_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
@@ -12,6 +15,7 @@
 	equip_delay_other = 40
 	// Path variable. If defined, will produced the type through interaction with wirecutters.
 	var/cut_type = null
+	sprite_sheets = FLAG_SIMIAN //monkestation edit: add simians
 
 /obj/item/clothing/gloves/ComponentInitialize()
 	. = ..()
@@ -28,13 +32,18 @@
 	user.visible_message("<span class='suicide'>\the [src] are forcing [user]'s hands around [user.p_their()] neck! It looks like the gloves are possessed!</span>")
 	return OXYLOSS
 
-/obj/item/clothing/gloves/worn_overlays(isinhands = FALSE)
-	. = list()
+/obj/item/clothing/gloves/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+	. = ..()
 	if(!isinhands)
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedgloves")
-		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "bloodyhands")
+		return
+
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedgloves")
+	if(HAS_BLOOD_DNA(src))
+		. += mutable_appearance('icons/effects/blood.dmi', "bloodyhands")
+	else
+		var/mob/living/carbon/human/M = loc
+		. += mutable_appearance('monkestation/icons/effects/blood.dmi', "[lowertext(M.dna.species.name)]_bloodyhands")//considering sprite_sheets is leaving at some point, and upstream does not use them, pathing should be fine.
 
 /obj/item/clothing/gloves/update_clothes_damaged_state(damaging = TRUE)
 	..()

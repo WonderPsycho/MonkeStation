@@ -40,7 +40,7 @@
 	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	countdown = new(src)
 	GLOB.nuke_list += src
@@ -178,6 +178,16 @@
 				update_icon()
 				START_PROCESSING(SSobj, core)
 			return TRUE
+
+/obj/machinery/nuclearbomb/can_interact(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+		return TRUE
+	return ..()
+
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+		return GLOB.conscious_state
+	return ..()
 
 /obj/machinery/nuclearbomb/proc/get_nuke_state()
 	if(exploding)
@@ -471,12 +481,19 @@
 		return
 	qdel(src)
 
-/obj/machinery/nuclearbomb/tesla_act(power, tesla_flags)
-	..()
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/nuclearbomb/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
+
+/**
+ * Begins the process of exploding the nuke.
+ * [proc/explode] -> [proc/actually_explode] -> [proc/really_actually_explode]
+ *
+ * Goes through a few timers and plays a cinematic.
+ */
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE
@@ -538,8 +555,63 @@
 	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap to produce and devastatingly effective. Signs explain that though this particular device has been decommissioned, every Nanotrasen station is equipped with an equivalent one, just in case. All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	proper_bomb = FALSE
 	var/obj/structure/reagent_dispensers/beerkeg/keg
+	var/list/BeerList = list(\
+		/datum/reagent/consumable/ethanol/antifreeze,\
+		/datum/reagent/consumable/ethanol/andalusia,\
+		/datum/reagent/consumable/ethanol/b52,\
+		/datum/reagent/consumable/ethanol/bananahonk,\
+		/datum/reagent/consumable/ethanol/beepsky_smash,\
+		/datum/reagent/consumable/ethanol/between_the_sheets,\
+		/datum/reagent/consumable/ethanol/bilk,\
+		/datum/reagent/consumable/ethanol/black_russian,\
+		/datum/reagent/consumable/ethanol/bloody_mary,\
+		/datum/reagent/consumable/ethanol/brave_bull,\
+		/datum/reagent/consumable/ethanol/martini,\
+		/datum/reagent/consumable/ethanol/cuba_libre,\
+		/datum/reagent/consumable/ethanol/eggnog,\
+		/datum/reagent/consumable/ethanol/erikasurprise,\
+		/datum/reagent/consumable/ethanol/ginfizz,\
+		/datum/reagent/consumable/ethanol/gintonic,\
+		/datum/reagent/consumable/ethanol/grappa,\
+		/datum/reagent/consumable/ethanol/grog,\
+		/datum/reagent/consumable/ethanol/hooch,\
+		/datum/reagent/consumable/ethanol/iced_beer,\
+		/datum/reagent/consumable/ethanol/irishcarbomb,\
+		/datum/reagent/consumable/ethanol/manhattan,\
+		/datum/reagent/consumable/ethanol/margarita,\
+		/datum/reagent/consumable/ethanol/gargle_blaster,\
+		/datum/reagent/consumable/ethanol/rum_coke,\
+		/datum/reagent/consumable/ethanol/screwdrivercocktail,\
+		/datum/reagent/consumable/ethanol/snowwhite,\
+		/datum/reagent/consumable/ethanol/syndicatebomb,\
+		/datum/reagent/consumable/ethanol/tequila_sunrise,\
+		/datum/reagent/consumable/ethanol/manly_dorf,\
+		/datum/reagent/consumable/ethanol/thirteenloko,\
+		/datum/reagent/consumable/ethanol/vodkamartini,\
+		/datum/reagent/consumable/ethanol/whiskeysoda,\
+		/datum/reagent/consumable/ethanol/beer/green,\
+		/datum/reagent/consumable/ethanol/demonsblood,\
+		/datum/reagent/consumable/ethanol/crevice_spike,\
+		/datum/reagent/consumable/ethanol/singulo,\
+		/datum/reagent/consumable/ethanol/whiskey_sour,\
+		/datum/reagent/consumable/ethanol/atomicbomb,\
+		/datum/reagent/consumable/ethanol/bacchus_blessing,\
+		/datum/reagent/consumable/ethanol/bastion_bourbon,\
+		/datum/reagent/consumable/ethanol/booger,\
+		/datum/reagent/consumable/ethanol/hippies_delight,\
+		/datum/reagent/consumable/ethanol/drunkenblumpkin,\
+		/datum/reagent/consumable/ethanol/fetching_fizz,\
+		/datum/reagent/consumable/ethanol/goldschlager,\
+		/datum/reagent/consumable/ethanol/manhattan_proj,\
+		/datum/reagent/consumable/ethanol/narsour,\
+		/datum/reagent/consumable/ethanol/neurotoxin,\
+		/datum/reagent/consumable/ethanol/patron,\
+		/datum/reagent/consumable/ethanol/quadruple_sec,\
+		/datum/reagent/consumable/ethanol/silencer,\
+		/datum/reagent/consumable/ethanol/peppermint_patty,\
+		/datum/reagent/consumable/ethanol/aloe,)
 
-/obj/machinery/nuclearbomb/beer/Initialize()
+/obj/machinery/nuclearbomb/beer/Initialize(mapload)
 	. = ..()
 	keg = new(src)
 	QDEL_NULL(core)
@@ -568,9 +640,11 @@
 		disarm()
 		return
 	if(is_station_level(bomb_location.z))
-		var/datum/round_event_control/E = locate(/datum/round_event_control/vent_clog/beer) in SSevents.control
-		if(E)
-			E.runEvent()
+		var/datum/reagents/R = new/datum/reagents(50000)
+		R.my_atom = bomb_location
+		R.add_reagent(pick(BeerList), 50000)
+
+		bomb_location.add_liquid_from_reagents(R)
 		addtimer(CALLBACK(src, .proc/really_actually_explode), 110)
 	else
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
@@ -638,6 +712,8 @@ This is here to make the tiles around the station mininuke change when it's arme
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	icon_state = "datadisk0"
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 
 /obj/item/disk/nuclear
 	name = "nuclear authentication disk"
@@ -652,7 +728,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	var/last_disk_move
 	var/process_tick = 0
 
-/obj/item/disk/nuclear/Initialize()
+/obj/item/disk/nuclear/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, 6, -6, 0)
 	if(!fake)

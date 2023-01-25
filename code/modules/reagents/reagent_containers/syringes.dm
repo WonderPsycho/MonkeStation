@@ -1,24 +1,29 @@
+#define SYRINGE_DRAW 0
+#define SYRINGE_INJECT 1
+
 /obj/item/reagent_containers/syringe
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "syringe_0"
+	base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	icon_state = "0"
+	icon_state = "syringe_0"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list()
 	volume = 15
 	var/mode = SYRINGE_DRAW
 	var/busy = FALSE		// needed for delayed drawing of blood
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
+	var/shootable = TRUE //can it be used as ammo in syringe guns? //monkestation edit
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
 	var/list/syringediseases = list()
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
 
-/obj/item/reagent_containers/syringe/Initialize()
+/obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
@@ -60,14 +65,16 @@
 	return TRUE
 
 /obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
-	for(var/datum/disease/D in syringediseases)
-		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-			continue
-		L.ForceContractDisease(D)
-	for(var/datum/disease/D in L.diseases)
-		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-			continue
-		syringediseases += D
+	if(iscarbon(L))
+		var/mob/living/carbon/infected = L
+		for(var/datum/disease/D in syringediseases)
+			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+				continue
+			infected.ForceContractDisease(D)
+		for(var/datum/disease/D in infected.diseases)
+			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+				continue
+			syringediseases += D
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -205,8 +212,8 @@
 		add_overlay(filling_overlay)
 	else
 		rounded_vol = 0
-	icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
+	icon_state = "[base_icon_state]_[rounded_vol]"
+	item_state = "[base_icon_state]_[rounded_vol]"
 	if(ismob(loc))
 		var/mob/M = loc
 		var/injoverlay
@@ -224,10 +231,9 @@
 
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
-	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
+	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it."
 
-
-/obj/item/reagent_containers/syringe/used/Initialize()
+/obj/item/reagent_containers/syringe/used/Initialize(mapload)
 	. = ..()
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(7, 9), rand(3,4), infected = src)
@@ -278,16 +284,17 @@
 	desc = "Contains plasma."
 	list_reagents = list(/datum/reagent/toxin/plasma = 15)
 
-/obj/item/reagent_containers/syringe/lethal
-	name = "lethal injection syringe"
-	desc = "A syringe used for lethal injections. It can hold up to 50 units."
+/obj/item/reagent_containers/syringe/meta //monkestation edit
+	name = "metamaterial syringe" //monkestation edit
+	desc = "A large syringe reinforced with titanium and designed for swift injections. It can hold up to 50 units." //monkestation edit
+	shootable = FALSE //monkestation edit
 	amount_per_transfer_from_this = 50
 	volume = 50
 
-/obj/item/reagent_containers/syringe/lethal/choral
+/obj/item/reagent_containers/syringe/meta/choral //monkestation edit
 	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 50)
 
-/obj/item/reagent_containers/syringe/lethal/execution
+/obj/item/reagent_containers/syringe/meta/execution //monkestation edit
 	list_reagents = list(/datum/reagent/toxin/plasma = 15, /datum/reagent/toxin/formaldehyde = 15, /datum/reagent/toxin/cyanide = 10, /datum/reagent/toxin/acid/fluacid = 10)
 
 /obj/item/reagent_containers/syringe/mulligan
@@ -307,7 +314,10 @@
 /obj/item/reagent_containers/syringe/bluespace
 	name = "bluespace syringe"
 	desc = "An advanced syringe that can hold 60 units of chemicals."
+	shootable = FALSE //monkestation edit
 	amount_per_transfer_from_this = 20
+	icon_state = "bluespace_0"
+	base_icon_state = "bluespace"
 	volume = 60
 	units_per_tick = 2
 	initial_inject = 8
@@ -315,6 +325,8 @@
 /obj/item/reagent_containers/syringe/cryo
 	name = "cryo syringe"
 	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
+	icon_state = "cryo_0"
+	base_icon_state = "cryo"
 	volume = 20
 	var/processing = FALSE
 
@@ -343,6 +355,8 @@
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
 	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
+	icon_state = "piercing_0"
+	base_icon_state = "piercing"
 	volume = 10
 	proj_piercing = 1
 	units_per_tick = 1
@@ -350,10 +364,15 @@
 
 /obj/item/reagent_containers/syringe/crude
 	name = "crude syringe"
-	desc = "A crudely made syringe. The flimsy wooden construction makes it hold up minimal amounts of reagents."
+	desc = "A crudely made syringe. The flimsy wooden construction makes it hold a minimal amount of reagents."
+	icon_state = "crude_0"
+	base_icon_state = "crude"
 	volume = 5
 
 /obj/item/reagent_containers/syringe/spider_extract
 	name = "spider extract syringe"
 	desc = "Contains crikey juice - makes any gold core create the most deadly companions in the world."
 	list_reagents = list(/datum/reagent/spider_extract = 1)
+
+#undef SYRINGE_DRAW
+#undef SYRINGE_INJECT

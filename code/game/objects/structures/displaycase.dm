@@ -14,14 +14,17 @@
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
+	var/shatter = TRUE
 	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
 	var/obj/item/electronics/airlock/electronics
 	var/start_showpiece_type = null //add type for items on display
 	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
 	var/trophy_message = ""
 	var/glass_fix = TRUE
+	///Represents a signel source of screaming when broken
+	var/datum/alarm_handler/alarm_manager
 
-/obj/structure/displaycase/Initialize()
+/obj/structure/displaycase/Initialize(mapload)
 	. = ..()
 	if(start_showpieces.len && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
@@ -32,6 +35,7 @@
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
 	update_icon()
+	alarm_manager = new(src)
 
 /obj/structure/displaycase/vv_edit_var(vname, vval)
 	. = ..()
@@ -49,6 +53,7 @@
 /obj/structure/displaycase/Destroy()
 	QDEL_NULL(electronics)
 	QDEL_NULL(showpiece)
+	QDEL_NULL(alarm_manager)
 	return ..()
 
 /obj/structure/displaycase/examine(mob/user)
@@ -69,17 +74,21 @@
 	update_icon()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
-		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+	if(!shatter)
+		playsound(src, 'sound/weapons/egloves.ogg', 35, 1)
+	else
+		switch(damage_type)
+			if(BRUTE)
+				playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
+			if(BURN)
+				playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		dump()
 		if(!disassembled)
-			new /obj/item/shard(drop_location())
+			if(shatter)
+				new /obj/item/shard(drop_location())
 			trigger_alarm()
 	qdel(src)
 
@@ -87,8 +96,11 @@
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		density = FALSE
 		broken = TRUE
-		new /obj/item/shard(drop_location())
-		playsound(src, "shatter", 70, TRUE)
+		if(shatter)
+			new /obj/item/shard(drop_location())
+			playsound(src, "shatter", 70, TRUE)
+		else
+			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
 		update_icon()
 		trigger_alarm()
 
@@ -98,6 +110,10 @@
 		return
 	var/area/alarmed = get_area(src)
 	alarmed.burglaralert(src)
+
+	alarm_manager.send_alarm(ALARM_BURGLAR)
+	addtimer(CALLBACK(alarm_manager, /datum/alarm_handler/proc/clear_alarm, ALARM_BURGLAR), 1 MINUTES)
+
 	playsound(src, 'sound/effects/alert.ogg', 50, TRUE)
 
 /obj/structure/displaycase/update_overlays()
@@ -120,7 +136,7 @@
 			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 			toggle_lock(user)
 		else
-			to_chat(user,  "<span class='alert'>Access denied.</span>")
+			to_chat(user, "<span class='alert'>Access denied.</span>")
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
@@ -147,13 +163,7 @@
 				to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
 				toggle_lock(user)
 	else if(open && !showpiece)
-		if(showpiece_type && !istype(W, showpiece_type))
-			to_chat(user, "<span class='notice'>This doesn't belong in this kind of display.</span>")
-			return TRUE
-		if(user.transferItemToLoc(W, src))
-			showpiece = W
-			to_chat(user, "<span class='notice'>You put [W] on display.</span>")
-			update_icon()
+		insert_showpiece(W, user)
 	else if(glass_fix && broken && istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
 		if(G.get_amount() < 2)
@@ -167,6 +177,15 @@
 			update_icon()
 	else
 		return ..()
+
+/obj/structure/displaycase/proc/insert_showpiece(obj/item/wack, mob/user)
+	if(showpiece_type && !istype(wack, showpiece_type))
+		to_chat(user, "<span class='notice'>This doesn't belong in this kind of display.</span>")
+		return TRUE
+	if(user.transferItemToLoc(wack, src))
+		showpiece = wack
+		to_chat(user, "<span class='notice'>You put [wack] on display.</span>")
+		update_icon()
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open
@@ -281,7 +300,7 @@
 	integrity_failure = 0
 	openable = FALSE
 
-/obj/structure/displaycase/trophy/Initialize()
+/obj/structure/displaycase/trophy/Initialize(mapload)
 	. = ..()
 	GLOB.trophy_cases += src
 
@@ -318,7 +337,7 @@
 		to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
 		return
 
-	for(var/a in W.GetAllContents())
+	for(var/a in W.get_all_contents_type())
 		if(is_type_in_typecache(a, GLOB.blacklisted_cargo_types))
 			to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
 			return
@@ -385,6 +404,7 @@
 	density = FALSE
 	max_integrity = 100
 	req_access = null
+	shatter = FALSE
 	alert = FALSE //No, we're not calling the fire department because someone stole your cookie.
 	glass_fix = FALSE //Fixable with tools instead.
 	pass_flags = PASSTABLE ///Can be placed and moved onto a table.

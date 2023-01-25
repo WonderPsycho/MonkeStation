@@ -1,4 +1,4 @@
-/obj/singularity/factory
+/obj/anomaly/singularity/factory
 	name = "tear in the fabric of reality"
 	desc = "Your own comprehension of reality starts bending as you stare this."
 	icon = 'icons/effects/96x96.dmi'
@@ -9,7 +9,7 @@
 	move_self = 0
 	grav_pull = 1
 
-/obj/singularity/factory/admin_investigate_setup()
+/obj/anomaly/singularity/factory/admin_investigate_setup()
 	return
 
 //AREAS//
@@ -182,7 +182,7 @@
 /area/awaymission/factory/transition
 	name = "Beyond the time"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
+	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg')
 
 //ITEMS//
 
@@ -425,7 +425,7 @@
 	var/cooldown = 0
 	var/static/list/idle_sounds
 
-/mob/living/simple_animal/hostile/psycho/regular/Initialize()
+/mob/living/simple_animal/hostile/psycho/regular/Initialize(mapload)
 	. = ..()
 	idle_sounds = list('sound/creatures/psycidle1.ogg','sound/creatures/psycidle2.ogg','sound/creatures/psycidle3.ogg')
 
@@ -469,7 +469,7 @@
 	speed = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost/muzzle)
 
-/mob/living/simple_animal/hostile/psycho/muzzle/Initialize()
+/mob/living/simple_animal/hostile/psycho/muzzle/Initialize(mapload)
 	. = ..()
 	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg')
 
@@ -521,7 +521,7 @@
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 
-/mob/living/simple_animal/hostile/psycho/trap/Initialize()
+/mob/living/simple_animal/hostile/psycho/trap/Initialize(mapload)
 	. = ..()
 	idle_sounds = list('sound/creatures/psychidle.ogg','sound/creatures/psychidle2.ogg')
 
@@ -581,7 +581,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/heavy)
 	var/cooldown = 0
 
-/mob/living/simple_animal/hostile/syndicate/factory/heavy/Initialize()
+/mob/living/simple_animal/hostile/syndicate/factory/heavy/Initialize(mapload)
 	..()
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy/Aggro()
@@ -674,7 +674,7 @@
 /obj/item/grenade/syndieminibomb/concussion/frag/activated
 	det_time = 30
 
-/obj/item/grenade/syndieminibomb/concussion/frag/activated/Initialize()
+/obj/item/grenade/syndieminibomb/concussion/frag/activated/Initialize(mapload)
 	..()
 	preprime()
 
@@ -758,7 +758,7 @@
 	if(health <= 150)
 		if(prob(5) && Aggro())//change to insult the target on low health
 			playsound(get_turf(src), 'sound/voice/beepsky/insult.ogg', 100, 0, 0)
-			visible_message("<font color='red' size='4'><b>FUCK YOUR CUNT YOU SHIT EATING COCKSTORM AND EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND POO AND SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</b></font>")
+			visible_message("<font color='red' size='4'><b>%^!!&@#&*@#*%&%!@#!&*#&@(!*#&@#*%&!%!%#*(@&!*#%&!!</b></font>")
 		icon_state = "facboss3"
 		icon_living = "facboss3"
 		ranged_cooldown_time = 10//even faster

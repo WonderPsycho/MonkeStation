@@ -45,7 +45,7 @@
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/effect/dummy/phased_mob/shadow/relaymove(mob/user, direction)
+/obj/effect/dummy/phased_mob/shadow/relaymove(mob/living/user, direction)
 	var/turf/newLoc = get_step(src,direction)
 	if(isspaceturf(newLoc))
 		to_chat(user, "<span class='warning'>It really would not be wise to go into space.</span>")
@@ -59,7 +59,7 @@
 	if(light_amount > 0.2) // jaunt ends
 		end_jaunt(TRUE)
 	else if (light_amount < 0.2 && (!QDELETED(jaunter))) //heal in the dark
-		jaunter.heal_overall_damage(1,1, 0, BODYPART_ORGANIC)
+		jaunter.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 
 /obj/effect/dummy/phased_mob/shadow/proc/end_jaunt(forced = FALSE)
 	if(jaunter)

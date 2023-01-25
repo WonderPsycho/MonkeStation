@@ -8,12 +8,14 @@
 
 /obj/item/grenade/flashbang/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	var/flashbang_turf = get_turf(src)
 	if(!flashbang_turf)
 		return
 	do_sparks(rand(5, 9), FALSE, src)
-	playsound(flashbang_turf, 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
+	playsound(flashbang_turf, 'sound/weapons/flashbang.ogg', 75, TRUE, 8, 0.9)
 	new /obj/effect/dummy/lighting_obj (flashbang_turf, flashbang_range + 2, 4, COLOR_WHITE, 2)
 	for(var/mob/living/M in viewers(flashbang_range, flashbang_turf))
 		flash(get_turf(M), M)
@@ -74,6 +76,10 @@
 	shrapnel_radius = 12
 
 /obj/item/grenade/stingbang/prime(mob/living/lanced_by)
+	if(dud_flags)
+		active = FALSE
+		update_icon()
+		return FALSE
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
 		var/obj/item/bodypart/B = C.get_holding_bodypart_of_item(src)
@@ -140,6 +146,8 @@
 /obj/item/grenade/primer/prime(mob/living/lanced_by)
 	shrapnel_radius = round(rots / rots_per_mag)
 	. = ..()
+	if(!.)
+		return
 	qdel(src)
 
 /obj/item/grenade/primer/stingbang

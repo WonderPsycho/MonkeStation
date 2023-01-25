@@ -104,13 +104,11 @@
 	..()
 	for(var/X in paralysis_traits)
 		ADD_TRAIT(owner, X, "trauma_paralysis")
-	owner.update_disabled_bodyparts()
 
 /datum/brain_trauma/severe/paralysis/on_lose()
 	..()
 	for(var/X in paralysis_traits)
 		REMOVE_TRAIT(owner, X, "trauma_paralysis")
-	owner.update_disabled_bodyparts()
 
 /datum/brain_trauma/severe/paralysis/paraplegic
 	random_gain = FALSE
@@ -177,7 +175,7 @@
 		return
 
 	var/high_stress = (stress > 60) //things get psychosomatic from here on
-	switch(rand(1,6))
+	switch(rand(1, 6))
 		if(1)
 			if(!high_stress)
 				to_chat(owner, "<span class='warning'>You feel sick...</span>")
@@ -216,6 +214,8 @@
 				else
 					to_chat(owner, "<span class='userdanger'>You feel your heart lurching in your chest...</span>")
 					owner.adjustOxyLoss(8)
+		else
+			SWITCH_EMPTY_STATEMENT
 
 /datum/brain_trauma/severe/discoordination
 	name = "Discoordination"

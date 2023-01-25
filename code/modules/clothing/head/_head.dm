@@ -1,7 +1,6 @@
 /obj/item/clothing/head
 	name = BODY_ZONE_HEAD
 	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "top_hat"
 	item_state = "that"
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
@@ -9,11 +8,13 @@
 	var/can_toggle = null
 	dynamic_hair_suffix = "+generic"
 
-/obj/item/clothing/head/Initialize()
+/obj/item/clothing/head/Initialize(mapload)
 	. = ..()
 	if(ishuman(loc) && dynamic_hair_suffix)
 		var/mob/living/carbon/human/H = loc
 		H.update_hair()
+	remove_verb(/obj/item/clothing/head/verb/detach_stacked_hat)//MonkeStation Edit: Hat Stacking
+
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -60,13 +61,29 @@
 			R.visible_message("<span class='notice'>[src] lands neatly on top of [R]</span>", "<span class='notice'>[src] lands perfectly on top of you.</span>")
 			R.place_on_head(src) //hats aren't designed to snugly fit borg heads or w/e so they'll always manage to knock eachother off
 
-/obj/item/clothing/head/worn_overlays(isinhands = FALSE)
-	. = list()
-	if(!isinhands)
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet")
-		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood")
+/obj/item/clothing/head/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+	. = ..()
+	if(isinhands)
+		return
+
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet")
+	if(HAS_BLOOD_DNA(src))
+		. += mutable_appearance('icons/effects/blood.dmi', "helmetblood")
+	//MonkeStation Edit: Hat Stacking
+	//This section handles the worn icon itself, not the item icon.
+		if(contents)
+			var/current_hat = 1
+			for(var/obj/item/clothing/head/selected_hat in contents)
+				var/head_icon = 'icons/mob/clothing/head.dmi'
+				if(selected_hat.worn_icon)
+					head_icon = selected_hat.icon
+				var/mutable_appearance/hat_adding = selected_hat.build_worn_icon(HEAD_LAYER, head_icon, FALSE, FALSE)
+				hat_adding.pixel_y = ((current_hat * 4) - 1)
+				hat_adding.pixel_x = (rand(-1, 1))
+				current_hat++
+				. += hat_adding
+	//MonkeStation Edit End
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaging = TRUE)
 	..()

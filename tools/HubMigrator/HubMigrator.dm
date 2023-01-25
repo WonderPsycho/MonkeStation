@@ -1,44 +1,45 @@
 //Misc Medal hub IDs
-#define MEDAL_METEOR 			"Your Life Before Your Eyes"
-#define MEDAL_PULSE 			"Jackpot"
+#define MEDAL_METEOR			"Your Life Before Your Eyes"
+#define MEDAL_PULSE				"Jackpot"
 #define MEDAL_TIMEWASTE 		"Overextended The Joke"
 #define MEDAL_RODSUPLEX 		"Feat of Strength"
-#define MEDAL_CLOWNCARKING 		"Round and Full"
+#define MEDAL_CLOWNCARKING		"Round and Full"
 #define MEDAL_THANKSALOT 		"The Best Driver"
-#define MEDAL_SINGULARITY_DEATH       "Crossing the Horizon" // get eaten by a singularity
-#define MEDAL_GET_CLUWNED             "KILLMEKILLMEKILLME" // get turned into a vile creature known as a cluwne
-#define MEDAL_USE_WEIGHT_MACHINE      "Survival of the Fittest"
-#define MEDAL_UNWRENCH_HIGH_PRESSURE  "WHOOSH!"
-#define MEDAL_COMPLETE_ALL_OBJECTIVES "Greentext"
-#define MEDAL_APPLY_REAGENT_METH      "NYOOOOM"
-#define MEDAL_APPLY_REAGENT_SOYMILK   "Soyboy"
-#define MEDAL_15_AI_LAW_CHANGES       "Dave, my mind is going"
-#define MEDAL_DETONATE_WELDERBOMB     "That was stupid of you."
-#define MEDAL_SUCCUMB                 "Please just end the pain"
-#define MEDAL_GHOSTS                  "G-G-Ghosts?"
+#define MEDAL_SINGULARITY_DEATH			"Crossing the Horizon" // get eaten by a singularity
+#define MEDAL_SINGULARITY_BUSTER		"The Lord Dethroned" //Singularity Nullified
+#define MEDAL_GET_CLUWNED				"KILLMEKILLMEKILLME" // get turned into a vile creature known as a cluwne
+#define MEDAL_USE_WEIGHT_MACHINE		"Survival of the Fittest"
+#define MEDAL_UNWRENCH_HIGH_PRESSURE	"WHOOSH!"
+#define MEDAL_COMPLETE_ALL_OBJECTIVES	"Greentext"
+#define MEDAL_APPLY_REAGENT_METH		"NYOOOOM"
+#define MEDAL_APPLY_REAGENT_SOYMILK		"Soyboy"
+#define MEDAL_15_AI_LAW_CHANGES			"Dave, my mind is going"
+#define MEDAL_DETONATE_WELDERBOMB		"That was stupid of you."
+#define MEDAL_SUCCUMB					"Please just end the pain"
+#define MEDAL_GHOSTS					"G-G-Ghosts?"
 
 //Boss medals
 
 // Medal hub IDs for boss medals (Pre-fixes)
-#define BOSS_MEDAL_ANY		  "Killer"
-#define BOSS_MEDAL_MINER	  "Blood-drunk Miner"
-#define BOSS_MEDAL_BUBBLEGUM  "Bubblegum"
-#define BOSS_MEDAL_COLOSSUS	  "Colossus"
-#define BOSS_MEDAL_DRAKE	  "Drake"
-#define BOSS_MEDAL_HIEROPHANT "Hierophant"
-#define BOSS_MEDAL_LEGION	  "Legion"
-#define BOSS_MEDAL_TENDRIL	  "Tendril"
-#define BOSS_MEDAL_SWARMERS   "Swarmer Beacon"
+#define BOSS_MEDAL_ANY			"Killer"
+#define BOSS_MEDAL_MINER		"Blood-drunk Miner"
+#define BOSS_MEDAL_BUBBLEGUM	"Bubblegum"
+#define BOSS_MEDAL_COLOSSUS		"Colossus"
+#define BOSS_MEDAL_DRAKE		"Drake"
+#define BOSS_MEDAL_HIEROPHANT	"Hierophant"
+#define BOSS_MEDAL_LEGION		"Legion"
+#define BOSS_MEDAL_TENDRIL		"Tendril"
+#define BOSS_MEDAL_SWARMERS		"Swarmer Beacon"
 
 // Medal hub IDs for boss-kill scores
-#define BOSS_SCORE 	         "Bosses Killed"
-#define BUBBLEGUM_SCORE 	 "Bubblegum Killed"
-#define COLOSSUS_SCORE 	     "Colossus Killed"
-#define DRAKE_SCORE 	     "Drakes Killed"
-#define HIEROPHANT_SCORE 	 "Hierophants Killed"
-#define LEGION_SCORE 	     "Legion Killed"
-#define SWARMER_BEACON_SCORE "Swarmer Beacons Killed"
-#define TENDRIL_CLEAR_SCORE	 "Tendrils Killed"
+#define BOSS_SCORE				"Bosses Killed"
+#define BUBBLEGUM_SCORE			"Bubblegum Killed"
+#define COLOSSUS_SCORE			"Colossus Killed"
+#define DRAKE_SCORE				"Drakes Killed"
+#define HIEROPHANT_SCORE		"Hierophants Killed"
+#define LEGION_SCORE			"Legion Killed"
+#define SWARMER_BEACON_SCORE	"Swarmer Beacons Killed"
+#define TENDRIL_CLEAR_SCORE		"Tendrils Killed"
 
 
 
@@ -57,16 +58,17 @@
 						MEDAL_RODSUPLEX,
 						MEDAL_CLOWNCARKING,
 						MEDAL_THANKSALOT,
-                        MEDAL_SINGULARITY_DEATH,
-                        MEDAL_GET_CLUWNED,
-                        MEDAL_USE_WEIGHT_MACHINE,
-                        MEDAL_UNWRENCH_HIGH_PRESSURE,
-                        MEDAL_COMPLETE_ALL_OBJECTIVES,
-                        MEDAL_APPLY_REAGENT_METH,
-                        MEDAL_APPLY_REAGENT_SOYMILK,
-                        MEDAL_15_AI_LAW_CHANGES,
-                        MEDAL_DETONATE_WELDERBOMB,
-                        MEDAL_SUCCUMB,
+						MEDAL_SINGULARITY_DEATH,
+						MEDAL_SINGULARITY_BUSTER,
+						MEDAL_GET_CLUWNED,
+						MEDAL_USE_WEIGHT_MACHINE,
+						MEDAL_UNWRENCH_HIGH_PRESSURE,
+						MEDAL_COMPLETE_ALL_OBJECTIVES,
+						MEDAL_APPLY_REAGENT_METH,
+						MEDAL_APPLY_REAGENT_SOYMILK,
+						MEDAL_15_AI_LAW_CHANGES,
+						MEDAL_DETONATE_WELDERBOMB,
+						MEDAL_SUCCUMB,
 						MEDAL_GHOSTS,
 						BOSS_MEDAL_ANY,
 						BOSS_MEDAL_MINER,
@@ -109,8 +111,8 @@
 		var/data = file2text(result["CONTENT"])
 		var/regex/page_info = regex(@"page = (\d*)")
 		page_info.Find(data)
-		var/recieved_page = text2num(page_info.group[1])
-		if(recieved_page != requested_page) //out of entries
+		var/received_page = text2num(page_info.group[1])
+		if(received_page != requested_page) //out of entries
 			break
 		else
 			requested_page++
@@ -136,12 +138,12 @@
 
 	var/list/scores_data = list()
 	for(var/score in valid_scores)
-		var/recieved_count = 0
+		var/received_count = 0
 		while(1)
-			world << "Fetching [score] scores, offset :[recieved_count] of [score]"
-			var/list/batch = params2list(world.GetScores(giant_list_of_ckeys.len,recieved_count,score,hub_address,hub_password))
+			world << "Fetching [score] scores, offset :[received_count] of [score]"
+			var/list/batch = params2list(world.GetScores(giant_list_of_ckeys.len,received_count,score,hub_address,hub_password))
 			world << "Fetched [batch.len] scores for [score]."
-			recieved_count += batch.len
+			received_count += batch.len
 			if(!batch.len)
 				break
 			for(var/value in batch)

@@ -7,7 +7,7 @@
 
 	if(!gibbed)
 		INVOKE_ASYNC(src, .proc/emote, "deathgasp")
-
+		addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES) //MonkeStation Edit: Delay before miasma Issue#183
 	. = ..()
 
 	for(var/T in get_traumas())
@@ -23,6 +23,9 @@
 		M.forceMove(Tsec)
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 	..()
+
+/mob/living/carbon/spawn_gibs()
+	new /obj/effect/gibspawner/generic(drop_location(), src, get_static_viruses())
 
 /mob/living/carbon/spill_organs(no_brain, no_organs, no_bodyparts)
 	var/atom/Tsec = drop_location()
@@ -57,7 +60,6 @@
 
 
 /mob/living/carbon/spread_bodyparts()
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		BP.drop_limb()
 		BP.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)

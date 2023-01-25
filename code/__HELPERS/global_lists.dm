@@ -31,10 +31,12 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.r_wings_list,roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/caps, GLOB.caps_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wingsopen, GLOB.moth_wingsopen_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey, GLOB.tails_list_monkey)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
@@ -46,27 +48,40 @@
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
 	sortList(GLOB.surgeries_list)
-
 	GLOB.emote_list = init_emote_list()
 
-
+	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
+	for(var/path in subtypesof(/datum/sprite_accessory/hair_gradient))
+		var/datum/sprite_accessory/hair_gradient/H = new path()
+		GLOB.hair_gradients_list[H.name] = H
 
 	// Keybindings
 	for(var/KB in subtypesof(/datum/keybinding))
 		var/datum/keybinding/keybinding = KB
-		if(!initial(keybinding.key) || !initial(keybinding.keybind_signal))
+		if((!initial(keybinding.key) && !initial(keybinding.goon_key)) || !initial(keybinding.keybind_signal)) //MONKESTATION CHANGE: added goon keybinds (#84)
 			continue
 		var/datum/keybinding/instance = new keybinding
 		GLOB.keybindings_by_name[initial(instance.name)] = instance
+
 		if (!(initial(instance.key) in GLOB.keybinding_list_by_key))
-			GLOB.keybinding_list_by_key[initial(instance.key)] = list()
-		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
+			GLOB.keybinding_list_by_key[instance.key] = list() //MONKESTATION CHANGE: made this not use intial. Why did this fix it, and why did it use it in the first place aaaaa (#84)
+
+		if (!(instance.goon_key in GLOB.goon_keybinding_list_by_key)) //MONKESTATION CHANGE: added goon keybinds (#84)
+			GLOB.goon_keybinding_list_by_key[instance.goon_key] = list()
+
+		GLOB.keybinding_list_by_key[instance.key] += instance?.name
+
+		if (instance.goon_key) //MONKESTATION CHANGE: added goon keybinds (#84)
+			GLOB.goon_keybinding_list_by_key[instance.goon_key] += instance.name
 	// Sort all the keybindings by their weight
 	for(var/key in GLOB.keybinding_list_by_key)
 		GLOB.keybinding_list_by_key[key] = sortList(GLOB.keybinding_list_by_key[key])
 
+	for(var/key in GLOB.goon_keybinding_list_by_key) //MONKESTATION CHANGE: added goon keybinds (#84)
+		GLOB.goon_keybinding_list_by_key[key] = sortList(GLOB.goon_keybinding_list_by_key[key])
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
+	init_emote_keybinds() //MonkeStation Edit: /tg/ Emote Hotkey Port
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
@@ -85,3 +100,47 @@
 		for(var/path in subtypesof(prototype))
 			L+= path
 		return L
+
+/*
+Checks if that loc and dir has an item on the wall
+*/
+// Wall mounted machinery which are visually on the wall.
+GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
+	/obj/machinery/power/apc,
+	/obj/machinery/airalarm,
+	/obj/item/radio/intercom,
+	/obj/structure/extinguisher_cabinet,
+	/obj/structure/reagent_dispensers/peppertank,
+	/obj/machinery/status_display,
+	/obj/machinery/requests_console,
+	/obj/machinery/light_switch,
+	/obj/structure/sign,
+	/obj/machinery/newscaster,
+	/obj/machinery/firealarm,
+	/obj/structure/noticeboard,
+	/obj/machinery/button,
+	/obj/machinery/computer/security/telescreen,
+	/obj/machinery/embedded_controller/radio/simple_vent_controller,
+	/obj/item/storage/secure/safe,
+	/obj/machinery/door_timer,
+	/obj/machinery/flasher,
+	/obj/machinery/keycard_auth,
+	/obj/structure/mirror,
+	/obj/structure/fireaxecabinet,
+	/obj/machinery/computer/security/telescreen/entertainment,
+	/obj/structure/sign/picture_frame
+	)))
+
+// Wall mounted machinery which are visually coming out of the wall.
+// These do not conflict with machinery which are visually placed on the wall.
+GLOBAL_LIST_INIT(WALLITEMS_EXTERIOR, typecacheof(list(
+	/obj/machinery/camera,
+	/obj/machinery/light,
+	/obj/structure/camera_assembly,
+	/obj/structure/light_construct
+	)))
+
+GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
+	/obj/structure/light_construct,
+	/obj/machinery/light
+	)))

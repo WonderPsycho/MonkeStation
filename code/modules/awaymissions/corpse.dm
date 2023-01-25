@@ -89,8 +89,9 @@
 		M.gender = mob_gender
 	if(faction)
 		M.faction = list(faction)
-	if(disease)
-		M.ForceContractDisease(new disease)
+	if(disease && iscarbon(M))
+		var/mob/living/carbon/infective = M
+		infective.ForceContractDisease(new disease)
 	if(death)
 		M.death(1) //Kills the new mob
 
@@ -173,7 +174,7 @@
 	var/facial_hair_style
 	var/skin_tone
 
-/obj/effect/mob_spawn/human/Initialize()
+/obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -199,9 +200,9 @@
 	else
 		H.facial_hair_style = random_facial_hair_style(H.gender)
 	if(skin_tone)
-		H.skin_tone = skin_tone
+		H.skin_tone = GLOB.skin_tones[H.dna.species.skin_tone_list]
 	else
-		H.skin_tone = random_skin_tone()
+		H.skin_tone = random_skin_tone(H.dna.species.skin_tone_list)
 	H.update_hair()
 	H.update_body()
 	if(outfit)
@@ -220,7 +221,7 @@
 			// Using crew monitors to find corpses while creative makes finding certain ruins too easy.
 			var/obj/item/clothing/under/C = H.w_uniform
 			if(istype(C))
-				C.sensor_mode = NO_SENSORS
+				C.update_sensors(NO_SENSORS)
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
@@ -439,8 +440,8 @@
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/storage/wallet/random
-	l_pocket = /obj/item/reagent_containers/food/snacks/pizzaslice/dank;
-	uniform = /obj/item/clothing/under/pants/youngfolksjeans
+	l_pocket = /obj/item/food/pizzaslice/dank;
+	uniform = /obj/item/clothing/under/pants/jeans
 	id = /obj/item/card/id
 
 /datum/outfit/beachbum/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

@@ -121,7 +121,7 @@
 	var/obj/item/I = parent
 	modeswitch_action = new(I)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, .proc/action_trigger)
-	if(I.obj_flags & IN_INVENTORY)
+	if(I.item_flags & PICKED_UP)
 		var/mob/M = I.loc
 		if(!istype(M))
 			return
@@ -345,7 +345,6 @@
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
 			ND.sample_object.maptext = MAPTEXT("<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>")
-			ND.sample_object.layer = ABOVE_HUD_LAYER
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx - screen_start_x >= cols)
@@ -361,7 +360,6 @@
 			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
 			O.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
 			O.maptext = ""
-			O.layer = ABOVE_HUD_LAYER
 			O.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx - screen_start_x >= cols)
@@ -438,7 +436,6 @@
 		if(QDELETED(O))
 			continue
 		O.screen_loc = "[cx],[cy]"
-		O.layer = ABOVE_HUD_LAYER
 		O.plane = ABOVE_HUD_PLANE
 		cx++
 		if(cx > mx)
@@ -629,7 +626,7 @@
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE
-	if(I.w_class > max_w_class)
+	if((I.w_class > max_w_class) && !is_type_in_typecache(I, exception_hold))
 		if(!stop_messages)
 			host.balloon_alert(M, "[I] is too big")
 		return FALSE

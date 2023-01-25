@@ -6,7 +6,7 @@
 	icon_state = "construction_drone"
 	var/area/starting_area
 
-/mob/camera/ai_eye/remote/base_construction/Initialize()
+/mob/camera/ai_eye/remote/base_construction/Initialize(mapload)
 	. = ..()
 	starting_area = get_area(loc)
 
@@ -16,9 +16,9 @@
 		return ..()
 	//While players are only allowed to build in the base area, but consoles starting outside the base can move into the base area to begin work.
 
-/mob/camera/ai_eye/remote/base_construction/relaymove(mob/user, direct)
-	dir = direct //This camera eye is visible as a drone, and needs to keep the dir updated
-	..()
+/mob/camera/ai_eye/remote/base_construction/relaymove(mob/living/user, direction)
+	dir = direction //This camera eye is visible as a drone, and needs to keep the dir updated
+	return ..()
 
 /obj/item/construction/rcd/internal //Base console's internal RCD. Roundstart consoles are filled, rebuilt cosoles start empty.
 	name = "internal RCD"
@@ -49,7 +49,7 @@
 
 	light_color = LIGHT_COLOR_PINK
 
-/obj/machinery/computer/camera_advanced/base_construction/Initialize()
+/obj/machinery/computer/camera_advanced/base_construction/Initialize(mapload)
 	. = ..()
 	RCD = new(src)
 
@@ -210,13 +210,13 @@
 
 
 /datum/action/innate/aux_base/window_type
-	name = "Select Window Type"
+	name = "Select Window Glass"
 	button_icon_state = "window_select"
 
 /datum/action/innate/aux_base/window_type/Activate()
 	if(..())
 		return
-	B.RCD.toggle_window_type()
+	B.RCD.toggle_window_glass()
 
 /datum/action/innate/aux_base/place_fan
 	name = "Place Tiny Fan"
@@ -261,7 +261,7 @@
 
 	var/turf/turret_turf = get_turf(remote_eye)
 
-	if(is_blocked_turf(turret_turf))
+	if(turret_turf.is_blocked_turf())
 		to_chat(owner, "<span class='warning'>Location is obstructed by something. Please clear the location and try again.</span>")
 		return
 

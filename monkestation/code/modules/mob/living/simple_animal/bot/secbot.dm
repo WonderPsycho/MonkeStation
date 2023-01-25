@@ -28,16 +28,16 @@
 
 /mob/living/simple_animal/bot/secbot/pizzky/New()
 	..()
+	last_grumble_speak = world.time //so he doesn't grumble on spawn
 	var/list/messagevoice = list("I AM NOW ALIVE AND I'M ABOUT TO MAKE IT EVERYONE ELSE'S PROBLEM!" = 'monkestation/sound/voice/pizzky/spawn1.ogg',
 								 "WHY THE FUCK WOULD YOU BUILD THIS? WHAT THE FUCK IS WRONG WITH YOU?!" = 'monkestation/sound/voice/pizzky/spawn2.ogg')
 	var/message = pick(messagevoice)
 	say(message)
 	playsound(src,messagevoice[message], 100, 0)
-	sleep(10 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/pizzky/explode()
 	var/atom/Tsec = drop_location()
-	new /obj/item/reagent_containers/food/snacks/pizzaslice/meat(Tsec)
+	new /obj/item/food/pizzaslice/meat(Tsec)
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/S = new(Tsec)
 	S.reagents.add_reagent(/datum/reagent/consumable/ethanol/moonshine, 15)
 	S.on_reagent_change(ADD_REAGENT)

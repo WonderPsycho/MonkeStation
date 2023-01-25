@@ -45,6 +45,10 @@
 			adjustBruteLoss(2)
 
 		if(stat != DEAD)
+			//Random events (vomiting etc)
+			handle_random_events()
+
+		if(stat != DEAD)
 			//Handle hygiene
 			if(HAS_TRAIT(src, TRAIT_ALWAYS_CLEAN))
 				set_hygiene(HYGIENE_LEVEL_CLEAN)
@@ -103,17 +107,7 @@
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
-
-	if(eye_blind)			//blindness, heals slowly over time
-		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
-			adjust_blindness(-3)
-		else
-			adjust_blindness(-1)
-		//If you have blindness from a trait, heal blurryness too, otherwise return and ignore that.
-		if(!(HAS_TRAIT(src, TRAIT_BLIND)))
-			return
-	if(eye_blurry)			//blurry eyes heal slowly
-		adjust_blurriness(-1)
+	return ..()
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	if(!dna || !dna.species.handle_mutations_and_radiation(src))
@@ -309,7 +303,7 @@
 
 	return min(1,thermal_protection)
 
-/mob/living/carbon/human/handle_random_events()
+/mob/living/carbon/human/proc/handle_random_events()
 	//Puke if toxloss is too high
 	if(!stat)
 		if(getToxLoss() >= 45 && nutrition > 20)

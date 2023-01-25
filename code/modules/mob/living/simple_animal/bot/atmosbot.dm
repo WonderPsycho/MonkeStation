@@ -31,8 +31,8 @@
 
 	radio_key = /obj/item/encryptionkey/headset_eng
 	radio_channel = RADIO_CHANNEL_ENGINEERING
-	bot_type = FLOOR_BOT
-	model = "Floorbot"
+	bot_type = ATMOS_BOT
+	model = "Atmosbot"
 	bot_core = /obj/machinery/bot_core/floorbot
 	window_id = "autofloor"
 	window_name = "Automatic Station Atmospherics Restabilizer v1.1"
@@ -64,7 +64,28 @@
 		GAS_STIMULUM = 0,
 		GAS_TRITIUM = 1,
 		GAS_H2O = 0,
+		GAS_NUCLEIUM = 1,
 	)
+
+	//For getting the proper name of things
+	var/static/list/gas_map = list(
+		GAS_O2 = /datum/gas/oxygen,
+		GAS_N2 = /datum/gas/nitrogen,
+		GAS_BZ = /datum/gas/bz,
+		GAS_CO2 = /datum/gas/carbon_dioxide,
+		GAS_HYPERNOB = /datum/gas/hypernoblium,
+		GAS_MIASMA = /datum/gas/miasma,
+		GAS_NITROUS = /datum/gas/nitrous_oxide,
+		GAS_NITRYL = /datum/gas/nitryl,
+		GAS_PLASMA = /datum/gas/plasma,
+		GAS_PLUOXIUM = /datum/gas/pluoxium,
+		GAS_STIMULUM = /datum/gas/stimulum,
+		GAS_TRITIUM = /datum/gas/tritium,
+		GAS_H2O = /datum/gas/water_vapor,
+		//NUCLEIUM added. Waste Gas from RBMK Nuclear Reactor	//Monkestation Edit
+		GAS_NUCLEIUM = /datum/gas/nucleium,
+	)
+
 	//Tank type
 	var/tank_type = /obj/item/tank/internals/oxygen/empty
 
@@ -294,10 +315,9 @@
 		dat += "Temperature Control: <a href='?src=[REF(src)];toggle_temp_control=1'>[temperature_control?"Enabled":"Disabled"]</a><br>"
 		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]C</a><br>"
 		dat += "Gas Scrubbing Controls<br>"
-		for(var/gas_typepath in gasses)
-			var/gas_enabled = gasses[gas_typepath]
-			var/datum/gas/gas_type = gas_typepath
-			dat += "[initial(gas_type.name)]: <a href='?src=[REF(src)];toggle_gas=[gas_typepath]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
+		for(var/gas_id in gasses)
+			var/gas_enabled = gasses[gas_id]
+			dat += "[GLOB.gas_data.names[gas_id]]: <a href='?src=[REF(src)];toggle_gas=[gas_id]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
 		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
 	return dat
 
@@ -313,9 +333,9 @@
 	else if(href_list["toggle_temp_control"])
 		temperature_control = temperature_control ? FALSE : TRUE
 	else if(href_list["toggle_gas"])
-		var/gas_datum = href_list["toggle_gas"]
+		var/gas_id = href_list["toggle_gas"]
 		for(var/G in gasses)
-			if("[G]" == gas_datum)
+			if("[G]" == gas_id)
 				gasses[G] = gasses[G] ? FALSE : TRUE
 	else if(href_list["set_ideal_temperature"])
 		var/new_temp = input(usr, "Set Target Temperature ([T0C] to [T20C + 20])", "Target Temperature") as num
@@ -348,9 +368,7 @@
 	var/obj/item/tank/tank = new tank_type(Tsec)
 	var/datum/gas_mixture/GM = Tsec.return_air()
 	if(tank && GM)
-		for(var/datum/gas/G in tank.air_contents.get_gases())
-			GM.adjust_moles(G.type, tank.air_contents.get_moles(G))
-			tank.air_contents.adjust_moles(G.type, -tank.air_contents.get_moles())
+		GM.merge(tank.air_contents)
 		new /obj/effect/temp_visual/vent_wind(Tsec)
 	if(deployed_holobarrier)
 		qdel(deployed_holobarrier.resolve())

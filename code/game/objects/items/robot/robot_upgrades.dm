@@ -50,7 +50,7 @@
 		R.custom_name = heldname
 		R.updatename()
 		if(oldname == R.real_name)
-			R.notify_ai(RENAME, oldname, R.real_name)
+			R.notify_ai(AI_NOTIFICATION_CYBORG_RENAMED, oldname, R.real_name)
 		log_game("[key_name(user)] have used a cyborg reclassification board to rename [oldkeyname] to [key_name(R)] at [loc_name(user)]")
 
 /obj/item/borg/upgrade/restart
@@ -263,9 +263,9 @@
 		for(var/obj/item/mop/cyborg/M in R.module.modules)
 			R.module.remove_module(M, TRUE)
 
-	var/obj/item/mop/advanced/cyborg/A = new /obj/item/mop/advanced/cyborg(R.module)
-	R.module.basic_modules += A
-	R.module.add_module(A, FALSE, TRUE)
+		var/obj/item/mop/advanced/cyborg/A = new /obj/item/mop/advanced/cyborg(R.module)
+		R.module.basic_modules += A
+		R.module.add_module(A, FALSE, TRUE)
 
 /obj/item/borg/upgrade/amop/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -355,7 +355,7 @@
 		deactivate_sr()
 
 /obj/item/borg/upgrade/selfrepair/dropped()
-	. = ..()
+	..()
 	addtimer(CALLBACK(src, .proc/check_dropped), 1)
 
 /obj/item/borg/upgrade/selfrepair/proc/check_dropped()
@@ -555,7 +555,7 @@
 	if (.)
 		if(R.shell)
 			R.undeploy()
-			R.notify_ai(AI_SHELL)
+			R.notify_ai(AI_NOTIFICATION_AI_SHELL)
 
 /obj/item/borg/upgrade/expand
 	name = "borg expander"
@@ -692,6 +692,12 @@
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/security
 	module_flags = BORG_MODULE_SECURITY
+
+/obj/item/borg/upgrade/transform/borgi
+	name = "borg module picker (Borgi)"
+	desc = "Allows you to to turn a cyborg into a weapon to surpass Ian-gear."
+	icon_state = "cyborg_upgrade3"
+	new_module = /obj/item/robot_module/borgi
 
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))
@@ -845,7 +851,7 @@
 /obj/item/borg/upgrade/speciality/party
 	name = "Party Speciality"
 	desc = "The night's still young..."
-	hat = /obj/item/clothing/head/beanie/rasta
+	hat = /obj/item/clothing/head/rasta
 	addmodules = list (
 		/obj/item/stack/tile/light/cyborg,
 		/obj/item/crowbar/cyborg,

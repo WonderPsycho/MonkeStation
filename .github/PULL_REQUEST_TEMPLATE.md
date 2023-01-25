@@ -1,40 +1,26 @@
 <!-- Write **BELOW** The Headers and **ABOVE** The comments else it may not be viewable. -->
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->
 
-## About The Pull Request
+# About The Pull Request
 
 <!-- Describe The Pull Request. Please be sure every change is documented or this can delay review and even discourage maintainers from merging your PR! -->
 
 ## Why It's Good For The Game
 
 <!-- Please add a short description of why you think these changes would benefit the game. If you can't justify it in words, it might not be worth adding.
-Also put closed issues under this tag, if any. Format is as follows(must be lowercase):
-closes #123456789
 -->
 
 ## Testing Photographs and Procedure
-<!--
-Include any screenshots, videos, etc. of you testing your code with it successfully functioning.
-Ideally testing should cover:
-Intended use cases(IE: if you are making a shotgun, test it as you intend for it to be used.)
-Potential edge cases(IE: try loading different ammo than you designed for into the shotgun.)
-Please include the steps you went through for the testing(videos are exempt so long as we can see everything being done in frame). Said steps can also help us help you with any issues you encounter during development.
-Pulls from Upstream are generally exempt from this.
--->
+<!-- Include any screenshots/videos/debugging steps of the modified code functioning successfully, ideally including edge cases. -->
 <details>
-
-
-
 <summary>Screenshots&Videos</summary>
 
-
-
-Put screenshots and Videos documenting testing and execution of intended behaviors here
-
+Put screenshots and videos here with an empty line between the screenshots and the `<details>` tags.
 
 </details>
 
 ## Changelog
+
 :cl:
 add: Added new things
 add: Added more things

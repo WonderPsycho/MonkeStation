@@ -8,11 +8,11 @@
 	layer = SPACEVINE_MOB_LAYER
 	opacity = 0
 	canSmoothWith = list()
-	smooth = SMOOTH_FALSE
+	//smooth = SMOOTH_FALSE //MONKEYSTATION REMOVAL
 	var/growth_time = 1200
 
 
-/obj/structure/alien/resin/flower_bud_enemy/Initialize()
+/obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
 	. = ..()
 	var/list/anchors = list()
 	anchors += locate(x-2,y+2,z)
@@ -110,7 +110,7 @@
 				for(var/mob/living/L in oview(grasp_range, src))
 					if(faction_check_mob(L) || (L in grasping) || L == target)
 						continue
-					for(var/turf/T as() in getline(src,L))
+					for(var/turf/T as() in get_line(src,L))
 						if (T.density)
 							continue grasping
 						for(var/obj/O in T)
@@ -124,7 +124,7 @@
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
-	for(var/turf/T in getline(src,target))
+	for(var/turf/T in get_line(src,target))
 		if (T.density)
 			return
 		for(var/obj/O in T)

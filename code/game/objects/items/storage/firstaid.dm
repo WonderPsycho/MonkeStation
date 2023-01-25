@@ -331,7 +331,7 @@
 	var/pill_variance = 100 //probability pill_bottle has a different icon state. Put at 0 for no variance
 	var/pill_type = "pill_canister_"
 
-/obj/item/storage/pill_bottle/Initialize()
+/obj/item/storage/pill_bottle/Initialize(mapload)
 	. = ..()
 	if(prob(pill_variance))
 		icon_state = "[pill_type][rand(0,6)]"
@@ -407,7 +407,7 @@
 	desc = "Generously supplied by your Nanotrasen health insurance to treat that pesky tumor in your brain."
 
 /obj/item/storage/pill_bottle/mannitol/braintumor/PopulateContents()
-	for(var/i in 1 to 3)
+	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/mannitol/braintumor(src)
 
 /obj/item/storage/pill_bottle/stimulant
@@ -496,7 +496,7 @@
 	name = "bottle of floorpills"
 	desc = "An old pill bottle. It smells musty."
 
-/obj/item/storage/pill_bottle/floorpill/Initialize()
+/obj/item/storage/pill_bottle/floorpill/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/pill/P = locate() in src
 	name = "bottle of [P.name]s"

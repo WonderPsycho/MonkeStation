@@ -5,6 +5,7 @@
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
+	requires_wielding = FALSE
 
 	var/mob/living/current_target
 	var/last_check = 0
@@ -16,7 +17,7 @@
 
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/medbeam/Initialize()
+/obj/item/gun/medbeam/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -90,7 +91,7 @@
 		return 0
 	var/obj/dummy = new(user_turf)
 	dummy.pass_flags |= PASSTABLE|PASSGLASS|PASSGRILLE //Grille/Glass so it can be used through common windows
-	for(var/turf/turf in getline(user_turf,target))
+	for(var/turf/turf in get_line(user_turf,target))
 		if(mounted && turf == user_turf)
 			continue //Mechs are dense and thus fail the check
 		if(turf.density)
@@ -130,6 +131,6 @@
 /obj/item/gun/medbeam/mech
 	mounted = 1
 
-/obj/item/gun/medbeam/mech/Initialize()
+/obj/item/gun/medbeam/mech/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj

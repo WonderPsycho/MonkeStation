@@ -7,6 +7,14 @@
 			return number
 	return default
 
+/// Return `float` if it is in the range `min to max`, otherwise `default`
+/proc/sanitize_float(number, min=0, max=1, accuracy=0.1, default=0)
+	if(isnum_safe(number))
+		number = round(number, accuracy)
+		if(min <= number && number <= max)
+			return number
+	return default
+
 /// Return `text` if it is text, otherwise `default`
 /proc/sanitize_text(text, default="")
 	if(istext(text))
@@ -90,6 +98,6 @@
 	if(length(color) != length_char(color))
 		CRASH("Invalid characters in color '[color]'")
 	var/list/HSL = rgb2hsl(hex2num(copytext(color, 2, 4)), hex2num(copytext(color, 4, 6)), hex2num(copytext(color, 6, 8)))
-	HSL[3] = min(HSL[3],0.4)
+	HSL[3] = min(HSL[3],0.75)
 	var/list/RGB = hsl2rgb(arglist(HSL))
 	return "#[num2hex(RGB[1],2)][num2hex(RGB[2],2)][num2hex(RGB[3],2)]"

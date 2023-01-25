@@ -13,10 +13,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "armorydoors";
-	name = "Blast Doors"
-	},
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -108,9 +104,6 @@
 /obj/structure/sign/poster/official/ian{
 	pixel_y = 32
 	},
-/obj/machinery/camera/motion{
-	c_tag = "Armory Motion Sensor"
-	},
 /obj/item/rack_parts,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -153,6 +146,9 @@
 "x" = (
 /turf/template_noop,
 /area/template_noop)
+"y" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
 "z" = (
 /obj/structure/closet/secure_closet{
 	name = "contraband locker";
@@ -286,30 +282,26 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "armorydoors";
-	name = "Blast Doors"
-	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
 "}
 (2,1,1) = {"
-M
+y
 x
 x
 e
@@ -321,10 +313,10 @@ x
 x
 e
 x
-M
+y
 "}
 (3,1,1) = {"
-M
+y
 x
 x
 x
@@ -336,10 +328,10 @@ M
 x
 x
 x
-M
+y
 "}
 (4,1,1) = {"
-M
+y
 x
 x
 M
@@ -351,10 +343,10 @@ M
 M
 t
 t
-M
+y
 "}
 (5,1,1) = {"
-M
+y
 t
 t
 M
@@ -366,10 +358,10 @@ j
 M
 p
 x
-M
+y
 "}
 (6,1,1) = {"
-M
+y
 x
 x
 M
@@ -381,10 +373,10 @@ m
 M
 f
 f
-M
+y
 "}
 (7,1,1) = {"
-M
+y
 x
 x
 M
@@ -399,7 +391,7 @@ v
 b
 "}
 (8,1,1) = {"
-M
+y
 x
 x
 M
@@ -411,10 +403,10 @@ m
 M
 f
 f
-M
+y
 "}
 (9,1,1) = {"
-M
+y
 t
 t
 M
@@ -426,10 +418,10 @@ L
 M
 p
 x
-M
+y
 "}
 (10,1,1) = {"
-M
+y
 x
 x
 M
@@ -441,10 +433,10 @@ M
 M
 t
 t
-M
+y
 "}
 (11,1,1) = {"
-M
+y
 x
 x
 x
@@ -456,10 +448,10 @@ M
 x
 x
 x
-M
+y
 "}
 (12,1,1) = {"
-M
+y
 x
 x
 K
@@ -471,20 +463,20 @@ x
 x
 K
 x
-M
+y
 "}
 (13,1,1) = {"
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
-M
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
 "}

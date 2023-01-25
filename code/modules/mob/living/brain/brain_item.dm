@@ -69,9 +69,6 @@
 		transfer_identity(C)
 	C.update_hair()
 
-/obj/item/organ/brain/prepare_eat(mob/living/carbon/human/H)
-	if(iszombie(H))//braaaaaains... otherwise, too important to eat.
-		..()
 
 /obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
@@ -140,17 +137,17 @@
 			if(brain_death || brainmob.health <= HEALTH_THRESHOLD_DEAD)
 				. += "<span class='info'>It's lifeless and severely damaged.</span>"
 			else if(organ_flags & ORGAN_FAILING)
-				. += "<span class='info'>It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>.</span>"
+				. += "<span class='info'>It seems to still have a bit of energy within it, but it's rather damaged... You may be able to restore it with some <b>mannitol</b>, or <b>solder</b> for a positronic brain.</span>"
 			else
 				. += "<span class='info'>You can feel the small spark of life still left in this one.</span>"
 		else if(organ_flags & ORGAN_FAILING)
-			. += "<span class='info'>It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later.</span>"
+			. += "<span class='info'>It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b>, or <b>solder</b> for a positronic brain, in case it becomes functional again later.</span>"
 		else
 			. += "<span class='info'>This one seems particularly lifeless. Perhaps it will regain some of its luster later.</span>"
 	else
 		if(decoy_override)
 			if(organ_flags & ORGAN_FAILING)
-				. += "<span class='info'>It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b> incase it becomes functional again later.</span>"
+				. += "<span class='info'>It seems particularly lifeless and is rather damaged... You may be able to restore it with some <b>mannitol</b>, or <b>solder</b> for a positronic brain, in case it becomes functional again later.</span>"
 			else
 				. += "<span class='info'>This one seems particularly lifeless. Perhaps it will regain some of its luster later.</span>"
 		else
@@ -208,12 +205,12 @@
 	icon_state = "brain-x"
 
 /obj/item/organ/brain/positron
-	name = "positronic brain"
+	name = "ipc positronic brain"
 	slot = ORGAN_SLOT_BRAIN
 	zone = BODY_ZONE_CHEST
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
-	icon = 'icons/obj/assemblies.dmi'
+	icon = 'monkestation/icons/obj/assemblies.dmi'
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
 
@@ -223,7 +220,7 @@
 		var/mob/living/carbon/human/H = C
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)
-				if(H.health > 0 && !H.hellbound)
+				if(H.health > 0 && !H.ishellbound())
 					H.revive(0)
 
 /obj/item/organ/brain/positron/emp_act(severity)

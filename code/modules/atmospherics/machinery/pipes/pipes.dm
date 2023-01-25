@@ -7,11 +7,12 @@
 	use_power = NO_POWER_USE
 	can_unwrench = 1
 	var/datum/pipeline/parent = null
+	paintable = TRUE
 
 	//Buckling
 	can_buckle = 1
 	buckle_requires_restraints = 1
-	buckle_lying = -1
+	buckle_lying = NO_BUCKLE_LYING
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
@@ -76,7 +77,7 @@
 	else
 		return ..()
 
-/obj/machinery/atmospherics/pipe/returnPipenet()
+/obj/machinery/atmospherics/pipe/return_pipenet()
 	if(parent)
 		return parent.air
 
@@ -110,7 +111,7 @@
 			var/obj/machinery/atmospherics/N = nodes[i]
 			N.update_icon()
 
-/obj/machinery/atmospherics/pipe/returnPipenets()
+/obj/machinery/atmospherics/pipe/return_pipenets()
 	. = list(parent)
 
 /obj/machinery/atmospherics/pipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -118,8 +119,9 @@
 		return 0
 	. = ..()
 
-/obj/machinery/atmospherics/pipe/proc/paint(paint_color)
-	add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
-	pipe_color = paint_color
-	update_node_icon()
-	return TRUE
+/obj/machinery/atmospherics/pipe/paint(paint_color)
+	if(paintable)
+		add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
+		pipe_color = paint_color
+		update_node_icon()
+	return paintable

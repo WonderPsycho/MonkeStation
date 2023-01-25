@@ -64,9 +64,15 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	for (var/kb_name in prefs.key_bindings[full_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
+
+	if(!kbs.len)
+		for (var/kb_name in prefs.key_bindings[_key])
+			var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
+			kbs += kb
+
 	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
-	for (var/datum/keybinding/kb in kbs)
-		if (kb.can_use(src) && kb.down(src))
+	for(var/datum/keybinding/kb in kbs) //monkestation edit
+		if(kb.can_use(src) && kb.down(src)) //monkestation edit
 			break
 
 	if(holder)
@@ -93,8 +99,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
-	for (var/datum/keybinding/kb in kbs)
-		if (kb.up(src))
+	for(var/datum/keybinding/kb in kbs) //monkestation edit
+		if(kb.can_use(src) && kb.up(src)) //monkestation edit
 			break
 
 	if(holder)

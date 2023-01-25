@@ -8,7 +8,8 @@
 	explosion_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	//a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	heat_capacity = 312500
 
 	baseturfs = /turf/open/floor/plating
 
@@ -17,13 +18,14 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 35\
 	)
-
-	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
-	var/slicing_duration = 100  //default time taken to slice the wall
+	/// lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/hardness = 40
+	/// default time taken to slice the wall	//Changed to Seconds for clarity	//Monkestation Edit
+	var/slicing_duration = 10 SECONDS
 	var/sheet_type = /obj/item/stack/sheet/iron
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
-
+	/* //MONKESTATION REMOVAL
 	canSmoothWith = list(
 	/turf/closed/wall,
 	/turf/closed/wall/r_wall,
@@ -36,9 +38,68 @@
 	//MONKESTATION EDIT BEGIN - WINDOW AND WALL RESPRITE
 	/obj/structure/window/fulltile,
 	/obj/structure/window/plasma/fulltile,
-	/obj/structure/window/reinforced/fulltile)
+	/obj/structure/window/reinforced/fulltile,
+	/obj/structure/window/reinforced/tinted/fulltile,
+	/obj/machinery/door/airlock, //Hey, did you know that it's purposeful that this list requires strict typing? FUN.
+	/obj/machinery/door/airlock/command,
+	/obj/machinery/door/airlock/security,
+	/obj/machinery/door/airlock/engineering,
+	/obj/machinery/door/airlock/medical,
+	/obj/machinery/door/airlock/maintenance,
+	/obj/machinery/door/airlock/maintenance/external,
+	/obj/machinery/door/airlock/mining,
+	/obj/machinery/door/airlock/atmos,
+	/obj/machinery/door/airlock/research,
+	/obj/machinery/door/airlock/freezer,
+	/obj/machinery/door/airlock/science,
+	/obj/machinery/door/airlock/virology,
+	/obj/machinery/door/airlock/gold,
+	/obj/machinery/door/airlock/silver,
+	/obj/machinery/door/airlock/diamond,
+	/obj/machinery/door/airlock/uranium,
+	/obj/machinery/door/airlock/plasma,
+	/obj/machinery/door/airlock/bananium,
+	/obj/machinery/door/airlock/sandstone,
+	/obj/machinery/door/airlock/wood,
+	/obj/machinery/door/airlock/public,
+	/obj/machinery/door/airlock/external,
+	/obj/machinery/door/airlock/arrivals_external,
+	/obj/machinery/door/airlock/centcom,
+	/obj/machinery/door/airlock/grunge,
+	/obj/machinery/door/airlock/vault,
+	/obj/machinery/door/airlock/hatch,
+	/obj/machinery/door/airlock/maintenance_hatch,
+	/obj/machinery/door/airlock/highsecurity,
+	/obj/machinery/door/airlock/glass_large,
+	/obj/machinery/door/airlock/glass,
+	/obj/machinery/door/airlock/command/glass,
+	/obj/machinery/door/airlock/security/glass,
+	/obj/machinery/door/airlock/engineering/glass,
+	/obj/machinery/door/airlock/medical/glass,
+	/obj/machinery/door/airlock/maintenance/glass,
+	/obj/machinery/door/airlock/maintenance/external/glass,
+	/obj/machinery/door/airlock/mining/glass,
+	/obj/machinery/door/airlock/atmos/glass,
+	/obj/machinery/door/airlock/research/glass,
+	/obj/machinery/door/airlock/science/glass,
+	/obj/machinery/door/airlock/virology/glass,
+	/obj/machinery/door/airlock/gold/glass,
+	/obj/machinery/door/airlock/silver/glass,
+	/obj/machinery/door/airlock/diamond/glass,
+	/obj/machinery/door/airlock/uranium/glass,
+	/obj/machinery/door/airlock/plasma/glass,
+	/obj/machinery/door/airlock/bananium/glass,
+	/obj/machinery/door/airlock/sandstone/glass,
+	/obj/machinery/door/airlock/wood/glass,
+	/obj/machinery/door/airlock/public/glass,
+	/obj/machinery/door/airlock/external/glass,
+	/turf/closed/wall/foam_base,
+	/turf/closed/wall/foam_base/iron,
+	/turf/closed/wall/foam_base/resin)
 	//MONKESTATION EDIT END
 	smooth = SMOOTH_TRUE
+	*/ //MONKESTATION REMOVAL END
+
 
 	var/list/dent_decals
 
@@ -46,6 +107,19 @@
 	. = ..()
 	if(is_station_level(z))
 		GLOB.station_turfs += src
+	//MONKESTATION ADDITION START
+	if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS && fixed_underlay) //Set underlays for the diagonal walls.
+		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
+		if(fixed_underlay["space"])
+			underlay_appearance.icon = 'icons/turf/space.dmi'
+			underlay_appearance.icon_state = SPACE_ICON_STATE
+			underlay_appearance.plane = PLANE_SPACE
+		else
+			underlay_appearance.icon = fixed_underlay["icon"]
+			underlay_appearance.icon_state = fixed_underlay["icon_state"]
+		fixed_underlay = string_assoc_list(fixed_underlay)
+		underlays += underlay_appearance
+	//MONKESTATION ADDITION END
 
 /turf/closed/wall/Destroy()
 	if(is_station_level(z))
@@ -321,8 +395,11 @@
 	add_overlay(dent_decals)
 
 /turf/closed/wall/rust_heretic_act()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ScrapeAway()
+		return
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/closed/wall/rust)
+	return ..()
 
 #undef MAX_DENT_DECALS

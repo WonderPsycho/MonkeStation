@@ -20,7 +20,7 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Peasant"
 
-	allow_bureaucratic_error = FALSE
+	//MonkeStation Edit: Gimmick Overflow
 	outfit = /datum/outfit/job/gimmick
 
 /datum/outfit/job/gimmick
@@ -32,6 +32,7 @@
 	outfit = /datum/outfit/job/gimmick/barber
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#bd9e86"
 
@@ -43,6 +44,7 @@
 	name = "Barber"
 	jobtype = /datum/job/gimmick/barber
 
+	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/unlicensed
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/suit/sl
@@ -57,6 +59,7 @@
 	outfit = /datum/outfit/job/gimmick/magician
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#b898b3"
 
@@ -68,6 +71,7 @@
 	name = "Stage Magician"
 	jobtype = /datum/job/gimmick/magician
 
+	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/unlicensed
 	head = /obj/item/clothing/head/that
 	ears = /obj/item/radio/headset
@@ -76,7 +80,6 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
-	backpack_contents = list(/obj/item/choice_beacon/magic=1)
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/hobo
@@ -88,7 +91,7 @@
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
-	biohazard = 50 //hobos are very likely to have diseases 
+	biohazard = 50 //hobos are very likely to have diseases
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
@@ -104,6 +107,18 @@
 	suit = /obj/item/clothing/suit/jacket
 	can_be_admin_equipped = TRUE
 
+//MonkeStation Edit: Hobos start as stowaways. This is copypasta as adding this trait post-start doesn't work.
+/datum/job/gimmick/hobo/after_spawn(mob/living/H, mob/M, latejoin)
+	. = ..()
+	H.add_quirk(/datum/quirk/stowaway)
+	var/mob/living/carbon/human/hobo = H
+	hobo.Sleeping(5 SECONDS, TRUE, TRUE) //This is both flavorful and gives time for the rest of the code to work.
+	var/obj/structure/closet/selected_closet = get_unlocked_closed_locker() //Find your new home
+	if(selected_closet)
+		hobo.forceMove(selected_closet) //Move in
+//MonkeStation Edit End
+
+
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -113,8 +128,6 @@
 	var/chosen_drugs = pick(possible_drugs)
 	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
 	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
-	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
-	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
 
 
@@ -124,6 +137,7 @@
 	outfit = /datum/outfit/job/gimmick/shrink
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
@@ -137,6 +151,7 @@
 	name = "Psychiatrist"
 	jobtype = /datum/job/gimmick/shrink
 
+	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
@@ -150,6 +165,7 @@
 	outfit = /datum/outfit/job/gimmick/celebrity
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	paycheck = PAYCHECK_VIP //our power is being fucking rich
 	chat_color = "#ebc96b"
@@ -162,6 +178,7 @@
 	name = "VIP"
 	jobtype = /datum/job/gimmick/celebrity
 
+	id = /obj/item/card/id/gold
 	belt = /obj/item/pda/celebrity
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason

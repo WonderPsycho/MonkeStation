@@ -14,10 +14,12 @@
 					/obj/item/pda/heads = 10,
 					/obj/item/cartridge/captain = 3,
 					/obj/item/cartridge/quartermaster = 10)
+	premium = list(/obj/item/cartridge/annoyance/lesser = 3)
 	refill_canister = /obj/item/vending_refill/cart
 	default_price = 50
 	extra_price = 100
 	payment_department = ACCOUNT_SRV
+	light_mask="cart-light-mask"
 
 /obj/item/vending_refill/cart
 	machine_name = "PTech"

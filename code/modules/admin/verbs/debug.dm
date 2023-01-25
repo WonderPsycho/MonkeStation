@@ -322,7 +322,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/areas_with_LS = list()
 	var/list/areas_with_intercom = list()
 	var/list/areas_with_camera = list()
-	var/list/station_areas_blacklist = typecacheof(list(/area/holodeck/rec_center, /area/shuttle, /area/engine/supermatter, /area/science/test_area, /area/space, /area/solar, /area/mine, /area/ruin, /area/asteroid))
+	var/list/station_areas_blacklist = typecacheof(list(/area/holodeck/rec_center, /area/shuttle, /area/engine/engine_core, /area/science/test_area, /area/space, /area/solar, /area/mine, /area/ruin, /area/asteroid))
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		to_chat(usr, "Game still loading, please hold!")
@@ -605,7 +605,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	spawn(30)
 		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
 			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
+				var/obj/anomaly/singularity/S = new /obj/anomaly/singularity(get_turf(G), 50)
 //				qdel(G)
 				S.energy = 1750
 				S.current_size = 7
@@ -667,6 +667,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
+		if (I.qdel_flags & QDEL_ITEM_SUSPENDED_FOR_LAG)
+			dellog += "<li>SUSPENDED FOR LAG</li>"
 		if (I.failures)
 			dellog += "<li>Failures: [I.failures]</li>"
 		dellog += "<li>qdel() Count: [I.qdels]</li>"
@@ -674,6 +676,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Highest Time Spent Hard Deleting: [I.hard_delete_max]ms</li>"
+			if (I.hard_deletes_over_threshold)
+				dellog += "<li>Hard Deletes Over Threshold: [I.hard_deletes_over_threshold]</li>"
 		if (I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if (I.no_respect_force)
@@ -1007,3 +1012,51 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /proc/cmp_timer_data(list/a, list/b)
 	return b["count"] - a["count"]
+
+/*
+ * Test Luminosity Changes vs Dview
+ *
+ * A simple debug verb that rapidly changes you current turf's
+ * luminosity value and runs view() to test the performance
+ * compared to dview()
+*/
+/client/proc/test_dview_to_lum_changes()
+	set category = "Debug"
+	set name = "Test Lum Changes"
+	set desc = "Changes your current turf's luminosity repeatedly to test how long it takes"
+	//Check if the user running this verb has sufficient privellages
+	if (!check_rights(R_DEBUG))
+		return
+	//Get the turf of the user
+	var/turf/T = get_turf(usr)
+	//if the current turf is null, don't act
+	if(!T)
+		return
+
+	//Count the total of view
+	var/total_dview = 0
+	var/total_lum = 0
+
+	//Get the timer of the world
+	var/timer_dview = TICK_USAGE
+	//Run the DVIEW test
+	for(var/i in 1 to 10000)
+		var/list/L = dview(6, T)
+		total_dview += length(L)
+	//Get the results of the dview test
+	var/total_time_dview = TICK_USAGE_TO_MS(timer_dview)
+
+	//Get the timer of the world
+	var/timer_lum_changes = TICK_USAGE
+	//Run the LUM CHANGES test
+	for(var/i in 1 to 10000)
+		T.luminosity = 6
+		var/list/L = view(6, T)
+		total_lum += length(L)
+		T.luminosity = 1
+	//Get the result of the lum change test
+	var/total_time_lum = TICK_USAGE_TO_MS(timer_lum_changes)
+
+	//Print the results
+	to_chat(usr, "<span class='notice'>10000 dview calls resulted in a [total_time_dview]ms overhead. ([total_dview] items located)</span>")
+	to_chat(usr, "<span class='notice'>10000 lum changes resulted in a [total_time_lum]ms overhead. ([total_lum] items located)</span>")

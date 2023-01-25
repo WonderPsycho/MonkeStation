@@ -25,7 +25,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5
 
-/obj/item/chainsaw/Initialize()
+/obj/item/chainsaw/Initialize(mapload)
 	. = ..()
 
 /obj/item/chainsaw/ComponentInitialize()
@@ -131,7 +131,7 @@
 /obj/item/chainsaw/energy/doom
 	name = "super energy chainsaw"
 	desc = "The chainsaw you want when you need to kill every damn thing in the room."
-	force_on = 60
+	force_on = 34 //MonkeStation Edit: D-Esword damage.
 	w_class = WEIGHT_CLASS_NORMAL
 	block_power = 75
 	block_level = 1

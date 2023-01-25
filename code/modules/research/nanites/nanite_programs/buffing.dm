@@ -31,7 +31,6 @@
 	host_mob.SetAllImmobility(0)
 	host_mob.adjustStaminaLoss(-75)
 	host_mob.set_resting(FALSE)
-	host_mob.update_mobility()
 
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"
@@ -45,15 +44,15 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 50
-		H.physiology.armor.bullet += 35
+		H.physiology.armor.melee += 30
+		H.physiology.armor.bullet += 30
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 50
-		H.physiology.armor.bullet -= 35
+		H.physiology.armor.melee -= 30
+		H.physiology.armor.bullet -= 30
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
@@ -65,15 +64,15 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 50
-		H.physiology.armor.energy += 35
+		H.physiology.armor.laser += 30
+		H.physiology.armor.energy += 30
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 50
-		H.physiology.armor.energy -= 35
+		H.physiology.armor.laser -= 30
+		H.physiology.armor.energy -= 30
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"

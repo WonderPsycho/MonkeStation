@@ -17,9 +17,8 @@
  * * simulated_only: Whether we consider turfs without atmos simulation (AKA do we want to ignore space)
  * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
- * * avoid_mobs: If we want to avoid turfs with mobs on them is set to FALSE on default
  */
-/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id=null, simulated_only = TRUE, turf/exclude, skip_first=TRUE, avoid_mobs = FALSE)
+/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id=null, simulated_only = TRUE, turf/exclude, skip_first = TRUE)
 	if(!caller || !get_turf(end))
 		return
 
@@ -29,7 +28,7 @@
 		l = SSpathfinder.mobs.getfree(caller)
 
 	var/list/path
-	var/datum/pathfind/pathfind_datum = new(caller, end, id, max_distance, mintargetdist, simulated_only, exclude, avoid_mobs)
+	var/datum/pathfind/pathfind_datum = new(caller, end, id, max_distance, mintargetdist, simulated_only, exclude)
 	path = pathfind_datum.search()
 	qdel(pathfind_datum)
 
@@ -45,7 +44,7 @@
  * Note that this can only be used inside the [datum/pathfind][pathfind datum] since it uses variables from said datum.
  * If you really want to optimize things, optimize this, cuz this gets called a lot.
  */
-#define CAN_STEP(cur_turf, next) (next && !next.density && cur_turf.Adjacent(next) && !(avoid_mobs && (locate(/mob/living) in (next.contents))) && !(simulated_only && SSpathfinder.space_type_cache[next.type]) && !cur_turf.LinkBlockedWithAccess(next,caller, id) && (next != avoid))
+#define CAN_STEP(cur_turf, next) (next && !next.density && !(simulated_only && SSpathfinder.space_type_cache[next.type]) && !cur_turf.LinkBlockedWithAccess(next,caller, id) && (next != avoid))
 /// Another helper macro for JPS, for telling when a node has forced neighbors that need expanding
 #define STEP_NOT_HERE_BUT_THERE(cur_turf, dirA, dirB) ((!CAN_STEP(cur_turf, get_step(cur_turf, dirA)) && CAN_STEP(cur_turf, get_step(cur_turf, dirB))))
 
@@ -121,8 +120,6 @@
 	var/simulated_only
 	/// A specific turf we're avoiding, like if a mulebot is being blocked by someone t-posing in a doorway we're trying to get through
 	var/turf/avoid
-	/// avoid_mobs: If this is TRUE turfs with mobs in the path will be ignored
-	var/avoid_mobs
 
 /datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid, avoid_mobs)
 	src.caller = caller
@@ -134,7 +131,6 @@
 	src.mintargetdist = mintargetdist
 	src.simulated_only = simulated_only
 	src.avoid = avoid
-	src.avoid_mobs = avoid_mobs
 
 /**
  * search() is the proc you call to kick off and handle the actual pathfinding, and kills the pathfind datum instance when it's done.
@@ -342,8 +338,21 @@
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
 */
 /turf/proc/LinkBlockedWithAccess(turf/destination_turf, caller, ID)
+	if(destination_turf.x != x && destination_turf.y != y) //diagonal
+		var/in_dir = get_dir(destination_turf,src) // eg. northwest (1+8) = 9 (00001001)
+		var/first_step_direction_a = in_dir & 3      // eg. north   (1+8)&3 (0000 0011) = 1 (0000 0001)
+		var/first_step_direction_b = in_dir & 12  // eg. west   (1+8)&12 (0000 1100) = 8 (0000 1000)
+
+		for(var/first_step_direction in list(first_step_direction_a,first_step_direction_b))
+			var/turf/midstep_turf = get_step(destination_turf,first_step_direction)
+			var/way_blocked = LinkBlockedWithAccess(midstep_turf,caller,ID) || midstep_turf.LinkBlockedWithAccess(destination_turf,caller,ID)
+			if(!way_blocked)
+				return FALSE
+		return TRUE
+
 	var/actual_dir = get_dir(src, destination_turf)
 
+	// Source border object checks
 	for(var/obj/structure/window/iter_window in src)
 		if(!iter_window.CanAStarPass(ID, actual_dir))
 			return TRUE
@@ -352,6 +361,11 @@
 		if(!iter_windoor.CanAStarPass(ID, actual_dir))
 			return TRUE
 
+	for(var/obj/machinery/door/firedoor/border_only/firedoor in src)
+		if(!firedoor.CanAStarPass(ID, actual_dir))
+			return TRUE
+
+	// Destination blockers check
 	var/reverse_dir = get_dir(destination_turf, src)
 	for(var/obj/iter_object in destination_turf)
 		if(!iter_object.CanAStarPass(ID, reverse_dir, caller))

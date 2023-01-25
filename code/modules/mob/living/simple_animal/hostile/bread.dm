@@ -11,7 +11,7 @@
 	maxHealth = 30
 	health = 30
 	see_in_dark = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/breadslice = 2)
+	butcher_results = list(/obj/item/food/breadslice = 2)
 	response_help  = "pokes"
 	response_disarm = "passes"
 	response_harm   = "breaks"
@@ -29,6 +29,10 @@
 	var/stability = 30
 	chat_color = "#CAA25B"
 	mobchatspan = "blob"
+
+/mob/living/simple_animal/hostile/breadloaf/Initialize()
+	. = ..()
+	src.AddComponent(/datum/component/waddling)
 
 /mob/living/simple_animal/hostile/breadloaf/teleport_act()
 	if(mutations == 0)

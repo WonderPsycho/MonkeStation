@@ -1,5 +1,5 @@
 /datum/species/oozeling
-	name = "Oozeling"
+	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
@@ -9,29 +9,35 @@
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
+	meat = /obj/item/food/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimeooze
-	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
-	limbs_id = "ooze"
 	swimming_component = /datum/component/swimming/dissolve
 	toxic_food = NONE
 	disliked_food = NONE
+	inert_mutation = ACIDOOZE
 
-/datum/species/oozeling/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_ooze_name()
+	species_chest = /obj/item/bodypart/chest/oozeling
+	species_head = /obj/item/bodypart/head/oozeling
+	species_l_arm = /obj/item/bodypart/l_arm/oozeling
+	species_r_arm = /obj/item/bodypart/r_arm/oozeling
+	species_l_leg = /obj/item/bodypart/l_leg/oozeling
+	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 
-	var/randname = ooze_name()
-
+/datum/species/oozeling/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.oozeling_first_names)]"
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. += " [pick(GLOB.oozeling_last_names)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -101,7 +107,7 @@
 	if(!limbs_to_consume.len)
 		H.losebreath++
 		return
-	if(H.get_num_legs(FALSE)) //Legs go before arms
+	if(H.num_legs) //Legs go before arms
 		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)
 	consumed_limb = H.get_bodypart(pick(limbs_to_consume))
 	consumed_limb.drop_limb()

@@ -1,29 +1,29 @@
 
 //returns TRUE if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/M)
+/obj/proc/allowed(mob/accessor)
 	//check if it doesn't require any access at all
-	if(src.check_access(null))
+	if(check_access(null))
 		return TRUE
-	if(issilicon(M))
-		var/mob/living/silicon/S = M
+	if(issilicon(accessor))
+		var/mob/living/silicon/S = accessor
 		return check_access(S.internal_id_card)	//AI can do whatever it wants
-	if(IsAdminGhost(M))
+	if(IsAdminGhost(accessor))
 		//Access can't stop the abuse
 		return TRUE
-	else if(istype(M) && SEND_SIGNAL(M, COMSIG_MOB_ALLOWED, src))
+	else if(istype(accessor) && SEND_SIGNAL(accessor, COMSIG_MOB_ALLOWED, src))
 		return TRUE
-	else if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	else if(ishuman(accessor))
+		var/mob/living/carbon/human/H = accessor
 		//if they are holding or wearing a card that has access, that works
-		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
+		if(check_access(H.get_active_held_item()) && !istype(H.get_active_held_item(), /obj/item/card/id/fake_card) || src.check_access(H.wear_id) && !istype(H.wear_id, /obj/item/card/id/fake_card))
 			return TRUE
-	else if(ismonkey(M) || isalienadult(M))
-		var/mob/living/carbon/george = M
+	else if(ismonkey(accessor) || isalienadult(accessor))
+		var/mob/living/carbon/george = accessor
 		//they can only hold things :(
 		if(check_access(george.get_active_held_item()))
 			return TRUE
-	else if(isanimal(M))
-		var/mob/living/simple_animal/A = M
+	else if(isanimal(accessor))
+		var/mob/living/simple_animal/A = accessor
 		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
 			return TRUE
 	return FALSE
@@ -380,7 +380,9 @@
 				// Medical
 				"Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
 				// Security
-				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy")
+				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
+				//MonkeStation Edit: Gimmick Jobs
+				"Barber", "Stage Magician", "Debtor", "Psychiatrist", "VIP", "Mailman")
 				// Each job is supposed to be in their department due to the HoP console.
 
 /proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.

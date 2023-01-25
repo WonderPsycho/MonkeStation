@@ -3,7 +3,7 @@
 #define SEND_PRESSURE (0.05*ONE_ATMOSPHERE)
 
 /obj/machinery/disposal
-	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
+	icon = 'monkestation/icons/obj/atmospherics/pipes/disposal.dmi'
 	density = TRUE
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	max_integrity = 200
@@ -11,8 +11,6 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	obj_flags = CAN_BE_HIT | USES_TGUI
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
-
-
 
 	var/datum/gas_mixture/air_contents	// internal reservoir
 	var/full_pressure = FALSE
@@ -23,6 +21,7 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
+	var/low_volume = FALSE //Lower volume sounds
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
 
@@ -143,7 +142,7 @@
 			. = TRUE
 		update_icon()
 
-/obj/machinery/disposal/relaymove(mob/user)
+/obj/machinery/disposal/relaymove(mob/living/user, direction)
 	attempt_escape(user)
 
 // resist to escape the bin
@@ -162,7 +161,7 @@
 
 // monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	flush = !flush
 	update_icon()
@@ -170,10 +169,7 @@
 
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/AM in src)
-		AM.forceMove(T)
-		AM.pipe_eject(0)
+	pipe_eject(src, 0, FALSE)
 	update_icon()
 
 // update the icon & overlays to reflect mode & status
@@ -184,10 +180,15 @@
 	flushing = TRUE
 	flushAnimation()
 	sleep(10)
-	if(last_sound < world.time + 1)
+
+	if(last_sound < world.time + 1 && low_volume == TRUE)
+		playsound(src, 'sound/machines/disposalflush.ogg', 10, FALSE, FALSE, falloff_exponent = 3)
+		last_sound = world.time
+	else
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, FALSE)
 		last_sound = world.time
 	sleep(5)
+
 	if(QDELETED(src))
 		return
 	var/obj/structure/disposalholder/H = new(src)
@@ -214,19 +215,11 @@
 // called when holder is expelled from a disposal
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 	H.active = FALSE
-
-	var/turf/T = get_turf(src)
-	var/turf/target
-	playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
-
-	for(var/A in H)
-		var/atom/movable/AM = A
-
-		target = get_offset_target_turf(loc, rand(5)-rand(5), rand(5)-rand(5))
-
-		AM.forceMove(T)
-		AM.pipe_eject(0)
-		AM.throw_at(target, 5, 1)
+	if(low_volume == TRUE)
+		playsound(src, 'sound/machines/hiss.ogg', 20, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
+	else
+		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
+	pipe_eject(H)
 
 	H.vent_gas(loc)
 	qdel(H)
@@ -264,6 +257,7 @@
 	name = "disposal unit"
 	desc = "A pneumatic waste disposal unit."
 	icon_state = "disposal"
+	pass_flags_self = LETPASSTHROW //monkestation edit - lets us throw mobs in the bin!
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
@@ -285,7 +279,7 @@
 	return GLOB.notcontained_state
 
 /obj/machinery/disposal/bin/ui_interact(mob/user, datum/tgui/ui)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -333,7 +327,7 @@
 
 
 /obj/machinery/disposal/bin/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && AM.CanEnterDisposals())
+	if(isliving(AM) || isitem(AM) && AM.CanEnterDisposals())//monkestation edit: mobs can be thrown in
 		if(prob(75))
 			AM.forceMove(src)
 			visible_message("<span class='notice'>[AM] lands in [src].</span>")
@@ -352,7 +346,7 @@
 
 /obj/machinery/disposal/bin/update_icon()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		pressure_charging = FALSE
 		flush = FALSE
 		return
@@ -362,7 +356,7 @@
 		add_overlay("dispover-handle")
 
 	//only handle is shown if no power
-	if(stat & NOPOWER || panel_open)
+	if(machine_stat & NOPOWER || panel_open)
 		return
 
 	//check for items in disposal - occupied light
@@ -382,7 +376,7 @@
 //timed process
 //charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/bin/process(delta_time)
-	if(stat & BROKEN) //nothing can happen if broken
+	if(machine_stat & BROKEN) //nothing can happen if broken
 		return
 
 	flush_count++
@@ -397,7 +391,7 @@
 	if(flush && air_contents.return_pressure() >= SEND_PRESSURE) // flush can happen even without power
 		do_flush()
 
-	if(stat & NOPOWER) // won't charge if no power
+	if(machine_stat & NOPOWER) // won't charge if no power
 		return
 
 	use_power(100) // base power usage

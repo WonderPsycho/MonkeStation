@@ -31,6 +31,10 @@
 
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend //! Very fast healing; suppressed by fire, and heals less fire damage
 
+#define STATUS_EFFECT_CHANGELING_CAMO /datum/status_effect/changeling/camoflague //! Makes you slowly invisible over time, taking damage, being bumped, moving or burning removes the effect.
+
+#define STATUS_EFFECT_CHANGELING_MINDSHIELD /datum/status_effect/changeling/mindshield //! Causes you to appear to have a mindshield to security HUDs.
+
 #define STATUS_EFFECT_EXERCISED /datum/status_effect/exercised //! Prevents heart disease
 
 #define STATUS_EFFECT_HIPPOCRATIC_OATH /datum/status_effect/hippocraticOath //! Gives you an aura of healing as well as regrowing the Rod of Asclepius if lost
@@ -101,6 +105,22 @@
 
 #define STATUS_EFFECT_IPC_EMP /datum/status_effect/ipc/emp //EMP'd IPC
 
+#define STATUS_EFFECT_KLEPTOMANIA /datum/status_effect/kleptomania
+
+///Raises click cooldowns for everything you do.
+#define STATUS_EFFECT_WOOZY /datum/status_effect/woozy
+
+///Makes you bleed harder
+#define STATUS_EFFECT_HIGHBLOODPRESSURE /datum/status_effect/high_blood_pressure
+
+
+/// makes you seize up. reminds me of this video https://www.youtube.com/watch?v=wvkHIZg_954
+#define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
+
+
+//Deals with covering the target in ants.
+#define STATUS_EFFECT_ANTS /datum/status_effect/ants
+
 //---------//
 // NEUTRAL //
 //---------//
@@ -133,3 +153,40 @@
 #define STASIS_ASCENSION_EFFECT "heretic_ascension"
 
 #define IS_IN_STASIS(mob) (mob.has_status_effect(STATUS_EFFECT_STASIS))
+
+
+///FOOD DEFINES
+
+#define STATUS_EFFECT_FOOD_STAM_TINY /datum/status_effect/food/stamina_increase
+
+#define STATUS_EFFECT_FOOD_STAM_MEDIUM /datum/status_effect/food/stamina_increase/t2
+
+#define STATUS_EFFECT_FOOD_STAM_LARGE /datum/status_effect/food/stamina_increase/t3
+
+#define STATUS_EFFECT_FOOD_RESISTANCE /datum/status_effect/food/resistance
+
+#define STATUS_EFFECT_FOOD_FIREBURPS /datum/status_effect/food/fire_burps
+
+#define STATUS_EFFECT_FOOD_SWEATY /datum/status_effect/food/sweaty
+
+#define STATUS_EFFECT_FOOD_WACKY /datum/status_effect/food/sweaty/wacky
+
+#define STATUS_EFFECT_FOOD_HEALTH_TINY /datum/status_effect/food/health_increase
+
+#define STATUS_EFFECT_FOOD_HEALTH_MEDIUM /datum/status_effect/food/health_increase/t2
+
+#define STATUS_EFFECT_FOOD_HEALTH_LARGE /datum/status_effect/food/health_increase/t3
+
+#define STATUS_EFFECT_FOOD_SLIDE /datum/status_effect/food/belly_slide
+
+#define STATUS_EFFECT_STAM_REGEN_SMALL /datum/status_effect/food/stam_regen
+
+#define STATUS_EFFECT_STAM_REGEN_MEDIUM /datum/status_effect/food/stam_regen/t2
+
+#define STATUS_EFFECT_STAM_REGEN_LARGE /datum/status_effect/food/stam_regen/t3
+
+#define STATUS_EFFECT_FOOD_JOB_BOTANIST /datum/status_effect/food/botanist
+
+#define STATUS_EFFECT_FOOD_JOB_MINER /datum/status_effect/food/miner
+
+#define STATUS_EFFECT_FOOD_JOB_SECURITY /datum/status_effect/food/security

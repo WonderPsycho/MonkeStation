@@ -1,4 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"d" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "e" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -9,12 +13,25 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/vacuum/external,
-/turf/closed/wall/r_wall,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"n" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/closet/emcloset,
@@ -33,8 +50,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
-/obj/structure/fans/tiny,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -61,6 +81,12 @@
 "J" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -118,20 +144,20 @@ I
 "}
 (2,1,1) = {"
 R
+K
+e
+p
+e
+p
+e
+p
+e
+p
+e
+p
 e
 e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
+w
 e
 I
 "}
@@ -150,7 +176,7 @@ e
 e
 e
 e
-e
+w
 e
 S
 "}
@@ -169,7 +195,7 @@ o
 R
 R
 D
-e
+w
 e
 I
 "}
@@ -243,8 +269,8 @@ Z
 Z
 Z
 l
-R
-R
+o
+o
 X
 e
 I
@@ -262,7 +288,7 @@ Z
 Z
 Z
 Z
-R
+o
 H
 C
 e
@@ -283,7 +309,7 @@ o
 R
 R
 C
-e
+w
 e
 e
 "}
@@ -302,26 +328,26 @@ e
 e
 e
 e
-e
+w
 e
 W
 "}
 (12,1,1) = {"
 R
+n
+e
+d
+e
+d
+e
+d
+e
+d
+e
+d
 e
 e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
+w
 e
 e
 "}

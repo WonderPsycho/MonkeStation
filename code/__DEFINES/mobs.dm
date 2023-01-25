@@ -57,12 +57,14 @@
 #define ORGAN_ORGANIC   1
 #define ORGAN_ROBOTIC   2
 
-#define BODYPART_ORGANIC   1
-#define BODYPART_ROBOTIC   2
 
-#define BODYPART_NOT_DISABLED 0
-#define BODYPART_DISABLED_DAMAGE 1
-#define BODYPART_DISABLED_PARALYSIS 2
+//Bodytype defines for how things can be worn.
+#define BODYTYPE_ORGANIC		(1<<0)
+#define BODYTYPE_ROBOTIC		(1<<1)
+#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
+#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
+#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
+#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
 
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
@@ -73,10 +75,13 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
-//Species gib types
+//Bodypart change blocking flags
+#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
+//Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
+
 //Species ID defines
 #define SPECIES_HUMAN			"human"
 #define SPECIES_IPC 			"ipc"
@@ -85,9 +90,17 @@
 #define SPECIES_APID 			"apid"
 #define SPECIES_MOTH			"moth"
 #define SPECIES_LIZARD			"lizard"
-#define SPECIES_FELINID			"felinid"
+#define SPECIES_ASHWALKER		"ashlizard"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
+#define SPECIES_SIMIAN 			"simian" //monkestation edit
+#define SPECIES_MONKEY			"monkey"
+#define SPECIES_JELLYPERSON		"jelly"
+#define SPECIES_SLIMEPERSON	"slime"
+#define SPECIES_LUMINESCENT	"lum"
+#define SPECIES_STARGAZER		"stargazer"
+#define SPECIES_ABDUCTOR		"abductor"
+#define SPECIES_SHADOWPERSON	"shadow"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -97,10 +110,15 @@
 #define	FLAG_APID			(1<<4)
 #define FLAG_MOTH			(1<<5)
 #define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
-#define FLAG_OOZELING		(1<<8)
-#define FLAG_FLY			(1<<9)
+#define FLAG_OOZELING		(1<<7)
+#define FLAG_FLY			(1<<8)
+#define FLAG_SIMIAN			(1<<9)//monkestation edit
 #define FLAG_DEBUG_SPECIES	(1<<10)
+#define FLAG_MONKEY (1<<11)
+
+#define DIGITIGRADE_NEVER 0
+#define DIGITIGRADE_OPTIONAL 1
+#define DIGITIGRADE_FORCED 2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -111,6 +129,14 @@
 #define SYNTHETIC 2
 
 /*see __DEFINES/inventory.dm for bodypart bitflag defines*/
+
+//for determining which type of heartbeat sound is playing
+///Heartbeat is beating fast for hard crit
+#define BEAT_FAST 1
+///Heartbeat is beating slow for soft crit
+#define BEAT_SLOW 2
+///Heartbeat is gone... He's dead Jim :(
+#define BEAT_NONE 0
 
 // Health/damage defines for carbon mobs
 #define HUMAN_MAX_OXYLOSS 3
@@ -178,6 +204,14 @@
 #define SCREWYHUD_CRIT 1
 #define SCREWYHUD_DEAD 2
 #define SCREWYHUD_HEALTHY 3
+
+//Health doll screws for human mobs
+#define SCREWYDOLL_HEAD /obj/item/bodypart/head
+#define SCREWYDOLL_CHEST /obj/item/bodypart/chest
+#define SCREWYDOLL_L_ARM /obj/item/bodypart/l_arm
+#define SCREWYDOLL_R_ARM /obj/item/bodypart/r_arm
+#define SCREWYDOLL_L_LEG /obj/item/bodypart/l_leg
+#define SCREWYDOLL_R_LEG /obj/item/bodypart/r_leg
 
 //Moods levels for humans
 #define MOOD_LEVEL_HAPPY4 15
@@ -276,6 +310,10 @@
 #define SENTIENCE_BOSS 5
 
 //Mob AI Status
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3
 
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
@@ -393,6 +431,10 @@
 /// Wabbacjack staff projectiles
 #define WABBAJACK     (1<<6)
 
+// Defib stats
+#define DEFIB_TIME_LIMIT 900
+#define DEFIB_TIME_LOSS 60
+
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 #define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
@@ -415,4 +457,129 @@
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
+
+//Body sizes
+#define BODY_SIZE_NORMAL 1
+#define BODY_SIZE_SHORT 0.93
+#define BODY_SIZE_TALL 1.03
+
+//monkestation edit begin
+/// Throw modes, defines whether or not to turn off throw mode after
+#define THROW_MODE_DISABLED 0
+#define THROW_MODE_TOGGLE 1
+#define THROW_MODE_HOLD 2
+ //monkestation edit end
+
+// Mob Overlays Indexes
+/// Total number of layers for mob overlays
+#define TOTAL_LAYERS 30 //! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+/// Mutations layer - Tk headglows, cold resistance glow, etc
+#define MUTATIONS_LAYER	30
+/// Mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_BEHIND_LAYER 29
+/// Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODYPARTS_LAYER	28
+/// Mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_ADJ_LAYER 27
+/// Underwear, undershirts, socks, eyes, lips(makeup)
+#define BODY_LAYER 26
+/// Mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define FRONT_MUTATIONS_LAYER 25
+/// Damage indicators (cuts and burns)
+#define DAMAGE_LAYER 24
+/// Jumpsuit clothing layer
+#define UNIFORM_LAYER 23
+/// ID card layer (might be deprecated)
+#define ID_LAYER 22
+/// Hands body part layer (or is this for the arm? not sure...)
+#define HANDS_PART_LAYER 21
+/// Gloves layer
+#define GLOVES_LAYER 20
+/// Shoes layer
+#define SHOES_LAYER 19
+/// Ears layer (Spessmen have ears? Wow)
+#define EARS_LAYER 18
+/// Suit layer (armor, hardsuits, etc.)
+#define SUIT_LAYER 17
+/// Glasses layer
+#define GLASSES_LAYER 16
+/// Belt layer
+#define BELT_LAYER 15 //Possible make this an overlay of somethign required to wear a belt?
+/// Suit storage layer (tucking a gun or baton underneath your armor)
+#define SUIT_STORE_LAYER 14
+/// Neck layer (for wearing ties and bedsheets)
+#define NECK_LAYER 13
+/// Back layer (for backpacks and equipment on your back)
+#define BACK_LAYER 12
+/// Hair layer (mess with the fro and you got to go!)
+#define HAIR_LAYER 11
+/// Facemask layer (gas masks, breath masks, etc.)
+#define FACEMASK_LAYER 10
+/// Head layer (hats, helmets, etc.)
+#define HEAD_LAYER 9
+/// Handcuff layer (when your hands are cuffed)
+#define HANDCUFF_LAYER 8
+/// Legcuff layer (when your feet are cuffed)
+#define LEGCUFF_LAYER 7
+/// Hands layer (for the actual hand, not the arm... I think?)
+#define HANDS_LAYER 6
+/// Body front layer. Usually used for mutant bodyparts that need to be in front of stuff (e.g. cat ears)
+#define BODY_FRONT_LAYER 5
+/// Smell Layer
+#define SMELL_LAYER 4
+/// Blood cult ascended halo layer, because there's currently no better solution for adding/removing
+#define HALO_LAYER 3
+/// Typing Layer
+#define TYPING_LAYER 2
+/// Fire layer when you're on fire
+#define FIRE_LAYER 1
+
+//Mob Overlay Index Shortcuts for alternate_worn_layer, layers
+//Because I *KNOW* somebody will think layer+1 means "above"
+//IT DOESN'T OK, IT MEANS "UNDER"
+#define UNDER_SUIT_LAYER			(SUIT_LAYER+1)
+#define UNDER_HEAD_LAYER			(HEAD_LAYER+1)
+
+//AND -1 MEANS "ABOVE", OK?, OK!?!
+#define ABOVE_SHOES_LAYER			(SHOES_LAYER-1)
+#define ABOVE_BODY_FRONT_LAYER		(BODY_FRONT_LAYER-1)
+
+//used by canUseTopic()
+/// If silicons need to be next to the atom to use this
+#define BE_CLOSE TRUE
+/// If other mobs (monkeys, aliens, etc) can use this
+#define NO_DEXTERITY TRUE // I had to change 20+ files because some non-dnd-playing fuckchumbis can't spell "dexterity"
+// If telekinesis you can use it from a distance
+#define NO_TK TRUE
+
+/// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
+#define RESIZE_DEFAULT_SIZE 1
+
+//Dummy mob reserve slots
+#define DUMMY_HUMAN_SLOT_PREFERENCES "dummy_preference_preview"
+#define DUMMY_HUMAN_SLOT_ADMIN "admintools"
+
+/// Get the client from the var
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
+/// The mob will vomit a green color
+#define VOMIT_TOXIC 1
+/// The mob will vomit a purple color
+#define VOMIT_PURPLE 2
+
+
+#define MUTANT_INDEX_EMISSIVE_LIST "emissive"
+
+
+/// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
+#define NO_BUCKLE_LYING -1
+
+/// Simple mob trait, indicating it may follow continuous move actions controlled by code instead of by user input.
+#define MOVES_ON_ITS_OWN (1<<0)
+
+// Body position defines.
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1
 

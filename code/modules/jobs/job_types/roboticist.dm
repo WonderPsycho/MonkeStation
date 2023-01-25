@@ -22,6 +22,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
+	bounty_types = CIV_JOB_ROBO
 	departments = DEPARTMENT_SCIENCE
 	rpg_title = "Golemancer"
 
@@ -33,7 +34,7 @@
 	name = "Roboticist"
 	jobtype = /datum/job/roboticist
 
-	id = /obj/item/card/id/job/sci
+	id = /obj/item/card/id/job/roboticist
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/pda/roboticist
 	ears = /obj/item/radio/headset/headset_sci

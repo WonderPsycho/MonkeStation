@@ -13,14 +13,19 @@
 	var/chargelevel = -1
 	var/charge_rate = 250
 
-/obj/machinery/cell_charger/update_icon()
-	cut_overlays()
+/obj/machinery/cell_charger/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/shell, list(new /obj/item/circuit_component/cell_charger()), SHELL_CAPACITY_SMALL)
+
+/obj/machinery/cell_charger/update_overlays()
+	. = ..()
 	if(charging)
-		add_overlay("ccharger-on")
-		if(!(stat & (BROKEN|NOPOWER)))
+		. += mutable_appearance('icons/obj/power.dmi', "ccharger-on")
+		if(!(machine_stat & (BROKEN|NOPOWER)))
 			var/newlevel = 	round(charging.percent() * 4 / 100)
 			chargelevel = newlevel
-			add_overlay("ccharger-o[newlevel]")
+			. += mutable_appearance('icons/obj/power.dmi', "ccharger-o[newlevel]")
+			. += emissive_appearance('icons/obj/power.dmi', "ccharger-o[newlevel]")
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
@@ -32,7 +37,7 @@
 
 /obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
 			return
 		if(!anchored)
@@ -54,7 +59,7 @@
 			charging = W
 			user.visible_message("[user] inserts a cell into [src].", "<span class='notice'>You insert a cell into [src].</span>")
 			chargelevel = -1
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else
 		if(!charging && default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 			return
@@ -77,7 +82,7 @@
 	charging.update_icon()
 	charging = null
 	chargelevel = -1
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
 	. = ..()
@@ -108,19 +113,20 @@
 /obj/machinery/cell_charger/emp_act(severity)
 	. = ..()
 
-	if(stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_CONTENTS)
+	if(machine_stat & (BROKEN|NOPOWER) || . & EMP_PROTECT_CONTENTS)
 		return
 
 	if(charging)
 		charging.emp_act(severity)
 
 /obj/machinery/cell_charger/RefreshParts()
+	. = ..()
 	charge_rate = 250
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		charge_rate *= C.rating
 
 /obj/machinery/cell_charger/process(delta_time)
-	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
+	if(!charging || !anchored || (machine_stat & (BROKEN|NOPOWER)))
 		return
 
 	if(charging.percent() >= 100)
@@ -128,4 +134,49 @@
 	use_power(charge_rate * delta_time)
 	charging.give(charge_rate * delta_time)	//this is 2558, efficient batteries exist
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+
+//Monkestation: Added circuit component
+/obj/item/circuit_component/cell_charger
+	display_name = "Cell Charger"
+	display_desc = "Lets you interface with the cell charger. The 'trigger' port updates the info!"
+
+	var/datum/port/input/eject_battery
+	var/datum/port/input/trigger
+
+	var/datum/port/output/battery_charge
+	var/datum/port/output/triggered
+
+
+/obj/item/circuit_component/cell_charger/Initialize(mapload)
+	. = ..()
+	eject_battery = add_input_port("Eject Cell", PORT_TYPE_SIGNAL)
+	trigger = add_input_port("Trigger", PORT_TYPE_SIGNAL)
+
+	battery_charge = add_output_port("Cell Charge", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
+
+
+/obj/item/circuit_component/cell_charger/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/machinery/cell_charger/shell = parent.shell
+	if(!istype(shell))
+		return
+
+	if(COMPONENT_TRIGGERED_BY(trigger, port))
+		if(shell.charging)
+			battery_charge.set_output(shell.charging.percent())
+		else
+			battery_charge.set_output(-1)
+		triggered.set_output(COMPONENT_SIGNAL)
+	else if(COMPONENT_TRIGGERED_BY(eject_battery, port))
+		if(!shell.charging)
+			return
+
+		shell.charging.forceMove(shell.loc)
+
+		shell.removecell()

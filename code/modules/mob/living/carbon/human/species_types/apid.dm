@@ -1,6 +1,6 @@
 /datum/species/apid
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
-	name = "Apids"
+	name = "\improper Apid"
 	id = SPECIES_APID
 	bodyflag = FLAG_APID
 	say_mod = "buzzes"
@@ -12,7 +12,7 @@
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
+	meat = /obj/item/food/meat/slab/human/mutant/apid
 	liked_food = VEGETABLES | FRUIT
 	disliked_food = GROSS | DAIRY
 	toxic_food = MEAT | RAW
@@ -26,6 +26,13 @@
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = WAXSALIVA
 	var/cold_cycle = 0
+
+	species_chest = /obj/item/bodypart/chest/apid
+	species_head = /obj/item/bodypart/head/apid
+	species_l_arm = /obj/item/bodypart/l_arm/apid
+	species_r_arm = /obj/item/bodypart/r_arm/apid
+	species_l_leg = /obj/item/bodypart/l_leg/apid
+	species_r_leg = /obj/item/bodypart/r_leg/apid
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
@@ -43,16 +50,20 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_apid_name(gender)
-
-	var/randname = apid_name(gender)
+/datum/species/apid/random_name(gender, unique, lastname, attempts)
+	if(gender == MALE)
+		. =  "[pick(GLOB.apid_names_male)]"
+	else
+		. =  "[pick(GLOB.apid_names_female)]"
 
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. +=  " [pick(GLOB.apid_names_last)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, attempts+1)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))

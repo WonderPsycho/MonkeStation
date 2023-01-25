@@ -9,11 +9,7 @@
 	light_color = LIGHT_COLOR_RED
 	products = list(/obj/item/clothing/suit/chickensuit = 1,
 					/obj/item/clothing/head/chicken = 1,
-					/obj/item/clothing/under/rank/civilian/clown/blue = 1,
-					/obj/item/clothing/under/rank/civilian/clown/green = 1,
-					/obj/item/clothing/under/rank/civilian/clown/yellow = 1,
-					/obj/item/clothing/under/rank/civilian/clown/orange = 1,
-					/obj/item/clothing/under/rank/civilian/clown/purple = 1,
+					/obj/item/clothing/under/rank/civilian/clown = 4,
 					/obj/item/clothing/under/costume/gladiator = 1,
 					/obj/item/clothing/head/helmet/gladiator = 1,
 					/obj/item/clothing/under/rank/captain/suit = 1,
@@ -26,14 +22,12 @@
 					/obj/item/clothing/under/costume/schoolgirl/orange = 1,
 					/obj/item/clothing/head/kitty = 1,
 					/obj/item/clothing/under/dress/skirt = 1,
-					/obj/item/clothing/head/beret = 1,
+					/obj/item/clothing/head/beret = 3,
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/under/suit/black = 1,
+					/obj/item/clothing/neck/tie = 3,
 					/obj/item/clothing/head/that = 1,
 					/obj/item/clothing/under/costume/kilt = 1,
-					/obj/item/clothing/head/beret = 1,
-					/obj/item/clothing/head/beret/vintage = 1,
-					/obj/item/clothing/head/beret/archaic = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/glasses/monocle =1,
 					/obj/item/clothing/head/bowler = 1,
@@ -77,6 +71,7 @@
 					/obj/item/clothing/mask/gas/sexymime = 1,
 					/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
 					/obj/item/clothing/under/rank/civilian/mime/skirt = 1,
+					/obj/item/clothing/suit/suspenders = 1,
 					/obj/item/clothing/mask/rat/bat = 1,
 					/obj/item/clothing/mask/rat/bee = 1,
 					/obj/item/clothing/mask/rat/bear = 1,
@@ -115,7 +110,7 @@
 					/obj/item/clothing/under/costume/joker = 2,
 					/obj/item/clothing/suit/joker = 2,
 					/obj/item/clothing/under/dress/sailor = 1,
-        			/obj/item/clothing/head/wig/random = 3,
+        			/obj/item/clothing/head/wig = 3, //monkestation edit
 					/obj/item/clothing/head/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
@@ -134,12 +129,14 @@
 				   /obj/item/shield/riot/roman/fake = 1,
 				   /obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 				   /obj/item/clothing/head/clownmitre = 1,
+				   /obj/item/toy/whoopee = 1,
 		           /obj/item/skub = 1)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 	default_price = 50
 	extra_price = 75
 	payment_department = ACCOUNT_SRV
+	light_mask="theater-light-mask"
 /obj/machinery/vending/autodrobe/all_access
 	desc = "A vending machine for costumes. This model appears to have no access restrictions."
 	req_access = null

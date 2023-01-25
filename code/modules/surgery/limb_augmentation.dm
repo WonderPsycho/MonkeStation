@@ -15,21 +15,14 @@
 	if(istype(tool, /obj/item/organ_storage) && istype(tool.contents[1], /obj/item/bodypart))
 		tool = tool.contents[1]
 	var/obj/item/bodypart/aug = tool
-	if(aug.status != BODYPART_ROBOTIC)
-		to_chat(user, "<span class='warning'>That's not an augment, silly!</span>")
-		return -1
 	if(aug.body_zone != target_zone)
 		to_chat(user, "<span class='warning'>[tool] isn't the right type for [parse_zone(target_zone)].</span>")
 		return -1
 	L = surgery.operated_bodypart
 	if(L)
-		if(L.is_disabled() == BODYPART_DISABLED_PARALYSIS)
-			to_chat(user, "<span class='warning'>You can't augment a limb with paralysis!</span>")
-			return -1
-		else
-			display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
-				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
-				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
+		display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
+			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
+			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
 	else
 		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class ='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
 

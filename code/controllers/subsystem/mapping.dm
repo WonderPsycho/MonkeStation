@@ -21,8 +21,20 @@ SUBSYSTEM_DEF(mapping)
 	var/list/shuttle_templates = list()
 	var/list/shelter_templates = list()
 
+	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
+
+	/// New Random Bars and Engines Template Lists - MonkeStation Edit
+	var/list/random_bar_templates = list()
+	var/list/random_engine_templates = list()
+	/// New Random Bars and Engines Template Lists - MonkeStation Edit End
+
 	var/list/holodeck_templates = list()
+
+	///Temporary list, where room spawners are kept roundstart. Not used later.
+	var/list/random_room_spawners = list()
+	var/list/random_bar_spawners = list()
+	var/list/random_engine_spawners = list()
 
 	var/list/areas_in_z = list()
 
@@ -80,9 +92,6 @@ SUBSYSTEM_DEF(mapping)
 	for (var/i in 1 to config.space_empty_levels)
 		++space_levels_so_far
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
-	// and the transit level
-	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
-
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()
@@ -108,6 +117,7 @@ SUBSYSTEM_DEF(mapping)
 	// Set up Z-level transitions.
 	setup_map_transitions()
 	generate_station_area_list()
+	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
 	return ..()
 
@@ -122,7 +132,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/docking_port/stationary/transit/T = i
 		if(!istype(T))
 			continue
-		in_transit[T] = T.get_docked()
+		in_transit[T] = T.docked
 	var/go_ahead = world.time + wipe_safety_delay
 	if(in_transit.len)
 		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [wipe_safety_delay/10] seconds.")
@@ -154,11 +164,10 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/check_nuke_threats()
 	for(var/datum/d in nuke_threats)
-		if(!istype(d) || QDELETED(d))
+		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/N in nuke_tiles)
-		var/turf/open/floor/circuit/C = N
+	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
 		C.update_icon()
 
 /datum/controller/subsystem/mapping/Recover()
@@ -170,11 +179,19 @@ SUBSYSTEM_DEF(mapping)
 	lava_ruins_templates = SSmapping.lava_ruins_templates
 	shuttle_templates = SSmapping.shuttle_templates
 	random_room_templates = SSmapping.random_room_templates
+
+	/// New Random Bars and Engines Templates - MonkeStation Edit
+	random_bar_templates = SSmapping.random_bar_templates
+	random_engine_templates = SSmapping.random_engine_templates
+	/// New Random Bars and Engines Templates - MonkeStation Edit End
+
 	shelter_templates = SSmapping.shelter_templates
 	unused_turfs = SSmapping.unused_turfs
 	turf_reservations = SSmapping.turf_reservations
 	used_turfs = SSmapping.used_turfs
 	holodeck_templates = SSmapping.holodeck_templates
+	transit = SSmapping.transit
+	areas_in_z = SSmapping.areas_in_z
 
 	config = SSmapping.config
 	next_map_config = SSmapping.next_map_config
@@ -224,18 +241,84 @@ SUBSYSTEM_DEF(mapping)
 	//Shared orbital body
 	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
 	for(var/datum/space_level/level as() in space_levels)
-		level.orbital_body = orbital_body
+		SSorbits.assoc_z_levels["[level.z_value]"] = orbital_body
 		orbital_body.link_to_z(level)
 
 	// load the maps
-	for (var/P in parsed_maps)
-		var/datum/parsed_map/pm = P
-		if (!pm.load(1, 1, start_z + parsed_maps[P], no_changeturf = TRUE))
+	for(var/datum/parsed_map/pm as() in parsed_maps)
+		if(!pm.load(1, 1, start_z + parsed_maps[pm], no_changeturf = TRUE))
 			errorList |= pm.original_path
 
 	if(!silent)
 		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
 	return parsed_maps
+
+/datum/controller/subsystem/mapping/proc/LoadStationRooms()
+	var/start_time = REALTIMEOFDAY
+	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
+		var/list/possibletemplates = list()
+		var/datum/map_template/random_room/candidate
+		shuffle_inplace(random_room_templates)
+		for(var/ID in random_room_templates)
+			candidate = random_room_templates[ID]
+			if(candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
+				candidate = null
+				continue
+			possibletemplates[candidate] = candidate.weight
+		if(possibletemplates.len)
+			var/datum/map_template/random_room/template = pickweight(possibletemplates)
+			template.stock--
+			template.weight = (template.weight / 2)
+			if(template.stock <= 0)
+				template.spawned = TRUE
+			template.stationinitload(get_turf(R), centered = template.centerspawner)
+		SSmapping.random_room_spawners -= R
+		qdel(R)
+	random_room_spawners = null
+	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
+
+/// New Random Bars and Engines Spawning - MonkeStation Edit
+/datum/controller/subsystem/mapping/proc/load_random_bars()
+	var/start_time = REALTIMEOFDAY
+	for(var/obj/effect/spawner/random_bars/bar_spawner as() in random_bar_spawners)
+		var/list/possible_bar_templates = list()
+		var/datum/map_template/random_bars/bar_candidate
+		shuffle_inplace(random_bar_templates)
+		for(var/ID in random_bar_templates)
+			bar_candidate = random_bar_templates[ID]
+			if(config.map_name != bar_candidate.station_name || bar_candidate.weight == 0 || bar_spawner.room_height != bar_candidate.template_height || bar_spawner.room_width != bar_candidate.template_width)
+				bar_candidate = null
+				continue
+			possible_bar_templates[bar_candidate] = bar_candidate.weight
+		if(possible_bar_templates.len)
+			var/datum/map_template/random_bars/template = pickweightAllowZero(possible_bar_templates)
+			template.stationinitload(get_turf(bar_spawner), centered = template.centerspawner)
+		SSmapping.random_bar_spawners -= bar_spawner
+		qdel(bar_spawner)
+	random_bar_spawners = null
+	INIT_ANNOUNCE("Loaded Random Bar in [(REALTIMEOFDAY - start_time)/10]s!")
+
+/datum/controller/subsystem/mapping/proc/load_random_engines()
+	var/start_time = REALTIMEOFDAY
+	for(var/obj/effect/spawner/random_engines/engine_spawner as() in random_engine_spawners)
+		var/list/possible_engine_templates = list()
+		var/datum/map_template/random_engines/engine_candidate
+		shuffle_inplace(random_engine_templates)
+		for(var/ID in random_engine_templates)
+			engine_candidate = random_engine_templates[ID]
+			if(config.map_name != engine_candidate.station_name || engine_candidate.weight == 0 || engine_spawner.room_height != engine_candidate.template_height || engine_spawner.room_width != engine_candidate.template_width)
+				engine_candidate = null
+				continue
+			possible_engine_templates[engine_candidate] = engine_candidate.weight
+		if(possible_engine_templates.len)
+			var/datum/map_template/random_engines/template = pickweightAllowZero(possible_engine_templates)
+			template.stationinitload(get_turf(engine_spawner), centered = template.centerspawner)
+		SSmapping.random_engine_spawners -= engine_spawner
+		qdel(engine_spawner)
+	random_engine_spawners = null
+	INIT_ANNOUNCE("Loaded Random Engine in [(REALTIMEOFDAY - start_time)/10]s!")
+/// New Random Bars and Engines Spawning - MonkeStation Edit End
+
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -248,6 +331,14 @@ SUBSYSTEM_DEF(mapping)
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
 	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
+
+	LoadStationRoomTemplates()
+	LoadStationRooms()
+
+/// Load new random bar and engine procs - MonkeStation Edit End
+	load_random_bars()
+	load_random_engines()
+/// Load new random bar and engine procs- MonkeStation Edit End
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
@@ -342,6 +433,9 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 		if(pmv)
 			mapvotes[map] = mapvotes[map]*VM.voteweight
+		else if(VM.map_file == config.map_file)
+			// Don't force them to play the same map when MAPROTATION actually rolls to change the map
+			mapvotes.Remove(map)
 
 	var/pickedmap = pickweight(mapvotes)
 	if (!pickedmap)
@@ -361,26 +455,49 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	next_map_config = VM
 	return TRUE
 
-/datum/controller/subsystem/mapping/proc/preloadTemplates(path = "_maps/templates/") //see master controller setup
-	var/list/filelist = flist(path)
+/datum/controller/subsystem/mapping/proc/preloadTemplates() //see master controller setup
+	if(IsAdminAdvancedProcCall())
+		return
+
+	var/list/filelist = flist("[MAP_DIRECTORY]/templates/")
 	for(var/map in filelist)
-		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
+		var/datum/map_template/T = new(path = "[MAP_DIRECTORY]/templates/[map]", rename = "[map]")
 		map_templates[T.name] = T
 
 	preloadRuinTemplates()
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
-	preloadRandomRoomTemplates()
 	preloadHolodeckTemplates()
 
-/datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
+/datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
+			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
 			continue
 		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R
 		map_templates[R.room_id] = R
+
+	/// New Random Bars and Engines Template Load - MonkeStation Edit
+	for(var/item in subtypesof(/datum/map_template/random_bars))
+		var/datum/map_template/random_bars/room_type = item
+		if(!(initial(room_type.mappath)))
+			message_admins("Bar Template [initial(room_type.name)] found without mappath. Yell at coders")
+			continue
+		var/datum/map_template/random_bars/B = new room_type()
+		random_bar_templates[B.room_id] = B
+		map_templates[B.room_id] = B
+
+	for(var/item in subtypesof(/datum/map_template/random_engines))
+		var/datum/map_template/random_engines/room_type = item
+		if(!(initial(room_type.mappath)))
+			message_admins("Engine Template [initial(room_type.name)] found without mappath. Yell at coders")
+			continue
+		var/datum/map_template/random_engines/E = new room_type()
+		random_engine_templates[E.room_id] = E
+		map_templates[E.room_id] = E
+	/// New Random Bars and Engines Template Load - MonkeStation Edit End
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename

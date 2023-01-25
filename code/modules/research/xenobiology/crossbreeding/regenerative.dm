@@ -82,7 +82,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/yellow/core_effect(mob/living/target, mob/user)
 	var/list/batteries = list()
-	for(var/obj/item/stock_parts/cell/C in target.GetAllContents())
+	for(var/obj/item/stock_parts/cell/C in target.get_all_contents_type())
 		if(C.charge < C.maxcharge)
 			batteries += C
 	if(batteries.len)
@@ -150,7 +150,7 @@ Regenerative extracts:
 	target.forceMove(T)
 	do_sparks(5,FALSE,target)
 
-/obj/item/slimecross/regenerative/bluespace/Initialize()
+/obj/item/slimecross/regenerative/bluespace/Initialize(mapload)
 	. = ..()
 	T = get_turf(src)
 

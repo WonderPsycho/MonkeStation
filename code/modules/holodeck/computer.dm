@@ -167,6 +167,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			if(!valid)
 				return
 			//load the map_template that program_to_load represents
+			log_game("[key_name(usr)] switched the holodeck to [program_to_load]")
 			load_program(program_to_load)
 			. = TRUE
 		if("safety")
@@ -189,7 +190,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	if (program == map_id)
 		return
 
-	if (!is_operational())//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
+	if (!is_operational)//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
 		map_id = offline_program
 		force = TRUE
 
@@ -207,12 +208,13 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 	spawning_simulation = TRUE
 	active = (map_id != offline_program)
-	use_power = active + IDLE_POWER_USE
+	update_use_power(active + IDLE_POWER_USE)
 	program = map_id
 
 	//clear the items from the previous program
 	for(var/holo_atom in spawned)
 		derez(holo_atom)
+	spawned.Cut()
 
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		effects -= holo_effect
@@ -227,8 +229,11 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				holo_turf.baseturfs += /turf/open/floor/holofloor/plating
 
 	template = SSmapping.holodeck_templates[map_id]
-	template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	template_placer.on_completion(CALLBACK(src, .proc/finish_spawn, template))
 
+///finalizes objects in the spawned list
+/obj/machinery/computer/holodeck/proc/finish_spawn()
 	spawned = template.created_atoms //populate the spawned list with the atoms belonging to the holodeck
 
 	if(istype(template, /datum/map_template/holodeck/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
@@ -236,10 +241,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
 	nerf(!(obj_flags & EMAGGED))
-	finish_spawn()
 
-///finalizes objects in the spawned list
-/obj/machinery/computer/holodeck/proc/finish_spawn()
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
 			spawned -= holo_atom
@@ -327,7 +329,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				derez(item)
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.tick()
-	active_power_usage = 50 + spawned.len * 3 + effects.len * 5
+	update_mode_power_usage(ACTIVE_POWER_USE, 50 + spawned.len * 3 + effects.len * 5)
 
 /obj/machinery/computer/holodeck/proc/toggle_power(toggleOn = FALSE)
 	if(active == toggleOn)
@@ -344,7 +346,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 /obj/machinery/computer/holodeck/power_change()
 	. = ..()
-	INVOKE_ASYNC(src, .proc/toggle_power, !stat)
+	INVOKE_ASYNC(src, .proc/toggle_power, !machine_stat)
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()

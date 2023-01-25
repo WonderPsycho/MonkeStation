@@ -11,6 +11,7 @@
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
 
+
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"
 	set category = "Object"
@@ -91,7 +92,7 @@
 		return
 	var/turf/T = user.loc
 	for (var/mob/living/A in T)
-		if (A != user && A.lying)
+		if (A != user && A.lying_angle)
 			A.adjustBruteLoss(rand(10,13))
 			to_chat(A,"<span class='userdanger'>[user]'s magboots press down on you, crushing you!</span>")
 			INVOKE_ASYNC(A, /mob.proc/emote, "scream")
@@ -109,6 +110,6 @@
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
 
 /obj/item/clothing/shoes/magboots/crushing/dropped(mob/user)
-	. = ..()
+	..()
 	UnregisterSignal(user,COMSIG_MOVABLE_MOVED)
 

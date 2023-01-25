@@ -45,6 +45,10 @@
 			to_chat(C, "<span class='warning'>The ringing in your ears grows louder, blocking out any external noises for a moment.</span>")
 	else if((organ_flags & ORGAN_FAILING) && (deaf == 0))
 		deaf = 1	//stop being not deaf you deaf idiot
+	if(deaf)
+		owner.apply_status_effect(/datum/status_effect/deafened)
+	else
+		owner.remove_status_effect(/datum/status_effect/deafened)
 
 /obj/item/organ/ears/proc/restoreEars()
 	deaf = 0
@@ -80,6 +84,8 @@
 	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
+		if(ears.deaf)
+			SEND_SOUND(src, sound(null))
 
 /mob/proc/minimumDeafTicks()
 
@@ -98,7 +104,6 @@
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
-		color = H.hair_color
 		H.dna.species.mutant_bodyparts |= "ears"
 		H.dna.features["ears"] = "Cat"
 		H.update_body()
@@ -106,7 +111,6 @@
 /obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
-		color = H.hair_color
 		H.dna.features["ears"] = "None"
 		H.dna.species.mutant_bodyparts -= "ears"
 		H.update_body()

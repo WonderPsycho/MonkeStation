@@ -18,7 +18,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     var/ruinSpawned = FALSE
     var/mysteryRoom
 
-/obj/item/hilbertshotel/Initialize()
+/obj/item/hilbertshotel/Initialize(mapload)
     . = ..()
     //Load templates
     hotelRoomTemp = new()
@@ -199,7 +199,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "hotel wall"
 	desc = "A wall designed to protect the security of the hotel's guests."
 	icon_state = "hotelwall"
-	canSmoothWith = list(/turf/closed/indestructible/hotelwall)
+	//canSmoothWith = list(/turf/closed/indestructible/hotelwall) //MONKESTATION REMOVAL
 	explosion_block = INFINITY
 
 /turf/open/indestructible/hotelwood
@@ -242,7 +242,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
         to_chat(user, "<span class='warning'>The door seems to be malfunctioning and refuses to operate!</span>")
         return
     if(alert(user, "Hilbert's Hotel would like to remind you that while we will do everything we can to protect the belongings you leave behind, we make no guarantees of their safety while you're gone, especially that of the health of any living creatures. With that in mind, are you ready to leave?", "Exit", "Leave", "Stay") == "Leave")
-        if(!(user.mobility_flags & MOBILITY_MOVE) || (get_dist(get_turf(src), get_turf(user)) > 1)) //no teleporting around if they're dead or moved away during the prompt.
+        if(HAS_TRAIT(user, TRAIT_IMMOBILIZED) || (get_dist(get_turf(src), get_turf(user)) > 1)) //no teleporting around if they're dead or moved away during the prompt.
             return
         user.forceMove(get_turf(parentSphere))
         do_sparks(3, FALSE, get_turf(user))
@@ -331,7 +331,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     . = ..()
     if(istype(arrived, /obj/item/hilbertshotel))
         relocate(arrived)
-    var/list/obj/item/hilbertshotel/hotels = arrived.GetAllContents(/obj/item/hilbertshotel)
+    var/list/obj/item/hilbertshotel/hotels = arrived.get_all_contents_type(/obj/item/hilbertshotel)
     for(var/obj/item/hilbertshotel/H in hotels)
         if(parentSphere == H)
             relocate(H)
@@ -360,7 +360,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
         var/mob/M = gone
         if(M.mind)
             var/stillPopulated = FALSE
-            var/list/currentLivingMobs = GetAllContents(/mob/living) //Got to catch anyone hiding in anything
+            var/list/currentLivingMobs = get_all_contents_type(/mob/living) //Got to catch anyone hiding in anything
             for(var/mob/living/L in currentLivingMobs) //Check to see if theres any sentient mobs left.
                 if(L.mind)
                     stillPopulated = TRUE
@@ -469,7 +469,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /obj/item/paper/crumpled/docslogs
 	name = "Research Logs"
 
-/obj/item/paper/crumpled/docslogs/Initialize()
+/obj/item/paper/crumpled/docslogs/Initialize(mapload)
 	. = ..()
 	GLOB.hhmysteryRoomNumber = rand(1, SHORT_REAL_LIMIT)
 	info = {"<h4><center>Research Logs</center></h4>

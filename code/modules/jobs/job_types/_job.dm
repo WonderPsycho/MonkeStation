@@ -35,7 +35,7 @@
 	//Supervisors, who this person answers to directly
 	var/supervisors = ""
 
-	//Sellection screen color
+	//Selection screen color
 	var/selection_color = "#ffffff"
 
 	//Overhead chat message colour
@@ -65,6 +65,8 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
+	var/bounty_types = CIV_JOB_BASIC //Monkestation edit
+
 	var/gimmick = FALSE //least hacky way i could think of for this
 
 	///Bitfield of departments this job belongs wit
@@ -82,6 +84,20 @@
 	///RPG job names, for the memes
 	var/rpg_title
 
+
+	//MonkeStation Edit: Port of /tg/'s mail system
+	/// Goodies that can be received via the mail system.
+	// this is a weighted list.
+	/// Keep the _job definition for this empty and use /obj/item/mail to define general gifts.
+	var/list/mail_goodies = list()
+
+	/// If this job's mail goodies compete with generic goodies.
+	var/exclusive_mail_goodies = FALSE
+
+/// An overridable getter for more dynamic goodies.
+/datum/job/proc/get_mail_goodies(mob/recipient)
+	return mail_goodies
+	//MonkeStation Edit End
 
 /datum/job/New()
 	. = ..()
@@ -151,9 +167,6 @@
 			if(H.equip_to_appropriate_slot(item))
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
 				continue
-			if(H.put_in_hands(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
-				continue
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
@@ -190,7 +203,7 @@
 	if(!H)
 		return FALSE
 	if(CONFIG_GET(flag/enforce_human_authority) && (title in GLOB.command_positions))
-		if(H.dna.species.id != "human")
+		if(H.dna.species.id != SPECIES_HUMAN)
 			H.set_species(/datum/species/human)
 			H.apply_pref_name("human", preference_source)
 	if(!visualsOnly)
@@ -365,7 +378,7 @@
 	var/unfunny = 4
 	if((flag == CLOWN) || (flag == MIME))
 		unfunny = 0
-	if(islizard(H) || iscatperson(H))
+	if(islizard(H))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
 	if(MOB_INORGANIC in H.mob_biotypes)
 		sickrisk -= 0.5

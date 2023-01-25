@@ -141,7 +141,7 @@
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
-	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
+	l_pocket = /obj/item/food/grown/banana
 	r_pocket = /obj/item/bikehorn
 	id = /obj/item/card/id
 	r_hand = /obj/item/fireaxe
@@ -252,6 +252,10 @@
 	if(isplasmaman(H))
 		H.internal = H.get_item_for_held_index(2)
 		H.update_internals_hud_icon(1)
+	if(issimian(H))
+		qdel(H.wear_neck)
+		var/obj/item/clothing/mask/translator/T = new /obj/item/clothing/mask/translator
+		H.equip_to_slot(T, ITEM_SLOT_NECK)
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
@@ -340,7 +344,7 @@
 	name = "Marisa Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/marisa
-	shoes = /obj/item/clothing/shoes/sandal/marisa
+	shoes = /obj/item/clothing/shoes/sneakers/marisa
 	head = /obj/item/clothing/head/wizard/marisa
 
 /datum/outfit/soviet

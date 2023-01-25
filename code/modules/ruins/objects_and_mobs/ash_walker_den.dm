@@ -3,7 +3,7 @@
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
 	desc = "A vile tendril of corruption. It's surrounded by a nest of rapidly growing eggs..."
-	icon = 'icons/mob/nest.dmi'
+	icon = 'monkestation/icons/mob/nest.dmi' //monkestation edit - new ashwalker sprites
 	icon_state = "ash_walker_nest"
 
 	move_resist=INFINITY // just killing it tears a massive hole in the ground, let's not move it
@@ -19,11 +19,11 @@
 	var/datum/team/ashwalkers/ashies
 	var/datum/linked_objective
 
-/obj/structure/lavaland/ash_walker/Initialize()
+/obj/structure/lavaland/ash_walker/Initialize(mapload)
 	.=..()
 	ashies = new /datum/team/ashwalkers()
 	var/datum/objective/protect_object/objective = new
-	objective.set_target(src)
+	objective.set_protect_target(src)
 	linked_objective = objective
 	ashies.objectives += objective
 	for(var/datum/mind/M in ashies.members)

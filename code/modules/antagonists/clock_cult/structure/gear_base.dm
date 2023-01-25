@@ -10,7 +10,7 @@
 	var/depowered = FALSE	//Makes sure the depowered proc is only called when its depowered and not while its depowered
 	var/minimum_power = 0	//Minimum operation power
 
-/obj/structure/destructible/clockwork/gear_base/Initialize()
+/obj/structure/destructible/clockwork/gear_base/Initialize(mapload)
 	. = ..()
 	update_icon_state()
 	transmission_sigils = list()
@@ -27,7 +27,7 @@
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(I.use_tool(src, user, 20, volume=50))
 			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
-			setAnchored(!anchored)
+			set_anchored(!anchored)
 			update_icon_state()
 		return TRUE
 	else

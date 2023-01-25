@@ -145,7 +145,7 @@
 	var/research_scanner = FALSE
 
 	/// Is the mob throw intent on
-	var/in_throw_mode = 0
+	var/throw_mode = THROW_MODE_DISABLED //monkestation edit
 
 	/// What job does this mob have
 	var/job = null//Living
@@ -200,7 +200,7 @@
 	var/list/progressbars = null	//for stacking do_after bars
 
 	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
-	var/list/do_afters	
+	var/list/do_afters
 
 	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept
@@ -217,5 +217,10 @@
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
 
+	//Whether the mob is updating glide size when movespeed updates or not
+	var/updating_glide_size = TRUE
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
+
+	///Currently possesses a typing indicator icon
+	var/typing_indicator = FALSE
