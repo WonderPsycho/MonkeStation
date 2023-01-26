@@ -67,6 +67,7 @@
 				if(C.number)
 					number = max(number, C.number+1)
 		c_tag = "[A.name] #[number]"
+		network = A.network
 
 
 // UPGRADE PROCS
@@ -94,7 +95,7 @@
 /obj/machinery/camera/proc/removeEmpProof(ignore_malf_upgrades)
 	if(ignore_malf_upgrades) //don't downgrade it if malf software is forced onto it.
 		return
-	emp_component.RemoveComponent()
+	QDEL_NULL(emp_component)
 	upgrades &= ~CAMERA_UPGRADE_EMP_PROOF
 
 

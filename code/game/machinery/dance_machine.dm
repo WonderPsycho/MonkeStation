@@ -9,8 +9,7 @@
 	var/active = FALSE
 	var/list/rangers = list()
 	var/stop = 0
-	var/list/songs = list()
-	var/datum/track/selection = null
+	var/datum/soundtrack_song/selection = null
 	/// Volume of the songs played
 	var/volume = 100
 
@@ -31,35 +30,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1
 
-/datum/track
-	var/song_name = "generic"
-	var/song_path = null
-	var/song_length = 0
-	var/song_beat = 0
-
-/datum/track/New(name, path, length, beat)
-	song_name = name
-	song_path = path
-	song_length = length
-	song_beat = beat
-
 /obj/machinery/jukebox/Initialize(mapload)
 	. = ..()
-	var/list/tracks = flist("config/jukebox_music/sounds/")
-
-	for(var/S in tracks)
-		var/datum/track/T = new()
-		T.song_path = file("config/jukebox_music/sounds/[S]")
-		var/list/L = splittext(S,"+")
-		if(L.len != 3)
-			continue
-		T.song_name = L[1]
-		T.song_length = text2num(L[2])
-		T.song_beat = text2num(L[3])
-		songs |= T
-
-	if(songs.len)
-		selection = pick(songs)
+	if(GLOB.soundtrack_datum_list)
+		selection = pick(GLOB.soundtrack_datum_list) //Random song by default
 
 /obj/machinery/jukebox/Destroy()
 	dance_over()
@@ -70,10 +44,10 @@
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
 				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
-				setAnchored(TRUE)
+				set_anchored(TRUE)
 			else if(anchored)
 				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
 	return ..()
@@ -92,7 +66,7 @@
 		to_chat(user,"<span class='warning'>Error: Access Denied.</span>")
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
-	if(!songs.len && !isobserver(user))
+	if(!GLOB.soundtrack_datum_list.len && !isobserver(user))
 		to_chat(user,"<span class='warning'>Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue.</span>")
 		playsound(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
@@ -108,18 +82,18 @@
 	var/list/data = list()
 	data["active"] = active
 	data["songs"] = list()
-	for(var/datum/track/S in songs)
+	for(var/datum/soundtrack_song/S in GLOB.soundtrack_datum_list)
 		var/list/track_data = list(
-			name = S.song_name
+			name = S.title
 		)
 		data["songs"] += list(track_data)
 	data["track_selected"] = null
 	data["track_length"] = null
 	data["track_beat"] = null
 	if(selection)
-		data["track_selected"] = selection.song_name
-		data["track_length"] = DisplayTimeText(selection.song_length)
-		data["track_beat"] = selection.song_beat
+		data["track_selected"] = selection.title
+		data["track_length"] = DisplayTimeText(selection.length)
+		data["track_beat"] = selection.beat
 	data["volume"] = volume
 	return data
 
@@ -148,10 +122,10 @@
 				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
 				return
 			var/list/available = list()
-			for(var/datum/track/S in songs)
-				available[S.song_name] = S
+			for(var/datum/soundtrack_song/S in GLOB.soundtrack_datum_list)
+				available[S.title] = S
 			var/selected = params["track"]
-			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
+			if(QDELETED(src) || !selected || !istype(available[selected], /datum/soundtrack_song))
 				return
 			selection = available[selected]
 			return TRUE
@@ -174,7 +148,8 @@
 	active = TRUE
 	update_icon()
 	START_PROCESSING(SSmachines, src)
-	stop = world.time + selection.song_length
+	GLOB.soundtrack_this_round |= selection
+	stop = world.time + selection.length
 	ui_update()
 
 /obj/machinery/jukebox/disco/activate_music()
@@ -269,7 +244,7 @@
 				S.pixel_y = 7
 				S.forceMove(get_turf(src))
 		sleep(7)
-	if(selection.song_name == "Engineering's Ultimate High-Energy Hustle")
+	if(selection.title == "Engineering's Ultimate High-Energy Hustle")
 		sleep(280)
 	for(var/obj/reveal in sparkles)
 		reveal.alpha = 255
@@ -325,7 +300,7 @@
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, .proc/hierofunk)
-		sleep(selection.song_beat)
+		sleep(selection.beat)
 
 #undef DISCO_INFENO_RANGE
 
@@ -351,51 +326,32 @@
 		sleep(20)
 
 /obj/machinery/jukebox/disco/proc/dance3(var/mob/living/M)
-	var/matrix/initial_matrix = matrix(M.transform)
 	for (var/i in 1 to 75)
 		if (!M)
 			return
 		switch(i)
 			if (1 to 15)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y + 1, time = 1, loop = 0)
 			if (16 to 30)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(1,-1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 1, pixel_y = M.pixel_y - 1, time = 1, loop = 0)
 			if (31 to 45)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-1,-1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 1, pixel_y = M.pixel_y - 1, time = 1, loop = 0)
 			if (46 to 60)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-1,1)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 1, pixel_y = M.pixel_y + 1, time = 1, loop = 0)
 			if (61 to 75)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(1,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 1, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
 		switch (M.dir)
 			if (NORTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y + 3, time = 1, loop = 0)
 			if (SOUTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,-3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y - 3, time = 1, loop = 0)
 			if (EAST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 3, time = 1, loop = 0)
 			if (WEST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	M.lying_fix()
+	animate(M, pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0)
 
 /obj/machinery/jukebox/disco/proc/dance4(var/mob/living/M)
 	var/speed = rand(1,3)
@@ -410,43 +366,26 @@
 		 time--
 
 /obj/machinery/jukebox/disco/proc/dance5(var/mob/living/M)
-	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
-	var/matrix/initial_matrix = matrix(M.transform)
+	animate(M, transform = matrix(M.transform).Scale(-1), time = 1, loop = 0)
 	for (var/i in 1 to 60)
 		if (!M)
 			return
 		if (i<31)
-			initial_matrix = matrix(M.transform)
-			initial_matrix.Translate(0,1)
-			animate(M, transform = initial_matrix, time = 1, loop = 0)
+			animate(M, pixel_y = M.pixel_y + 1, time = 1, loop = 0)
 		if (i>30)
-			initial_matrix = matrix(M.transform)
-			initial_matrix.Translate(0,-1)
-			animate(M, transform = initial_matrix, time = 1, loop = 0)
+			animate(M, pixel_y = M.pixel_y - 1, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
 		switch (M.dir)
 			if (NORTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y + 3, time = 1, loop = 0)
 			if (SOUTH)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(0,-3)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_y = M.pixel_y - 3, time = 1, loop = 0)
 			if (EAST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x + 3, time = 1, loop = 0)
 			if (WEST)
-				initial_matrix = matrix(M.transform)
-				initial_matrix.Translate(-3,0)
-				animate(M, transform = initial_matrix, time = 1, loop = 0)
+				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	M.lying_fix()
-
-/mob/living/proc/lying_fix()
-	animate(src, transform = null, time = 1, loop = 0)
-	lying_prev = 0
+	animate(M, transform = matrix(M.transform).Scale(-1), pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0) //dance end
 
 /obj/machinery/jukebox/proc/dance_over()
 	for(var/mob/living/L in rangers)
@@ -462,7 +401,7 @@
 
 /obj/machinery/jukebox/process()
 	if(world.time < stop && active)
-		var/sound/song_played = sound(selection.song_path)
+		var/sound/song_played = sound(selection.file)
 
 		for(var/mob/L as() in rangers)
 			if(get_dist(src,L) > 10)

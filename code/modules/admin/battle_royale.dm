@@ -6,16 +6,13 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/kitchen/knife/poison,
 		/obj/item/throwing_star,
 		/obj/item/syndie_glue,
-		/obj/item/book_of_babel,
 		/obj/item/card/emag,
 		/obj/item/storage/box/emps,
 		/obj/item/storage/box/lethalshot,
-		/obj/item/storage/box/gorillacubes,
 		/obj/item/storage/box/teargas,
 		/obj/item/storage/box/security/radio,
 		/obj/item/storage/box/medsprays,
 		/obj/item/storage/toolbox/syndicate,
-		/obj/item/storage/box/syndie_kit/bee_grenades,
 		/obj/item/storage/box/syndie_kit/centcom_costume,
 		/obj/item/storage/box/syndie_kit/chameleon,
 		/obj/item/storage/box/syndie_kit/chemical,
@@ -28,13 +25,10 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/syndie_kit/imp_uplink,
 		/obj/item/storage/box/syndie_kit/origami_bundle,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/storage/box/syndie_kit/bundle_A,
-		/obj/item/storage/box/syndie_kit/bundle_B,
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun/energy/disabler,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/book/granter/spell/knock,
 		/obj/item/clothing/glasses/sunglasses/advanced,
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
@@ -46,7 +40,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/clothing/mask/chameleon,
 		/obj/item/clothing/head/centhat,
 		/obj/item/clothing/head/crown,
-		/obj/item/clothing/head/HoS/syndicate,
+		/obj/item/clothing/head/hos/syndicate,
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/helmet/clockcult,
 		/obj/item/clothing/head/helmet/space,
@@ -62,7 +56,6 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/melee/baton/loaded,
 		/obj/item/melee/chainofcommand/tailwhip/kitty,
 		/obj/item/melee/classic_baton,
-		/obj/item/melee/ghost_sword,
 		/obj/item/melee/powerfist,
 		/obj/item/storage/firstaid/advanced,
 		/obj/item/storage/firstaid/brute,
@@ -75,7 +68,6 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 
 GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/hand_tele,
-		/obj/item/gun/ballistic/bow/clockbolt,
 		/obj/item/gun/ballistic/rifle/boltaction,
 		/obj/item/gun/ballistic/shotgun/doublebarrel,
 		/obj/item/gun/energy/laser/captain,
@@ -87,8 +79,8 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/melee/transforming/energy/sword,
 		/obj/item/dualsaber,
 		/obj/item/fireaxe,
-		/obj/item/stack/telecrystal/five,
-		/obj/item/stack/telecrystal/twenty,
+		/obj/item/storage/box/syndie_kit/bundle_A,
+		/obj/item/storage/box/syndie_kit/bundle_B,
 		/obj/item/clothing/suit/space/hardsuit/syndi
 	))
 
@@ -97,7 +89,6 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
 		/obj/item/mjollnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
@@ -115,7 +106,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /client/proc/battle_royale()
 	set name = "Battle Royale"
-	set category = "Adminbus"
+	set category = "Fun"
 	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
 		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
@@ -131,6 +122,35 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	for(var/client/admin in GLOB.admins)
 		if(check_rights(R_ADMIN) && !GLOB.battle_royale && admin.tgui_panel)
 			admin.tgui_panel.clear_br_popup()
+
+	GLOB.battle_royale = new()
+	GLOB.battle_royale.start()
+
+/client/proc/toolbox_royale() //just a battle royale with all toolboxes, for ease
+	set name = "Toolbox Royale"
+	set category = "Fun"
+	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
+		return
+	if(GLOB.battle_royale)
+		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
+		return
+	if(alert(src, "ARE YOU SURE YOU ARE SURE YOU WANT TO START TOOLBOX ROYALE?",,"Yes","No") != "Yes")
+		to_chat(src, "<span class='notice'>oh.. ok then.. I see how it is.. :(</span>")
+		return
+	log_admin("[key_name(usr)] HAS TRIGGERED TOOLBOX ROYALE")
+	message_admins("[key_name(usr)] HAS TRIGGERED TOOLBOX ROYALE")
+
+	for(var/client/admin in GLOB.admins)
+		if(check_rights(R_ADMIN) && !GLOB.battle_royale && admin.tgui_panel)
+			admin.tgui_panel.clear_br_popup()
+
+	GLOB.battle_royale_basic_loot = list(/obj/item/storage/toolbox/mechanical,
+										 /obj/item/storage/firstaid/regular)
+	GLOB.battle_royale_good_loot = list(/obj/item/storage/toolbox/syndicate,
+										/obj/item/storage/firstaid/brute)
+	GLOB.battle_royale_insane_loot = list(/obj/item/his_grace,
+										  /obj/item/storage/firstaid/advanced)
 
 	GLOB.battle_royale = new()
 	GLOB.battle_royale.start()
@@ -202,6 +222,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		C.remove_verb(BATTLE_ROYALE_AVERBS)
 	. = ..()
 	GLOB.enter_allowed = TRUE
+
+	//BR finished? Let people play as borgs/golems again
+	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+
 	world.update_status()
 	GLOB.battle_royale = null
 
@@ -265,6 +289,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
 	//Stop new player joining
 	GLOB.enter_allowed = FALSE
+
+	//Don't let anyone join as posibrains/golems etc
+	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+
 	world.update_status()
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
@@ -282,11 +310,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		SSticker.start_immediately = TRUE
 	SEND_SOUND(world, sound('sound/misc/server-ready.ogg'))
 	sleep(50)
-	//Clear client mobs
+	//Clear all living mobs
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
-	for(var/mob/M as() in GLOB.player_list)
-		if(isliving(M))
-			qdel(M)
+	for(var/mob/living/M as() in GLOB.mob_living_list)
+		qdel(M)
 		CHECK_TICK
 	sleep(50)
 	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
@@ -326,6 +353,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		CHECK_TICK
 		var/mob/living/carbon/human/H = new(pod)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
+		ADD_TRAIT(H, TRAIT_DROPS_ITEMS_ON_DEATH, BATTLE_ROYALE_TRAIT)
 		H.status_flags |= GODMODE
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
@@ -336,12 +364,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		var/obj/item/implant/weapons_auth/W = new
 		W.implant(H)
 		players += H
-		to_chat(M, "<span class='notice'>You have been given knock and pacafism for 30 seconds.</span>")
+		to_chat(M, "<span class='notice'>You have been given knock and pacifism for 30 seconds.</span>")
 	new /obj/effect/pod_landingzone(spawn_turf, pod)
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
+
 	//Start processing our world events
 	addtimer(CALLBACK(src, .proc/end_grace), 300)
 	generate_basic_loot(150)

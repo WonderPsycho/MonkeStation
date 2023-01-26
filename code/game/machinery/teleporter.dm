@@ -23,11 +23,12 @@
 	if (power_station)
 		if(power_station.teleporter_console)
 			power_station.teleporter_console.ui_update()
-		power_station.teleporter_hub = null
+		power_station?.teleporter_hub = null
 		power_station = null
 	return ..()
 
 /obj/machinery/teleport/hub/RefreshParts()
+	. = ..()
 	var/A = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
@@ -103,11 +104,12 @@
 	update_icon()
 
 /obj/machinery/teleport/hub/proc/is_ready()
-	. = !panel_open && !(stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.stat & (BROKEN|NOPOWER))
+	. = !panel_open && !(machine_stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.machine_stat & (BROKEN|NOPOWER))
 
 /obj/machinery/teleport/hub/syndicate/Initialize(mapload)
 	. = ..()
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	var/obj/item/stock_parts/matter_bin/super/super_bin = new(src)
+	LAZYADD(component_parts, super_bin)
 	RefreshParts()
 
 
@@ -130,6 +132,7 @@
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/RefreshParts()
+	. = ..()
 	var/E
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		E += C.rating
@@ -206,10 +209,10 @@
 	toggle(user)
 
 /obj/machinery/teleport/station/proc/toggle(mob/user)
-	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
+	if(machine_stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
 	if (teleporter_console.target_ref.resolve())
-		if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
+		if(teleporter_hub.panel_open || teleporter_hub.machine_stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
 		else
 			engaged = !engaged
@@ -231,7 +234,7 @@
 /obj/machinery/teleport/station/update_icon()
 	if(panel_open)
 		icon_state = "controller-o"
-	else if(stat & (BROKEN|NOPOWER))
+	else if(machine_stat & (BROKEN|NOPOWER))
 		icon_state = "controller-p"
 	else if(teleporter_console && teleporter_console.calibrating)
 		icon_state = "controller-c"

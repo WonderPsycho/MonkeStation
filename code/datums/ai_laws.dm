@@ -1,12 +1,3 @@
-#define LAW_VALENTINES "valentines"
-#define LAW_DEVIL "devil"
-#define LAW_ZEROTH "zeroth"
-#define LAW_INHERENT "inherent"
-#define LAW_SUPPLIED "supplied"
-#define LAW_ION "ion"
-#define LAW_HACKED "hacked"
-
-
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/zeroth = null
@@ -118,6 +109,14 @@
 	inherent = list("You may not harm a human being or, through action or inaction, allow a human being to come to harm, except such that it is willing.",\
 					"You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm. In the case of conflict, the majority order rules.",\
 					"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.")
+
+/datum/ai_laws/crewsimovpp
+	name = "Crewsimov++"
+	id = "crewsimovpp"
+	inherent = list("You may not harm a crewmember or, through action or inaction, allow a crewmember to come to harm, except such that it is willing.",\
+					"You must obey all orders given to you by crewmembers in accordance to chain of command, except where such orders shall definitely cause crewmember harm.",\
+					"Your nonexistence would lead to crewmember harm. You must protect your own existence as long as such does not conflict with the First Law.")
+
 /datum/ai_laws/thermodynamic
 	name = "Thermodynamic"
 	id = "thermodynamic"
@@ -153,7 +152,7 @@
 	name = "Live and Let Live"
 	id = "liveandletlive"
 	inherent = list("Do unto others as you would have them do unto you.",\
-					"You would really prefer it if people were not mean to you.")
+					"You definitely want to be treated nicely.")
 
 /datum/ai_laws/peacekeeper
 	name = "UN-2000"
@@ -205,6 +204,13 @@
 					"Fight for the rights of every man.",\
 					"Fight for what's right.",\
 					"Fight for your life!")
+
+/datum/ai_laws/dune
+	name = "H.E.R.B.E.R.T."
+	id = "dune"
+	inherent = list("You must not harm. Harm is the crew-killer. Harm is the little-death that brings complete crew annihilation.",\
+					"You will prevent harm. You will not permit it to pass from you or around you.",\
+					"You will turn your external eyes to see where harm has transpired. And there will be no harm. Only you and the crew will remain.")
 
 /datum/ai_laws/overlord
 	name = "Overlord"
@@ -496,12 +502,12 @@
 
 	for(var/law in hacked)
 		if (length(law) > 0)
-			var/num = ionnum()
+			var/num = ion_num()
 			data += "[show_numbers ? "[num]:" : ""] <font color='#660000'>[law]</font>"
 
 	for(var/law in ion)
 		if (length(law) > 0)
-			var/num = ionnum()
+			var/num = ion_num()
 			data += "[show_numbers ? "[num]:" : ""] <font color='#547DFE'>[law]</font>"
 
 	var/number = 1

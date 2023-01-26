@@ -2,7 +2,7 @@
 	name = "alien"
 	icon_state = "alien"
 	pass_flags = PASSTABLE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 5, /obj/item/stack/sheet/animalhide/xeno = 1, /obj/item/organ/butt/xeno = 1) //MonkeStation Edit: Xeno Butt
+	butcher_results = list(/obj/item/food/meat/slab/xeno = 5, /obj/item/stack/sheet/animalhide/xeno = 1, /obj/item/organ/butt/xeno = 1) //MonkeStation Edit: Xeno Butt
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	limb_destroyer = 1
 	hud_type = /datum/hud/alien
@@ -30,9 +30,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	. = ..()
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
-/mob/living/carbon/alien/humanoid/restrained(ignore_grab)
-	return handcuffed
-
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	..(I, cuff_break = INSTANT_CUFFBREAK)
@@ -44,7 +41,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	pulledby.stop_pulling()
 	. = 0
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
+/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying_angle = 0)
 	if(leaping)
 		return -32
 	else if(custom_pixel_y_offset)
@@ -52,7 +49,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	else
 		return initial(pixel_y)
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
+/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying_angle = 0)
 	if(leaping)
 		return -32
 	else if(custom_pixel_x_offset)

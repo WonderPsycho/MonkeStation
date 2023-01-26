@@ -28,6 +28,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()	//Ranges from 0.2 to 0.8 per monkey recycled
+	. = ..()
 	cube_production = 0
 	for(var/obj/item/stock_parts/manipulator/B in component_parts)
 		cube_production += B.rating * 0.1
@@ -53,7 +54,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(stat) //NOPOWER etc
+	if(machine_stat) //NOPOWER etc
 		return
 	else
 		return ..()
@@ -88,7 +89,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the ground monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
 		playsound(src.loc, 'sound/machines/hiss.ogg', 50, 1)
 		for(var/i in 1 to FLOOR(stored_matter, 1))
-			new /obj/item/reagent_containers/food/snacks/monkeycube(src.loc)
+			new /obj/item/food/monkeycube(src.loc)
 			stored_matter--
 		to_chat(user, "<span class='notice'>The machine's display flashes that it has [stored_matter] monkeys worth of material left.</span>")
 	else

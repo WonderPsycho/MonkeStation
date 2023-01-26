@@ -14,13 +14,24 @@
 	key_third_person = "bows"
 	message = "bows"
 	message_param = "bows to %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/burp
 	key = "burp"
 	key_third_person = "burps"
 	message = "burps"
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/burp/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_FOOD_FIRE_BURPS))
+		if(ishuman(user))
+			var/mob/living/carbon/owner = user
+			var/datum/status_effect/food/fire_burps/Holder = owner.has_status_effect(STATUS_EFFECT_FOOD_FIREBURPS)
+			if(!Holder)
+				owner.has_status_effect(STATUS_EFFECT_FOOD_FIREBURPS)
+			if(Holder)
+				Holder.Burp()
 
 /datum/emote/living/choke
 	key = "choke"
@@ -32,7 +43,7 @@
 	key = "cross"
 	key_third_person = "crosses"
 	message = "crosses their arms"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/chuckle
 	key = "chuckle"
@@ -67,7 +78,7 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
@@ -115,8 +126,8 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings"
-	restraint_check = TRUE
-	var/wing_time = 20
+	hands_use_check = TRUE
+	var/wing_time = 10
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -129,8 +140,8 @@
 	key = "aflap"
 	key_third_person = "aflaps"
 	message = "flaps their wings aggressively"
-	restraint_check = TRUE
-	wing_time = 10
+	hands_use_check = TRUE
+	wing_time = 5
 
 /datum/emote/living/frown
 	key = "frown"
@@ -184,7 +195,7 @@
 	key = "jump"
 	key_third_person = "jumps"
 	message = "jumps"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/kiss
 	key = "kiss"
@@ -214,14 +225,14 @@
 	key_third_person = "points"
 	message = "points"
 	message_param = "points at %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	message_param = initial(message_param) // reset
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.get_num_arms() == 0)
-			if(H.get_num_legs() != 0)
+		if(H.usable_hands == 0)
+			if(H.usable_legs != 0)
 				message_param = "tries to point at %t with a leg, <span class='userdanger'>falling down</span> in the process!"
 				H.Paralyze(20)
 			else
@@ -465,7 +476,7 @@
 /datum/emote/living/circle
 	key = "circle"
 	key_third_person = "circles"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/circle/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -479,7 +490,7 @@
 /datum/emote/living/slap
 	key = "slap"
 	key_third_person = "slaps"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/slap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -495,7 +506,7 @@
 	key = "highfive"
 	key_third_person = "highfives"
 	message = "raises their hand"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/raisehand/run_emote(mob/user, params)
 	. = ..()
@@ -520,7 +531,7 @@
 	key = "fingergun"
 	key_third_person = "fingerguns"
 	message = "forms their fingers into the shape of a crude gun"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/fingergun/run_emote(mob/user, params)
 	. = ..()
@@ -531,12 +542,47 @@
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
 
-/datum/emote/inhale
-	key = "inhale"
-	key_third_person = "inhales"
-	message = "breathes in"
+/datum/emote/living/click
+	key = "click"
+	key_third_person = "clicks their tongue"
+	message = "clicks their tongue"
+	message_ipc = "makes a click sound"
+	message_insect = "clicks their mandibles"
 
-/datum/emote/exhale
-	key = "exhale"
-	key_third_person = "exhales"
-	message = "breathes out"
+/datum/emote/living/click/get_sound(mob/living/user)
+	if(ismoth(user) || isapid(user) || isflyperson(user))
+		return 'sound/creatures/rattle.ogg'
+	else if(isipc(user))
+		return 'sound/machines/click.ogg'
+	else
+		return FALSE
+
+/datum/emote/living/zap
+	key = "zap"
+	key_third_person = "zaps"
+	message = "zaps"
+
+/datum/emote/living/zap/can_run_emote(mob/user, status_check = TRUE , intentional)
+	. = ..()
+	if(isethereal(user))
+		return TRUE
+	else
+		return FALSE
+
+/datum/emote/living/zap/get_sound(mob/living/user)
+	if(isethereal(user))
+		return 'sound/machines/defib_zap.ogg'
+
+/datum/emote/living/hum
+	key = "hum"
+	key_third_person = "hums"
+	message = "hums"
+
+/datum/emote/living/hiss
+	key = "hiss"
+	key_third_person = "hisses"
+	message = "hisses"
+
+/datum/emote/living/hiss/get_sound(mob/living/user)
+	if(islizard(user))
+		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')

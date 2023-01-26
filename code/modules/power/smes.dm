@@ -58,12 +58,13 @@
 					break dir_loop
 
 	if(!terminal)
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 		return
 	terminal.master = src
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/smes/RefreshParts()
+	. = ..()
 	var/IO = 0
 	var/MC = 0
 	var/C
@@ -85,7 +86,7 @@
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
 	//opening using screwdriver
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	//changing direction using wrench
@@ -101,8 +102,8 @@
 		if(!terminal)
 			to_chat(user, "<span class='alert'>No power terminal found.</span>")
 			return
-		stat &= ~BROKEN
-		update_icon()
+		set_machine_stat(machine_stat & ~BROKEN)
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	//building and linking a terminal
@@ -199,44 +200,40 @@
 	terminal = new/obj/machinery/power/terminal(T)
 	terminal.setDir(get_dir(T,src))
 	terminal.master = src
-	stat &= ~BROKEN
+	set_machine_stat(machine_stat & ~BROKEN)
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
 		terminal.master = null
 		terminal = null
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 
 
-/obj/machinery/power/smes/update_icon()
-	cut_overlays()
-	if(stat & BROKEN)
+/obj/machinery/power/smes/update_overlays()
+	. = ..()
+	if(machine_stat & BROKEN)
 		return
 
 	if(panel_open)
 		return
 
-	if(outputting)
-		add_overlay("smes-op1")
-	else
-		add_overlay("smes-op0")
+	. += mutable_appearance(icon,"smes-op[outputting ? 1 : 0]", alpha = src.alpha)
+	. += emissive_appearance(icon,"smes-op[outputting ? 1 : 0]", alpha = src.alpha)
 
-	if(inputting)
-		add_overlay("smes-oc1")
-	else
-		if(input_attempt)
-			add_overlay("smes-oc0")
+	. += mutable_appearance(icon,"smes-oc[inputting ? 1 : 0]", alpha = src.alpha)
+	. += emissive_appearance(icon,"smes-oc[inputting ? 1 : 0]", alpha = src.alpha)
 
 	var/clevel = chargedisplay()
-	if(clevel>0)
-		add_overlay("smes-og[clevel]")
+	if(clevel > 0)
+		. += mutable_appearance(icon,"smes-og[clevel]", alpha = src.alpha)
+		. += emissive_appearance(icon,"smes-og[clevel]", alpha = src.alpha)
 
 
 /obj/machinery/power/smes/proc/chargedisplay()
 	return clamp(round(5.5*charge/capacity),0,5)
 
 /obj/machinery/power/smes/process()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	//store machine state to see if we need to update the icon overlays
@@ -296,14 +293,14 @@
 
 	// only update icon if state changed
 	if(last_disp != chargedisplay() || last_chrg != inputting || last_onln != outputting)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 
 
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
 /obj/machinery/power/smes/proc/restore()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	if(!outputting)
@@ -326,7 +323,7 @@
 	output_used -= excess
 
 	if(clev != chargedisplay() ) //if needed updates the icons overlay
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	return
 
 
@@ -349,13 +346,13 @@
 		"inputAttempt" = input_attempt,
 		"inputting" = inputting,
 		"inputLevel" = input_level,
-		"inputLevel_text" = DisplayPower(input_level),
+		"inputLevel_text" = display_power(input_level),
 		"inputLevelMax" = input_level_max,
 		"inputAvailable" = input_available,
 		"outputAttempt" = output_attempt,
 		"outputting" = outputting,
 		"outputLevel" = output_level,
-		"outputLevel_text" = DisplayPower(output_level),
+		"outputLevel_text" = display_power(output_level),
 		"outputLevelMax" = output_level_max,
 		"outputUsed" = output_used,
 	)
@@ -367,11 +364,11 @@
 	switch(action)
 		if("tryinput")
 			input_attempt = !input_attempt
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			. = TRUE
 		if("tryoutput")
 			output_attempt = !output_attempt
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 			. = TRUE
 		if("input")
 			var/target = params["target"]
@@ -427,7 +424,7 @@
 	charge -= 1e6/severity
 	if (charge < 0)
 		charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	log_smes()
 
 /obj/machinery/power/smes/engineering
@@ -441,6 +438,10 @@
 	capacity = INFINITY
 	charge = INFINITY
 	..()
+
+//don't divide by infinity or zero, just display max
+/obj/machinery/power/smes/magical/chargedisplay()
+	return 5
 
 
 #undef SMESRATE

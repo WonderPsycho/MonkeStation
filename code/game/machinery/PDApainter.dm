@@ -9,10 +9,11 @@
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
-		"Assistant" = "pda",
+		"neutral" = "pda",
+		"Assistant" = "pda-assistant",
 		"Atmospheric Technician" = "pda-atmos",
 		"Bartender" = "pda-bartender",
-		"Botanist" = "pda-hydro",
+		"Service" = "pda-service",
 		"Captain" = "pda-captain",
 		"Cargo Technician" = "pda-cargo",
 		"Chaplain" = "pda-chaplain",
@@ -30,6 +31,7 @@
 		"Lawyer" = "pda-lawyer",
 		"Janitor" = "pda-janitor",
 		"Medical Doctor" = "pda-medical",
+		"Paramedic" = "pda-paramedical",
 		"Mime" = "pda-mime",
 		"Quartermaster" = "pda-qm",
 		"Research Director" = "pda-rd",
@@ -38,19 +40,21 @@
 		"Security Officer" = "pda-security",
 		"Shaft Miner" = "pda-miner",
 		"Virologist" = "pda-virology",
-		"Warden" = "pda-warden")
+		"Warden" = "pda-warden",
+		"Exploration Crew" = "pda-exploration"
+		)
 	var/id_icons = list(
 		"Assistant" = "id",
 		"Atmospheric Technician" = "atmos",
-		"Captain" = "gold",
 		"Cargo" = "cargo",
 		"Chaplain" = "chap",
+		"Captain" = "captain",
 		"Chief Engineer" = "ce",
 		"Chief Medical Officer" = "cmo",
 		"Clown" = "clown",
 		"Detective" = "detective",
 		"Engineering" = "engi",
-		"Head of Personnel" = "silver",
+		"Head of Personnel" = "hop",
 		"Head of Security" = "hos",
 		"Lawyer" = "lawyer",
 		"Medical" = "med",
@@ -61,7 +65,17 @@
 		"Security" = "sec",
 		"Service" = "serv",
 		"Shaft Miner" = "miner",
-		"Warden" = "warden")
+		"Warden" = "warden",
+		"Paramedic" = "paramed",
+		"Virologist" = "viro",
+		"Chemist" = "chemist",
+		"Geneticist" = "gene",
+		"Brig Physician" = "brigphys",
+		"Deputy" = "deputy",
+		"Roboticist" = "roboticist",
+		"Janitor" = "janitor",
+		"Exploration Crew" = "exploration"
+		)
 	max_integrity = 200
 	var/list/colorlist = list()
 
@@ -83,7 +97,7 @@
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "coloriser-broken"
 		return
 
@@ -172,17 +186,17 @@
 		update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='italics'>You hear welding.</span>")
 			if(O.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				set_machine_stat(machine_stat & ~BROKEN)
 				obj_integrity = max_integrity
 				update_icon()
 		else
@@ -192,8 +206,8 @@
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
+		if(!(machine_stat & BROKEN))
+			set_machine_stat(machine_stat | BROKEN)
 			update_icon()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)
@@ -226,7 +240,7 @@
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(usr.stat || usr.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(storedpda || storedid)
 		ejectid()

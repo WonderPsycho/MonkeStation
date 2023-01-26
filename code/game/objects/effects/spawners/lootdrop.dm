@@ -1,5 +1,5 @@
 /obj/effect/spawner/lootdrop
-	icon = 'icons/effects/landmarks_static.dmi'
+	icon = 'icons/effects/landmarks_spawners.dmi'
 	icon_state = "random_loot"
 	layer = OBJ_LAYER
 	var/lootcount = 1		//how many items will be spawned
@@ -32,6 +32,7 @@
 
 /obj/effect/spawner/lootdrop/donkpockets
 	name = "donk pocket box spawner"
+	icon_state = "random_donk"
 	lootdoubles = FALSE
 
 	loot = list(
@@ -45,6 +46,7 @@
 
 /obj/effect/spawner/lootdrop/donkpocketsfinlandia
 	name = "5% gondola pocket spawner"
+	icon_state = "random_donk"
 	lootdoubles = FALSE
 
 	loot = list(
@@ -54,6 +56,7 @@
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"
+	icon_state = "random_contrabband"
 	lootdoubles = FALSE
 
 	loot = list(
@@ -74,15 +77,16 @@
 				)
 
 /obj/effect/spawner/lootdrop/grille_or_trash
+	icon_state = "random_grille"
 	name = "maint grille or trash spawner"
 	loot = list(/obj/structure/grille = 5,
 			/obj/item/cigbutt = 1,
 			/obj/item/trash/cheesie = 1,
 			/obj/item/trash/candy = 1,
 			/obj/item/trash/chips = 1,
-			/obj/item/reagent_containers/food/snacks/deadmouse = 1,
+			/obj/item/food/deadmouse = 1,
 			/obj/item/trash/pistachios = 1,
-			/obj/item/trash/plate = 1,
+			/obj/item/plate = 1,
 			/obj/item/trash/popcorn = 1,
 			/obj/item/trash/raisins = 1,
 			/obj/item/trash/sosjerky = 1,
@@ -93,25 +97,25 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/reagent_containers/food/snacks/soup/beet,
-			/obj/item/reagent_containers/food/snacks/soup/sweetpotato,
-			/obj/item/reagent_containers/food/snacks/soup/stew,
-			/obj/item/reagent_containers/food/snacks/soup/hotchili,
-			/obj/item/reagent_containers/food/snacks/soup/nettle,
-			/obj/item/reagent_containers/food/snacks/soup/meatball)
+			/obj/item/food/soup/beet,
+			/obj/item/food/soup/sweetpotato,
+			/obj/item/food/soup/stew,
+			/obj/item/food/soup/hotchili,
+			/obj/item/food/soup/nettle,
+			/obj/item/food/soup/meatball)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/salad/herbsalad,
-			/obj/item/reagent_containers/food/snacks/salad/validsalad,
-			/obj/item/reagent_containers/food/snacks/salad/fruit,
-			/obj/item/reagent_containers/food/snacks/salad/jungle,
-			/obj/item/reagent_containers/food/snacks/salad/aesirsalad)
+			/obj/item/food/salad/herbsalad,
+			/obj/item/food/salad/validsalad,
+			/obj/item/food/salad/fruit,
+			/obj/item/food/salad/jungle,
+			/obj/item/food/salad/aesirsalad)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/bearsteak,
-			/obj/item/reagent_containers/food/snacks/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
-			/obj/item/reagent_containers/food/snacks/burger/bigbite,
-			/obj/item/reagent_containers/food/snacks/burger/superbite,
-			/obj/item/reagent_containers/food/snacks/burger/fivealarm)
+			/obj/item/food/bearsteak,
+			/obj/item/food/enchiladas,
+			/obj/item/food/stewedsoymeat,
+			/obj/item/food/burger/bigbite,
+			/obj/item/food/burger/superbite,
+			/obj/item/food/burger/fivealarm)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
@@ -273,10 +277,11 @@
 		/obj/item/clothing/mask/gas/clown_hat = 4,
 		/obj/item/clothing/shoes/clown_shoes = 3,
 		/obj/item/bikehorn = 5,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
+		/obj/item/food/pie/cream = 3)
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"
+	icon_state = "random_xenoegg"
 	loot = list(
 		/obj/effect/decal/remains/xeno = 49,
 		/obj/effect/spawner/xeno_egg_delivery = 1)
@@ -311,6 +316,7 @@
 
 /obj/effect/spawner/lootdrop/costume
 	name = "random costume spawner"
+	icon_state = "random_costume"
 
 /obj/effect/spawner/lootdrop/costume/Initialize(mapload)
 	loot = list()
@@ -352,6 +358,7 @@
 
 /obj/effect/spawner/lootdrop/aimodule_harmless // These shouldn't allow the AI to start butchering people
 	name = "harmless AI module spawner"
+	icon_state = "random_board"
 	loot = list(
 				/obj/item/aiModule/core/full/asimov,
 				/obj/item/aiModule/core/full/asimovpp,
@@ -362,6 +369,7 @@
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason
 	name = "neutral AI module spawner"
+	icon_state = "random_board"
 	loot = list(
 				/obj/item/aiModule/core/full/corp,
 				/obj/item/aiModule/core/full/maintain,
@@ -375,6 +383,7 @@
 
 /obj/effect/spawner/lootdrop/aimodule_harmful // These will get the shuttle called
 	name = "harmful AI module spawner"
+	icon_state = "random_board"
 	loot = list(
 				/obj/item/aiModule/core/full/antimov,
 				/obj/item/aiModule/core/full/balance,
@@ -387,6 +396,7 @@
 
 /obj/effect/spawner/lootdrop/techstorage
 	name = "generic circuit board spawner"
+	icon_state = "random_board"
 	lootdoubles = FALSE
 	fan_out_items = TRUE
 	lootcount = INFINITY
@@ -461,7 +471,7 @@
 				/obj/item/circuitboard/machine/chem_dispenser,
 				/obj/item/circuitboard/computer/scan_consolenew,
 				/obj/item/circuitboard/computer/med_data,
-				/obj/item/circuitboard/machine/smoke_machine,
+				/obj/item/circuitboard/machine/atmos_machine,
 				/obj/item/circuitboard/machine/chem_master,
 				/obj/item/circuitboard/machine/clonescanner,
 				/obj/item/circuitboard/computer/pandemic

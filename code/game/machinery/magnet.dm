@@ -134,7 +134,7 @@
 
 
 /obj/machinery/magnetic_module/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		on = FALSE
 
 	// Sanity checks:
@@ -156,7 +156,7 @@
 
 	// Update power usage:
 	if(on)
-		use_power = ACTIVE_POWER_USE
+		update_use_power(IDLE_POWER_USE)
 		active_power_usage = electricity_level*15
 	else
 		use_power = NO_POWER_USE
@@ -327,7 +327,7 @@
 
 	while(moving && rpath.len >= 1)
 
-		if(stat & (BROKEN|NOPOWER))
+		if(machine_stat & (BROKEN|NOPOWER))
 			break
 
 		looping = 1

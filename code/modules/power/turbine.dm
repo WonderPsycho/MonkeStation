@@ -83,7 +83,7 @@
 	inturf = get_step(src, dir)
 	locate_machinery()
 	if(!turbine)
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 
 
 #define COMPFRICTION 5e5
@@ -96,6 +96,7 @@
 		turbine.locate_machinery()
 
 /obj/machinery/power/compressor/RefreshParts()
+	. = ..()
 	var/E = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
@@ -116,10 +117,10 @@
 		locate_machinery()
 		if(turbine)
 			to_chat(user, "<span class='notice'>Turbine connected.</span>")
-			stat &= ~BROKEN
+			set_machine_stat(machine_stat & ~BROKEN)
 		else
 			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
-			stat |= BROKEN
+			set_machine_stat(machine_stat | BROKEN)
 		return
 
 	default_deconstruction_crowbar(I)
@@ -127,9 +128,9 @@
 /obj/machinery/power/compressor/process()
 	if(!starter)
 		return
-	if(!turbine || (turbine.stat & BROKEN))
+	if(!turbine || (turbine.machine_stat & BROKEN))
 		starter = FALSE
-	if(stat & BROKEN || panel_open)
+	if(machine_stat & BROKEN || panel_open)
 		starter = FALSE
 		return
 	cut_overlays()
@@ -146,7 +147,7 @@
 	rpm = min(rpm, (COMPFRICTION*efficiency)/2)
 	rpm = max(0, rpm - (rpm*rpm)/(COMPFRICTION*efficiency))
 
-	if(starter && !(stat & NOPOWER))
+	if(starter && !(machine_stat & NOPOWER))
 		use_power(2800)
 		if(rpm<1000)
 			rpmtarget = 1000
@@ -176,10 +177,11 @@
 	outturf = get_step(src, dir)
 	locate_machinery()
 	if(!compressor)
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 	connect_to_network()
 
 /obj/machinery/power/turbine/RefreshParts()
+	. = ..()
 	var/P = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		P += C.rating
@@ -200,9 +202,9 @@
 /obj/machinery/power/turbine/process()
 
 	if(!compressor)
-		stat = BROKEN
+		machine_stat = BROKEN
 
-	if((stat & BROKEN) || panel_open)
+	if((machine_stat & BROKEN) || panel_open)
 		return
 	if(!compressor.starter)
 		return
@@ -210,8 +212,11 @@
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
-
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
+	if(compressor.gas_contained.get_gases(GAS_NUCLEIUM)) // Helps make power with the Reactor output //MonkeStation Edit
+		var/reactor_modifier = clamp(((compressor.gas_contained.get_moles(GAS_NUCLEIUM)) * 1000), 1, 5)
+		lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity * reactor_modifier
+	else
+		lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
 
 	add_avail(lastgen)
 
@@ -246,10 +251,10 @@
 		locate_machinery()
 		if(compressor)
 			to_chat(user, "<span class='notice'>Compressor connected.</span>")
-			stat &= ~BROKEN
+			set_machine_stat(machine_stat & ~BROKEN)
 		else
 			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
-			stat |= BROKEN
+			set_machine_stat(machine_stat | BROKEN)
 		return
 
 	default_deconstruction_crowbar(I)
@@ -268,11 +273,11 @@
 /obj/machinery/power/turbine/ui_data(mob/user)
 	var/list/data = list()
 	data["compressor"] = compressor ? TRUE : FALSE
-	data["compressor_broke"] = (!compressor || (compressor.stat & BROKEN)) ? TRUE : FALSE
+	data["compressor_broke"] = (!compressor || (compressor.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
-	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN)) ? TRUE : FALSE
+	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["online"] = compressor?.starter
-	data["power"] = DisplayPower(compressor?.turbine?.lastgen)
+	data["power"] = display_power(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
 	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data
@@ -334,11 +339,11 @@
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
 	var/list/data = list()
 	data["compressor"] = compressor ? TRUE : FALSE
-	data["compressor_broke"] = (!compressor || (compressor.stat & BROKEN)) ? TRUE : FALSE
+	data["compressor_broke"] = (!compressor || (compressor.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
-	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN)) ? TRUE : FALSE
+	data["turbine_broke"] = (!compressor || !compressor.turbine || (compressor.turbine.machine_stat & BROKEN)) ? TRUE : FALSE
 	data["online"] = compressor?.starter
-	data["power"] = DisplayPower(compressor?.turbine?.lastgen)
+	data["power"] = display_power(compressor?.turbine?.lastgen)
 	data["rpm"] = compressor?.rpm
 	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data

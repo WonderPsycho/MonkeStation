@@ -119,6 +119,7 @@
 	var/registered_name = null // The name registered_name on the card
 	var/assignment = null
 	var/access_txt // mapping aid
+	var/accepts_accounts = TRUE
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
 
@@ -257,7 +258,7 @@
 		registered_account.bank_card_talk("<span class='warning'>ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS.</span>", TRUE)
 		return
 
-	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdraw? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
+	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdrawexam? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
 
 	if(!amount_to_remove || amount_to_remove < 0)
 		to_chat(user, "<span class='warning'>You're pretty sure that's not how money works.</span>")
@@ -274,7 +275,6 @@
 		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that withdrawal.</span>", TRUE)
 
 /obj/item/card/id/examine(mob/user)
-	..()
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	. = ..()
@@ -286,10 +286,15 @@
 				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
 		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
+		//monkestation edit begin
+		if(registered_account.civilian_bounty)
+			. += "<span class='info'><b>There is an active civilian bounty.</b> /n <i>[registered_account.bounty_text()]</i> /n Quantity: [registered_account.bounty_num()] /n Reward: [registered_account.bounty_value()]"
+		//monkestation edit end
 		if(registered_account.account_holder == user.real_name)
 			. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
 	else
-		. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
+		if(accepts_accounts)
+			. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
 
 /obj/item/card/id/GetAccess()
 	return access
@@ -595,12 +600,22 @@ update_label("John Doe", "Clowny")
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	assignment = "Prisoner"
-	registered_name = "Scum"
-	var/goal = 0 //How far from freedom?
+	registered_name = "Prisoner"
+	//Goal score for mining
+	var/goal = 0
+	//Current points stored
 	var/points = 0
+	//Is it a permanent sentence?
+	var/permanent = FALSE
 
-/obj/item/card/id/prisoner/attack_self(mob/user)
-	to_chat(usr, "<span class='notice'>You have accumulated [points] out of the [goal] points you need for freedom.</span>")
+/obj/item/card/id/prisoner/examine(mob/user)
+	. = ..()
+
+	if(!permanent)
+		. += "<span class='notice'>A little display on the card reads: You have accumulated [points] out of the [goal] points you need for freedom.</span>"
+
+	else
+		. += "<span class='notice'>The mark on the ID indicates the sentence is permanent.</span>"
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -741,6 +756,12 @@ update_label("John Doe", "Clowny")
 
 ///Job Specific ID Cards///
 
+/obj/item/card/id/job/captain
+	icon_state = "captain"
+
+/obj/item/card/id/job/hop
+	icon_state = "hop"
+
 /obj/item/card/id/job/ce
 	icon_state = "ce"
 
@@ -756,11 +777,29 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/med
 	icon_state = "med"
 
+/obj/item/card/id/job/paramed
+	icon_state = "paramed"
+
+/obj/item/card/id/job/viro
+	icon_state = "viro"
+
+/obj/item/card/id/job/chemist
+	icon_state = "chemist"
+
+/obj/item/card/id/job/gene
+	icon_state = "gene"
+
 /obj/item/card/id/job/hos
 	icon_state = "hos"
 
 /obj/item/card/id/job/sec
 	icon_state = "sec"
+
+/obj/item/card/id/job/brigphys
+	icon_state = "brigphys"
+
+/obj/item/card/id/job/deputy
+	icon_state = "deputy"
 
 /obj/item/card/id/job/detective
 	icon_state = "detective"
@@ -771,6 +810,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/rd
 	icon_state = "rd"
 
+/obj/item/card/id/job/roboticist
+	icon_state = "roboticist"
+
 /obj/item/card/id/job/sci
 	icon_state = "sci"
 
@@ -779,6 +821,9 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/chap
 	icon_state = "chap"
+
+/obj/item/card/id/job/janitor
+	icon_state = "janitor"
 
 /obj/item/card/id/job/qm
 	icon_state = "qm"
@@ -823,3 +868,49 @@ update_label("John Doe", "Clowny")
 		to_chat(user, "You upgrade your [idcard] with the [name].")
 		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
 		qdel(src)
+
+/obj/item/card/id/fake_card //not a proper ID but still shares a lot of functions
+	name = "\"ID Card\""
+	desc = "Definitely a legitimate ID card and not a piece of notebook paper with a magnetic strip drawn on it. You'd have to stuff this in a card reader by hand for it to work."
+	icon = 'icons/obj/card.dmi'
+	icon_state = "counterfeit"
+	item_state = "card-id"
+	worn_icon_state = "card-id"
+	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+	slot_flags = ITEM_SLOT_ID
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	mining_points = null
+	registered_account = null
+	accepts_accounts = FALSE
+	registered_name = "Nohbdy"
+	access = list(ACCESS_MAINT_TUNNELS)
+	var/uses = 2
+
+/obj/item/card/id/fake_card/proc/register_name(new_name)
+	registered_name = new_name
+	name = "[new_name]'s \"ID Card\""
+
+/obj/item/card/id/fake_card/proc/used()
+	uses -= 1
+	switch(uses)
+		if(0)
+			icon_state = "counterfeit_torn2"
+		if(1)
+			icon_state = "counterfeit_torn"
+		else
+			icon_state = "counterfeit" //in case you somehow repair it to 3+
+
+/obj/item/card/id/fake_card/AltClick(mob/living/user)
+	return //no accounts on fake cards
+
+/obj/item/card/id/fake_card/examine(mob/user)
+	. = ..()
+	switch(uses)
+		if(0)
+			. += "It's too shredded to fit in a scanner!"
+		if(1)
+			. += "It's falling apart!"
+		else
+			. += "It looks frail!"

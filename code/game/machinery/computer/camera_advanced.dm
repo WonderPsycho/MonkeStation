@@ -76,7 +76,7 @@
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if( (stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.eye_blind || user.incapacitated() )
+	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.eye_blind || user.incapacitated() )
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
@@ -102,7 +102,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!is_operational()) //you cant use broken machine you chumbis
+	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")
@@ -208,7 +208,7 @@
 			user_image = image(icon,loc,icon_state,FLY_LAYER)
 			eye_user.client.images += user_image
 
-/mob/camera/ai_eye/remote/relaymove(mob/user,direct)
+/mob/camera/ai_eye/remote/relaymove(mob/living/user, direction)
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 
@@ -216,7 +216,7 @@
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(src, direct))
+		var/turf/step = get_turf(get_step(src, direction))
 		if(step)
 			setLoc(step)
 

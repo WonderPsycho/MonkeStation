@@ -12,7 +12,7 @@
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
+	meat = /obj/item/food/meat/slab/human/mutant/apid
 	liked_food = VEGETABLES | FRUIT
 	disliked_food = GROSS | DAIRY
 	toxic_food = MEAT | RAW
@@ -50,16 +50,20 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_apid_name(gender)
-
-	var/randname = apid_name(gender)
+/datum/species/apid/random_name(gender, unique, lastname, attempts)
+	if(gender == MALE)
+		. =  "[pick(GLOB.apid_names_male)]"
+	else
+		. =  "[pick(GLOB.apid_names_female)]"
 
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. +=  " [pick(GLOB.apid_names_last)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, attempts+1)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))

@@ -4,7 +4,7 @@
 /obj/structure/disposalconstruct
 	name = "disposal pipe segment"
 	desc = "A huge pipe segment used for constructing disposal systems."
-	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
+	icon = 'monkestation/icons/obj/atmospherics/pipes/disposal.dmi'
 	icon_state = "conpipe"
 	anchored = FALSE
 	density = FALSE
@@ -14,7 +14,7 @@
 	var/obj/pipe_type = /obj/structure/disposalpipe/segment
 	var/pipename
 
-/obj/structure/disposalconstruct/Initialize(mapload, loc, _pipe_type, _dir = SOUTH, flip = FALSE, obj/make_from)
+/obj/structure/disposalconstruct/Initialize(mapload, _pipe_type, _dir = SOUTH, flip = FALSE, obj/make_from)
 	. = ..()
 
 	if(make_from)

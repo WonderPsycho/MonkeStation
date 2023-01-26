@@ -269,8 +269,8 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.LoseTarget()
 			return FALSE
-		else if(istype(A, /area/engine/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+		else if(istype(A, /area/engine/engine_core))
+			to_chat(S, "<span class='warning'>Disrupting the containment of the engine would not be to our benefit. Aborting.</span>")
 			S.LoseTarget()
 			return FALSE
 	S.DisIntegrate(src)
@@ -349,8 +349,8 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.LoseTarget()
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+		else if(istype(A, /area/engine/engine_core))
+			to_chat(S, "<span class='warning'>Disrupting the containment of the engine would not be to our benefit. Aborting.</span>")
 			S.LoseTarget()
 			return TRUE
 	return ..()
@@ -363,8 +363,8 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.LoseTarget()
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+		else if(istype(A, /area/engine/engine_core))
+			to_chat(S, "<span class='warning'>Disrupting the containment of the engine would not be to our benefit. Aborting.</span>")
 			S.LoseTarget()
 			return TRUE
 	return ..()
@@ -501,10 +501,8 @@
 	playsound(src,'sound/effects/sparks4.ogg',50,1)
 	do_teleport(target, F, 0, channel = TELEPORT_CHANNEL_BLUESPACE)
 
-/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	if(!tesla_shock)
-		return FALSE
-	return ..()
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	return FALSE
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
 	do_attack_animation(target)
@@ -523,7 +521,7 @@
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
 		N.pixel_z = target.pixel_z
-		target.dropContents()
+		target.dump_inventory_contents()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
 			if(C.circuit)

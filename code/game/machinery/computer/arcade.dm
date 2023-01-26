@@ -68,9 +68,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_screen = "invaders"
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
+	light_color = LIGHT_COLOR_GREEN
+	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON|INTERACT_MACHINE_SET_MACHINE // we don't need to be literate to play video games fam
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
-	light_color = LIGHT_COLOR_GREEN
+
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
@@ -119,7 +121,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(prize_override)
 		override = TRUE
 
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 
 	var/empprize = null
@@ -712,7 +714,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(isliving(usr))
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
-					var/S = new /obj/singularity/academy(usr.loc)
+					var/S = new /obj/anomaly/singularity/academy(usr.loc)
 					addtimer(CALLBACK(src, /atom/movable/proc/say, "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else

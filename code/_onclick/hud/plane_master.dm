@@ -43,11 +43,6 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-/atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
-	clear_filters()
-	if(istype(mymob) && mymob.eye_blurry)
-		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
-
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
@@ -56,11 +51,8 @@
 	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
-	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && mymob.client.prefs.ambientocclusion)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
-	if(istype(mymob) && mymob.eye_blurry)
-		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
 
 ///Contains all lighting objects
@@ -70,9 +62,15 @@
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
+	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
+	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
+
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
+	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
+
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
   *
@@ -87,31 +85,8 @@
 
 /atom/movable/screen/plane_master/emissive/Initialize(mapload)
 	. = ..()
-	add_filter("emissive_block", 1, alpha_mask_filter(render_source = EMISSIVE_BLOCKER_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
 
-/**
-  * Things placed on this always mask the lighting plane. Doesn't render directly.
-  *
-  * Always masks the light plane, isn't blocked by anything. Use for on mob glows,
-  * magic stuff, etc.
-  */
-
-/atom/movable/screen/plane_master/emissive_unblockable
-	name = "unblockable emissive plane master"
-	plane = EMISSIVE_UNBLOCKABLE_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_UNBLOCKABLE_RENDER_TARGET
-
-/**
-  * Things placed on this layer mask the emissive layer. Doesn't render directly
-  *
-  * You really shouldn't be directly using this, use atom helpers instead
-  */
-/atom/movable/screen/plane_master/emissive_unblockable
-	name = "emissive mob plane master"
-	plane = EMISSIVE_BLOCKER_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_BLOCKER_RENDER_TARGET
 
 ///Contains space parallax
 /atom/movable/screen/plane_master/parallax
@@ -123,10 +98,6 @@
 /atom/movable/screen/plane_master/parallax_white
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
-
-/atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
-	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
-	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 
 /atom/movable/screen/plane_master/camera_static
 	name = "camera static plane master"

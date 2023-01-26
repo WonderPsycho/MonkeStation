@@ -73,6 +73,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	for(var/mob/M as() in dead_listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
 
 /*! playsound
 
@@ -287,10 +288,12 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 			if("revolver_spin")
 				soundin = pick('sound/weapons/revolverspin1.ogg', 'sound/weapons/revolverspin2.ogg', 'sound/weapons/revolverspin3.ogg')
 			if("law")
-				soundin = pick('sound/voice/beepsky/god.ogg', 'sound/voice/beepsky/iamthelaw.ogg', 'sound/voice/beepsky/secureday.ogg', 'sound/voice/beepsky/radio.ogg', 'sound/voice/beepsky/insult.ogg', 'sound/voice/beepsky/creep.ogg')
+				soundin = pick('sound/voice/beepsky/god.ogg', 'sound/voice/beepsky/iamthelaw.ogg', 'sound/voice/beepsky/secureday.ogg', 'sound/voice/beepsky/radio.ogg', 'sound/voice/beepsky/creep.ogg')
 			//Monkestation edit begin
 			if("pizzky")
 				soundin = pick('monkestation/sound/voice/pizzky/criminal.ogg','monkestation/sound/voice/pizzky/god.ogg','monkestation/sound/voice/pizzky/lmaoing.ogg','monkestation/sound/voice/pizzky/justice.ogg','monkestation/sound/voice/pizzky/secureday.ogg','monkestation/sound/voice/pizzky/radio.ogg','monkestation/sound/voice/pizzky/insult.ogg')
+			if("sec_emag")
+				soundin = pick('monkestation/sound/voice/pizzky/lmaoing.ogg','monkestation/sound/voice/pizzky/getowned.ogg','monkestation/sound/voice/pizzky/creep.ogg','monkestation/sound/voice/pizzky/secureday.ogg')
 			//Monkestation edit end
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/effects/reee.ogg',  'sound/items/WEEOO1.ogg', 'sound/voice/beepsky/iamthelaw.ogg', 'sound/voice/beepsky/creep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')

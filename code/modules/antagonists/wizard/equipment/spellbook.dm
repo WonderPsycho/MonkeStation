@@ -216,9 +216,6 @@
 	name = "Lightning Bolt"
 	spell_type = /obj/effect/proc_holder/spell/aimed/lightningbolt
 
-/datum/spellbook_entry/lightningbolt/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return TRUE on success
-	. = ..()
-	user.flags_1 |= TESLA_IGNORE_1
 
 /datum/spellbook_entry/infinite_guns
 	name = "Lesser Summon Guns"
@@ -442,7 +439,7 @@
 	cost = 1
 
 /// How much threat we need to let these rituals happen on dynamic
-#define MINIMUM_THREAT_FOR_RITUALS 85
+#define MINIMUM_POP_FOR_RITUALS 35 //monkesatation edit: makes this use minimum pop instead of minimum threat
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -487,8 +484,8 @@
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
+		var/player_count = get_active_player_count()
+		if(player_count < MINIMUM_POP_FOR_RITUALS)
 			return FALSE
 	return !CONFIG_GET(flag/no_summon_guns)
 
@@ -508,8 +505,8 @@
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
+		var/player_count = get_active_player_count()
+		if(player_count < MINIMUM_POP_FOR_RITUALS)
 			return FALSE
 	return !CONFIG_GET(flag/no_summon_magic)
 
@@ -530,8 +527,8 @@
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		var/datum/game_mode/dynamic/mode = SSticker.mode
-		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
+		var/player_count = get_active_player_count()
+		if(player_count < MINIMUM_POP_FOR_RITUALS)
 			return FALSE
 	return !CONFIG_GET(flag/no_summon_events)
 
@@ -560,12 +557,16 @@
 	var/message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
 	if(!message)
 		return FALSE
+	if(CHAT_FILTER_CHECK(message))
+		if(user)
+			to_chat(user, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")
+			return FALSE
 	curse_of_madness(user, message)
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
 
-#undef MINIMUM_THREAT_FOR_RITUALS
+#undef MINIMUM_POP_FOR_RITUALS
 
 /obj/item/spellbook
 	name = "spell book"
@@ -720,13 +721,13 @@
 	return
 
 /obj/item/spellbook/Topic(href, href_list)
-	..()
-	var/mob/living/carbon/human/H = usr
+	. = ..()
 
-	if(H.stat || H.restrained())
+	if(usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
-	if(!ishuman(H))
+	if(!ishuman(usr))
 		return TRUE
+	var/mob/living/carbon/human/H = usr
 
 	if(H.mind.special_role == "apprentice")
 		temp = "If you got caught sneaking a peek from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."

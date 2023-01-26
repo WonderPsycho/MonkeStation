@@ -6,6 +6,7 @@
 	icon_state = "barman"
 	item_state = "bar_suit"
 	alt_covers_chest = TRUE
+	sprite_sheets = FLAG_SIMIAN
 
 /obj/item/clothing/under/rank/civilian/bartender/skirt
 	name = "bartender's skirt"
@@ -79,16 +80,16 @@
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel/suit
-	name = "head of personnel's suit"
+/obj/item/clothing/under/rank/civilian/head_of_personnel/alt
+	name = "head of personnel's teal jumpsuit"
 	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
 	icon_state = "teal_suit"
 	item_state = "g_suit"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel/suit/skirt
-	name = "head of personnel's suit"
-	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
+/obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt
+	name = "head of personnel's teal jumpskirt"
+	desc = "A teal skirt and yellow necktie. An authoritative yet tacky ensemble."
 	icon_state = "teal_suit_skirt"
 	item_state = "g_suit"
 	can_adjust = FALSE
@@ -134,6 +135,7 @@
 	body_parts_covered = CHEST|GROIN
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/civilian/lawyer
 	desc = "Slick threads."

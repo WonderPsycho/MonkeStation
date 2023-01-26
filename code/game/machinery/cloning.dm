@@ -42,6 +42,8 @@
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
+	var/experimental_pod = FALSE //experimental cloner will have true. TRUE allows you to clone a weird brain after scanning it.
+
 /obj/machinery/clonepod/Initialize(mapload)
 	create_reagents(100, OPENCONTAINER)
 
@@ -70,6 +72,7 @@
 	. = ..()
 
 /obj/machinery/clonepod/RefreshParts()
+	. = ..()
 	speed_coeff = 0
 	efficiency = 0
 	reagents.maximum_volume = 0
@@ -156,7 +159,7 @@
 	var/mob/living/mob_occupant = occupant
 	if(mess)
 		. += "It's filled with blood and viscera. You swear you can see it moving..."
-	if(is_operational() && istype(mob_occupant))
+	if(is_operational && istype(mob_occupant))
 		if(mob_occupant.stat != DEAD)
 			. += "Current clone cycle is [round(get_completion())]% complete."
 
@@ -179,41 +182,46 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, empty)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, experimental)
+	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
-		return NONE
+		return ERROR_NO_SYNTHFLESH
 	if(panel_open)
-		return NONE
+		return ERROR_PANEL_OPENED
 	if(mess || attempting)
-		return NONE
+		return ERROR_MESS_OR_ATTEMPTING
+	if(experimental && !experimental_pod)
+		return ERROR_MISSING_EXPERIMENTAL_POD
 
-	if(!empty) //Doesn't matter if we're just making a copy
+	if(!body_only && !(experimental && experimental_pod))
 		clonemind = locate(mindref) in SSticker.minds
 		if(!istype(clonemind))	//not a mind
-			return NONE
-		if(clonemind.last_death != last_death) //The soul has advanced, the record has not.
-			return NONE
+			return ERROR_NOT_MIND
+		if(last_death<0) //presaved clone is not clonable
+			return ERROR_PRESAVED_CLONE
+		if(abs(clonemind.last_death - last_death) > 5) //You can't clone old ones. 5 seconds grace because a sync-failure can happen.
+			return ERROR_OUTDATED_CLONE
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-				return NONE
+				return ERROR_ALREADY_ALIVE
 			if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
-				return NONE
+				return ERROR_COMMITED_SUICIDE
 		if(!clonemind.active)
 			// get_ghost() will fail if they're unable to reenter their body
 			var/mob/dead/observer/G = clonemind.get_ghost()
 			if(!G)
-				return NONE
+				return ERROR_SOUL_DEPARTED
 			if(G.suiciding) // The ghost came from a body that is suiciding.
-				return NONE
+				return ERROR_SUICIDED_BODY
 		if(clonemind.damnation_type) //Can't clone the damned.
 			INVOKE_ASYNC(src, .proc/horrifyingsound)
 			mess = TRUE
 			icon_state = "pod_g"
 			update_icon()
-			return NONE
+			return ERROR_SOUL_DAMNED
 		if(clonemind.no_cloning_at_all) // nope.
-			return NONE
+			return ERROR_UNCLONABLE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
 	countdown.start()
@@ -251,9 +259,14 @@
 	ADD_TRAIT(H, TRAIT_NOCRITDAMAGE, CLONING_POD_TRAIT)
 	H.Unconscious(80)
 
-	if(!empty)
+	if(!experimental && !experimental_pod && !body_only) //everything should be perfect to none
 		clonemind.transfer_to(H)
+	else if(!(!experimental && body_only))
+		current_insurance = insurance
+		offer_to_ghost(H)
+		result = CLONING_SUCCESS_EXPERIMENTAL
 
+	if(H.mind)
 		if(grab_ghost_when == CLONER_FRESH_CLONE)
 			H.grab_ghost()
 			to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
@@ -279,14 +292,26 @@
 		H.set_cloned_appearance()
 
 		H.set_suicide(FALSE)
+
+
 	attempting = FALSE
-	return CLONING_SUCCESS
+	return result
+
+/obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
+	set waitfor = FALSE
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
+	if(length(candidates))
+		var/mob/dead/observer/C = pick(candidates)
+		H.key = C.key
+		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
+		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
+		to_chat(H, "<span class='warning'>You will instantly die if you do 'ghost'. Please stand by until the cloning is done.</span>")
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
 	var/mob/living/mob_occupant = occupant
 
-	if(!is_operational()) //Autoeject if power is lost (or the pod is dysfunctional due to whatever reason)
+	if(!is_operational) //Autoeject if power is lost (or the pod is dysfunctional due to whatever reason)
 		if(mob_occupant)
 			go_out()
 			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to power loss.")
@@ -317,7 +342,7 @@
 				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
 				if(D)
 					D.adjust_money(fair_market_price)
-		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.hellbound)  //Autoeject corpses and suiciding dudes.
+		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")
 			if(internal_radio)
 				SPEAK("The cloning of [mob_occupant.real_name] has been \
@@ -522,7 +547,7 @@
 		log_cloning("[key_name(mob_occupant)] destroyed within [src] at [AREACOORD(src)] due to malfunction.")
 		QDEL_IN(mob_occupant, 40)
 
-/obj/machinery/clonepod/relaymove(mob/user)
+/obj/machinery/clonepod/relaymove(mob/living/user, direction)
 	container_resist(user)
 
 /obj/machinery/clonepod/container_resist(mob/living/user)
@@ -615,6 +640,7 @@
 	req_access = null
 	circuit = /obj/item/circuitboard/machine/clonepod/experimental
 	internal_radio = FALSE
+	experimental_pod = TRUE
 
 /*
  *	Manual -- A big ol' manual.

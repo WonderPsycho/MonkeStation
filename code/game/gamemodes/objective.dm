@@ -10,6 +10,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
 
 /datum/objective/New(var/text)
 	if(text)
@@ -421,6 +422,40 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			return ..()
 	return SSshuttle.emergency.is_hijacked() || ..()
 
+/datum/objective/gimmick
+	name = "gimmick"
+	martyr_compatible = TRUE
+	optional = TRUE
+
+/datum/objective/gimmick/update_explanation_text()
+	var/selected_department = pick(list( //Select a department for department-based objectives
+		DEPT_SCIENCE,
+		DEPT_ENGINEERING,
+		DEPT_SECURITY,
+		DEPT_MEDICAL,
+		DEPT_SERVICE,
+		DEPT_SUPPLY,
+		DEPT_COMMAND
+	))
+
+	var/list/gimmick_list = world.file2list(GIMMICK_OBJ_FILE) //gimmick_objectives.txt is for objectives without a specific target/department/etc
+	gimmick_list.Add(world.file2list(DEPT_GIMMICK_OBJ_FILE))
+	if(target?.current)
+		gimmick_list.Add(world.file2list(TARGET_GIMMICK_OBJ_FILE))
+
+	var/selected_gimmick = pick(gimmick_list)
+	selected_gimmick = replacetext(selected_gimmick, "%DEPARTMENT", selected_department)
+	if(target?.current)
+		selected_gimmick = replacetext(selected_gimmick, "%TARGET", target.name)
+
+	explanation_text = "[selected_gimmick]"
+
+/datum/objective/gimmick/check_completion()
+	return TRUE
+
+/datum/objective/gimmick/admin_edit(mob/admin)
+	update_explanation_text()
+
 /datum/objective/elimination
 	name = "elimination"
 	explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle."
@@ -670,7 +705,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		if(!isliving(M.current))
 			continue
 
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.get_all_contents_type()	//this should get things in cheesewheels, books, etc.
 
 		for(var/obj/I in all_items) //Check for items
 			if(istype(I, steal_target))
@@ -756,7 +791,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 				if(H && (H.stat != DEAD) && istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 					var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit
 					S.stored_research.copy_research_to(checking)
-			var/list/otherwise = M.GetAllContents()
+			var/list/otherwise = M.get_all_contents_type()
 			for(var/obj/item/disk/tech_disk/TD in otherwise)
 				TD.stored_research.copy_research_to(checking)
 	return (checking.researched_nodes.len >= target_amount) || ..()
@@ -960,7 +995,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.get_all_contents_type()	//this should get things in cheesewheels, books, etc.
 		for(var/obj/I in all_items) //Check for wanted items
 			if(is_type_in_typecache(I, wanted_items))
 				stolen_count++
@@ -985,7 +1020,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		var/list/all_items = M.current.get_all_contents_type()	//this should get things in cheesewheels, books, etc.
 		for(var/obj/I in all_items) //Check for wanted items
 			if(istype(I, /obj/item/book/granter/spell))
 				var/obj/item/book/granter/spell/spellbook = I
@@ -1015,6 +1050,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/protect,
 		/datum/objective/destroy,
 		/datum/objective/hijack,
+		/datum/objective/gimmick,
 		/datum/objective/escape,
 		/datum/objective/survive,
 		/datum/objective/martyr,

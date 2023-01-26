@@ -49,7 +49,7 @@
 		advanced_surgeries |= D.surgery
 
 /obj/machinery/computer/operating/proc/find_table()
-	for(var/direction in GLOB.cardinals)
+	for(var/direction in GLOB.alldirs)
 		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table)
 			table.computer = src
@@ -62,7 +62,7 @@
 
 
 /obj/machinery/computer/operating/ui_state(mob/user)
-	return GLOB.not_incapacitated_state
+	return GLOB.conscious_state
 
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -98,7 +98,7 @@
 	else
 		if(sbed)
 			data["table"] = sbed
-			if(!ishuman(sbed.occupant) &&  !ismonkey(sbed.occupant))
+			if(!ishuman(sbed.occupant) && !ismonkey(sbed.occupant))
 				return data
 			data["patient"] = list()
 			if(isliving(sbed.occupant))

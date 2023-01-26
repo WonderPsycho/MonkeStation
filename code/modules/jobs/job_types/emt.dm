@@ -22,6 +22,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+	bounty_types = CIV_JOB_MED
 	departments = DEPARTMENT_MEDICAL
 	rpg_title = "Corpse Runner"
 
@@ -34,8 +35,8 @@
 	name = "Paramedic"
 	jobtype = /datum/job/emt
 
-	id = /obj/item/card/id/job/med
-	belt = /obj/item/pda/medical
+	id = /obj/item/card/id/job/paramed
+	belt = /obj/item/pda/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	gloves = /obj/item/clothing/gloves/color/latex //MonkeStation Edit: Lower Quality Gloves
 	uniform = /obj/item/clothing/under/rank/medical/emt

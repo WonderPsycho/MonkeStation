@@ -12,7 +12,7 @@
 	key_third_person = "daps"
 	message = "sadly can't find anybody to give daps to, and daps themself. Shameful"
 	message_param = "give daps to %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
@@ -28,7 +28,7 @@
 	key = "handshake"
 	message = "shakes their own hand"
 	message_param = "shakes hands with %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/hug
@@ -36,7 +36,7 @@
 	key_third_person = "hugs"
 	message = "hugs themself"
 	message_param = "hugs %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/mumble
@@ -65,6 +65,7 @@
 		return
 	// MonkeStation Edit Start
 	//Ease of adding new emotes to species
+	H.adjustOxyLoss(5)
 	var/species = H.dna.species.id
 	var/list/options
 	if(user.gender == FEMALE)
@@ -127,14 +128,14 @@
 	key = "raise"
 	key_third_person = "raises"
 	message = "raises a hand"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/salute
 	key = "salute"
 	key_third_person = "salutes"
 	message = "salutes"
 	message_param = "salutes to %t"
-	restraint_check = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
@@ -144,33 +145,48 @@
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
-	message = "wags their tail"
+	message = "wagging their tail" //MonkeStation Edit: Toggled Wagging
 
 /datum/emote/living/carbon/human/wag/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!.)
+//MonkeStation Edit Start: Tail Overhaul. Yes, you read that right. We here have the best god damn tails you can find. Please kill me.
+		to_chat(user, "<span class='notice'>You don't have a tail!</span>")
 		return
 	var/mob/living/carbon/human/H = user
-	if(!istype(H) || !H.dna || !H.dna.species || !H.dna.species.can_wag_tail(H))
-		return
-	if(!H.dna.species.is_wagging_tail())
-		H.dna.species.start_wagging_tail(H)
-	else
-		H.dna.species.stop_wagging_tail(H)
+	var/obj/item/organ/tail/tail_finder = H.getorganslot(ORGAN_SLOT_TAIL)
+	if(!tail_finder.wagging_mutant_name)
+		return //because certain tails literally don't have animations.
+	if(!tail_finder.wagging) //Start Wagging
+		tail_finder.wagging = TRUE
+		H.dna.species.mutant_bodyparts += tail_finder.wagging_mutant_name
+		H.dna.species.mutant_bodyparts -= tail_finder.mutant_bodypart_name
+	else //Stop wagging
+		tail_finder.wagging = FALSE
+		H.dna.species.mutant_bodyparts -= tail_finder.wagging_mutant_name
+		H.dna.species.mutant_bodyparts += tail_finder.mutant_bodypart_name
+	H.update_body()
+//MonkeStation Edit End
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return H.dna && H.dna.species && H.dna.species.can_wag_tail(user)
+//MonkeStation Edit Start
+	var/obj/item/organ/tail/tail_finder = H.getorganslot(ORGAN_SLOT_TAIL)
+	return tail_finder
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if(!H.dna || !H.dna.species)
-		return
-	if(H.dna.species.is_wagging_tail())
-		. = null
+	var/obj/item/organ/tail/tail_finder = H.getorganslot(ORGAN_SLOT_TAIL)
+	if(tail_finder)
+		switch(tail_finder.wagging)
+			if(TRUE)
+				. = "stops [message]"
+			if(FALSE)
+				. = "starts [message]"
+//MonkeStation Edit End
 
 /datum/emote/living/carbon/human/wing
 	key = "wing"
@@ -186,7 +202,7 @@
 /datum/emote/living/carbon/human/wing/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if("wings" in H.dna.species.mutant_bodyparts)
+	if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 		. = "opens " + message
 	else
 		. = "closes " + message
@@ -195,14 +211,20 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species && (H.dna.features["wings"] != "None"))
-		return TRUE
+	if(H.dna && H.dna.species)
+		if(H.dna.features["wings"] != "None")
+			return TRUE
+		if(H.dna.features["moth_wings"] != "None")
+			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+			if(istype(wings))
+				if(wings.flight_level >= WINGS_FLYING)
+					return TRUE
 
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
-	if(getorgan(/obj/item/organ/wings))
+	if(istype(wings))
 		if(wings.toggleopen(src))
 			return TRUE
 	return FALSE

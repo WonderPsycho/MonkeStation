@@ -15,12 +15,13 @@
 
 	outfit = /datum/outfit/job/exploration
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
-	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
+	access = list(ACCESS_RND, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
+	minimal_access = list(ACCESS_RND, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 	paycheck = PAYCHECK_HARD
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
+	bounty_types = CIV_JOB_SCI
 	departments = DEPARTMENT_SCIENCE
 	rpg_title = "Sailor"
 
@@ -63,8 +64,9 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
-		/obj/item/kitchen/knife/combat/survival=1,\
-		/obj/item/stack/marker_beacon/thirty=1)
+		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/stack/marker_beacon/thirty=1,
+		/obj/item/sbeacondrop/exploration=1)			//MonkeStation edit: adds a bluespace beacon for latejoiners
 	l_pocket = /obj/item/gps/mining/exploration
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 

@@ -47,7 +47,7 @@
 	background_icon_state = "bg_ecult"
 	button_icon_state = "shatter"
 	icon_icon = 'icons/mob/actions/actions_ecult.dmi'
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 	var/mob/living/carbon/human/holder
 	var/obj/item/melee/sickly_blade/sword
 
@@ -69,6 +69,12 @@
 	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
 	qdel(sword)
 
+/datum/action/innate/heretic_shatter/Destroy()
+	if(sword)
+		sword.linked_action = null
+		sword = null
+	holder = null
+	return ..()
 
 /obj/item/melee/sickly_blade
 	name = "Sickly blade"

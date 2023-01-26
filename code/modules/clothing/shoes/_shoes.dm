@@ -16,6 +16,7 @@
 	var/offset = 0
 	var/equipped_before_drop = FALSE
 	var/can_be_bloody = TRUE
+	sprite_sheets = FLAG_SIMIAN //monkestation edit: add simians
 
 /obj/item/clothing/shoes/ComponentInitialize()
 	. = ..()
@@ -41,18 +42,15 @@
 		return(BRUTELOSS)
 
 /obj/item/clothing/shoes/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
-	. = list()
-	if(!isinhands)
-		var/bloody = FALSE
-		if(HAS_BLOOD_DNA(src))
-			bloody = TRUE
-		else
-			bloody = bloody_shoes[BLOOD_STATE_HUMAN]
+	. = ..()
+	if(isinhands)
+		return
 
-		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe")
-		if(bloody)
-			. += mutable_appearance('icons/effects/blood.dmi', "shoeblood")
+	if(damaged_clothes)
+		. += mutable_appearance('icons/effects/item_damage.dmi', "damagedshoe")
+	if(HAS_BLOOD_DNA(src))
+		. += mutable_appearance('icons/effects/blood.dmi', "shoeblood")
+
 
 /obj/item/clothing/shoes/equipped(mob/user, slot)
 	. = ..()

@@ -88,7 +88,7 @@
 						// Devil code
 						if(isliving(M))
 							var/mob/living/L = M
-							make_podman = !L.hellbound
+							make_podman = !L.ishellbound()
 						break
 		else //If the player has ghosted from his corpse before blood was drawn, his ckey is no longer attached to the mob, so we need to match up the cloned player through the mind key
 			for(var/mob/M in GLOB.player_list)
@@ -101,7 +101,7 @@
 					// Devil code
 					if(isliving(M))
 						var/mob/living/L = M
-						make_podman = !L.hellbound
+						make_podman = !L.ishellbound()
 					ckey_holder = M.ckey
 					break
 
@@ -154,6 +154,7 @@
 		new V(podman)
 	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features,null)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
 	podman.set_cloned_appearance()
+	podman.dna.species.exotic_blood = max(reagents_add) || /datum/reagent/water
 	// On harvest
 	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
 	podman.flash_act()

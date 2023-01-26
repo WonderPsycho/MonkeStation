@@ -6,6 +6,7 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	var/count = 1
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -62,16 +63,21 @@
 	desc = "They look bloody and gruesome."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gib1"
+	plane = GAME_PLANE
 	layer = LOW_OBJ_LAYER
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	mergeable_decal = FALSE
 	turf_loc_check = FALSE
+	decal_reagent = /datum/reagent/liquidgibs
+	reagent_amount = 5
 
 	var/already_rotting = FALSE
+		///Information about the diseases our streaking spawns
+	var/list/streak_diseases
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
-	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, .proc/on_pipe_eject)
 	if(already_rotting)
 		start_rotting(rename=FALSE)
 	else
@@ -94,17 +100,38 @@
 		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, TRUE)
 	. = ..()
 
-/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
-	set waitfor = FALSE
-	var/list/diseases = list()
-	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, diseases)
+/obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(atom/source, direction)
+	SIGNAL_HANDLER
+
+	var/list/dirs
+	if(direction)
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
+	else
+		dirs = GLOB.alldirs.Copy()
+
+	streak(dirs)
+
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions, mapload = FALSE)
+	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, streak_diseases)
 	var/direction = pick(directions)
-	for(var/i in 0 to pick(0, 200; 1, 150; 2, 50))
-		sleep(2)
-		if(i > 0)
-			new /obj/effect/decal/cleanable/blood/splatter(loc, diseases)
-		if(!step_to(src, get_step(src, direction), 0))
-			break
+	streak_diseases = list()
+	var/delay = 2
+	var/range = pick(0, 200; 1, 150; 2, 50; 3, 17; 50) //the 3% chance of 50 steps is intentional and played for laughs.
+	if(!step_to(src, get_step(src, direction), 0))
+		return
+	if(mapload)
+		for (var/i = 1, i < range, i++)
+			new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
+			if (!step_to(src, get_step(src, direction), 0))
+				break
+		return
+
+	var/datum/move_loop/loop = SSmove_manager.move_to(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/spread_movement_effects)
+
+/obj/effect/decal/cleanable/blood/gibs/proc/spread_movement_effects(datum/move_loop/has_target/source)
+	SIGNAL_HANDLER
+	new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
 
 /obj/effect/decal/cleanable/blood/gibs/up
 	icon_state = "gibup1"
@@ -179,6 +206,12 @@
 	var/entered_dirs = 0
 	var/exited_dirs = 0
 	var/list/shoe_types = list()
+
+//Cache of bloody footprint images
+//Key:
+//"entered-[blood_state]-[dir_of_image]"
+//or: "exited-[blood_state]-[dir_of_image]"
+GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 /obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
 	. = ..()

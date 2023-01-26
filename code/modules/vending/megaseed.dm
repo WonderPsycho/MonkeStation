@@ -22,6 +22,7 @@
 					/obj/item/seeds/garlic = 3,
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
+					/obj/item/seeds/korta_nut = 3,
 					/obj/item/seeds/lemon = 3,
 					/obj/item/seeds/lime = 3,
 					/obj/item/seeds/onion = 3,
@@ -56,6 +57,7 @@
 	default_price = 10
 	extra_price = 50
 	payment_department = ACCOUNT_SRV
+	light_mask = "seeds-light-mask"
 
 /obj/item/vending_refill/hydroseeds
 	machine_name = "MegaSeed Servitor"

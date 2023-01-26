@@ -103,6 +103,7 @@
 	return ..()
 
 /obj/machinery/power/port_gen/pacman/RefreshParts()
+	. = ..()
 	var/temp_rating = 0
 	var/consumption_coeff = 0
 	for(var/obj/item/stock_parts/SP in component_parts)
@@ -117,7 +118,7 @@
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The generator has [sheets] units of [sheet_name] fuel left, producing [DisplayPower(power_gen)] per cycle.</span>"
+	. += "<span class='notice'>The generator has [sheets] units of [sheet_name] fuel left, producing [display_power(power_gen)] per cycle.</span>"
 	if(anchored)
 		. += "<span class='notice'>It is anchored to the ground.</span>"
 	if(in_range(user, src) || isobserver(user))
@@ -241,9 +242,9 @@
 	data["anchored"] = anchored
 	data["connected"] = (powernet == null ? 0 : 1)
 	data["ready_to_boot"] = anchored && HasFuel()
-	data["power_generated"] = DisplayPower(power_gen)
-	data["power_output"] = DisplayPower(power_gen * power_output)
-	data["power_available"] = (powernet == null ? 0 : DisplayPower(avail()))
+	data["power_generated"] = display_power(power_gen)
+	data["power_output"] = display_power(power_gen * power_output)
+	data["power_available"] = (powernet == null ? 0 : display_power(avail()))
 	data["current_heat"] = current_heat
 	. =  data
 

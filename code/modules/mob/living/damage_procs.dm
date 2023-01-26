@@ -159,19 +159,19 @@
 
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
-		return FALSE
+		return
+	. = oxyloss
 	oxyloss = CLAMP((oxyloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
 	if(updating_health)
 		updatehealth()
-	return amount
 
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
-	if(status_flags & GODMODE)
-		return 0
+	if(!forced && status_flags & GODMODE)
+		return
+	. = oxyloss
 	oxyloss = amount
 	if(updating_health)
 		updatehealth()
-	return amount
 
 /mob/living/proc/getToxLoss()
 	return toxloss
@@ -256,7 +256,7 @@
 	adjustStaminaLoss(stamina, FALSE)
 	if(updating_health)
 		updatehealth()
-		update_stamina(stamina > DAMAGE_PRECISION)
+		update_stamina(stamina >= DAMAGE_PRECISION)
 
 // heal MANY bodyparts, in random order
 /mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
@@ -274,7 +274,7 @@
 	adjustStaminaLoss(stamina, FALSE)
 	if(updating_health)
 		updatehealth()
-		update_stamina(stamina > DAMAGE_PRECISION)
+		update_stamina(stamina >= DAMAGE_PRECISION)
 
 //heal up to amount damage, in a given order
 /mob/living/proc/heal_ordered_damage(amount, list/damage_types)

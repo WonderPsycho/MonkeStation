@@ -1,4 +1,4 @@
-/obj/singularity/factory
+/obj/anomaly/singularity/factory
 	name = "tear in the fabric of reality"
 	desc = "Your own comprehension of reality starts bending as you stare this."
 	icon = 'icons/effects/96x96.dmi'
@@ -9,7 +9,7 @@
 	move_self = 0
 	grav_pull = 1
 
-/obj/singularity/factory/admin_investigate_setup()
+/obj/anomaly/singularity/factory/admin_investigate_setup()
 	return
 
 //AREAS//
@@ -758,7 +758,7 @@
 	if(health <= 150)
 		if(prob(5) && Aggro())//change to insult the target on low health
 			playsound(get_turf(src), 'sound/voice/beepsky/insult.ogg', 100, 0, 0)
-			visible_message("<font color='red' size='4'><b>FUCK YOUR CUNT YOU SHIT EATING COCKSTORM AND EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND POO AND SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</b></font>")
+			visible_message("<font color='red' size='4'><b>%^!!&@#&*@#*%&%!@#!&*#&@(!*#&@#*%&!%!%#*(@&!*#%&!!</b></font>")
 		icon_state = "facboss3"
 		icon_living = "facboss3"
 		ranged_cooldown_time = 10//even faster

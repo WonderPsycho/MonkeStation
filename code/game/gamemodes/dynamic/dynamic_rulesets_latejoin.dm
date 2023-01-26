@@ -43,6 +43,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/latejoin/execute()
+	cost = round(cost * 1.25) //Extra cost to the rule every time it rolls.
 	var/mob/M = pick(candidates)
 	assigned += M.mind
 	M.mind.special_role = antag_flag
@@ -62,9 +63,10 @@
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
 	restricted_roles = list("AI","Cyborg")
 	required_candidates = 1
-	weight = 7
-	cost = 5
-	requirements = list(40,30,20,10,10,10,10,10,10,10)
+	weight = 4
+	cost = 8
+	minimum_players = 8
+	requirements = list(101,30,20,20,20,20,20,10,10,10)
 	repeatable = TRUE
 
 //////////////////////////////////////////////
@@ -80,13 +82,14 @@
 	antag_flag = ROLE_REV_HEAD
 	antag_flag_override = ROLE_REV
 	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director")
-	enemy_roles = list("AI", "Cyborg", "Security Officer","Detective","Head of Security", "Captain", "Warden")
-	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
+	enemy_roles = list("Security Officer","Detective","Head of Security", "Captain", "Warden")
+	required_enemies = list(5,5,5,5,5,5,5,5,5,5)
 	required_candidates = 1
 	weight = 2
 	delay = 1 MINUTES	// Prevents rule start while head is offstation.
 	cost = 20
-	requirements = list(101,101,70,40,30,20,20,20,20,20)
+	minimum_players = 30
+	requirements = list(101,101,101,101,101,20,20,20,20,20)
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
 	var/required_heads_of_staff = 3
@@ -157,7 +160,8 @@
 	protected_roles = list("Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI","Cyborg")
 	required_candidates = 1
-	weight = 4
-	cost = 10
-	requirements = list(40,30,20,10,10,10,10,10,10,10)
+	weight = 2
+	cost = 25
+	minimum_players = 25
+	requirements = list(101,101,101,101,40,30,30,30,20,20)
 	repeatable = TRUE

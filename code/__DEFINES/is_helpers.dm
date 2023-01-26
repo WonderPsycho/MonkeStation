@@ -51,6 +51,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
 
+#define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 
@@ -83,6 +85,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isvampire(A) (is_species(A,/datum/species/vampire))
 #define isipc(A) (is_species(A, /datum/species/ipc))
 #define isapid(A) (is_species(A, /datum/species/apid))
+#define issimian(A) (is_species(A, /datum/species/simian))//monkestation edit : add simian species
 
 //more carbon mobs
 #define ismonkey(A) (istype(A, /mob/living/carbon/monkey))
@@ -153,6 +156,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iscogscarab(A) (istype(A, /mob/living/simple_animal/drone/cogscarab))
 
+#define ismimic(A) (istype(A, /mob/living/simple_animal/hostile/alien_mimic)) //monkestation edit : adds mimics
+
 GLOBAL_LIST_INIT(shoefootmob, typecacheof(list(
 	/mob/living/carbon/human/,
 	/mob/living/simple_animal/cow,
@@ -191,7 +196,8 @@ GLOBAL_LIST_INIT(barefootmob, typecacheof(list(
 
 GLOBAL_LIST_INIT(heavyfootmob, typecacheof(list(
 	/mob/living/simple_animal/hostile/megafauna,
-	/mob/living/simple_animal/hostile/jungle/leaper
+	/mob/living/simple_animal/hostile/jungle/leaper,
+	/mob/living/simple_animal/hostile/mimic
 	)))
 
 //Misc mobs
@@ -254,6 +260,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))
 
 //Assemblies
 #define isassembly(O) (istype(O, /obj/item/assembly))

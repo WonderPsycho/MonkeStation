@@ -54,8 +54,20 @@
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
-		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma
+		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma,
+		"nucleium" = /obj/machinery/portable_atmospherics/canister/nucleium,
+		"hydrogen" = /obj/machinery/portable_atmospherics/canister/hydrogen,
+		"freon" = /obj/machinery/portable_atmospherics/canister/freon,
+		"healium" = /obj/machinery/portable_atmospherics/canister/healium,
+		"pluonium" = /obj/machinery/portable_atmospherics/canister/pluonium,
+		"zauker" = /obj/machinery/portable_atmospherics/canister/zauker,
+		"halon" = /obj/machinery/portable_atmospherics/canister/halon,
+		"hexane" = /obj/machinery/portable_atmospherics/canister/hexane
 	)
+
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/gags_recolorable)
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
@@ -155,6 +167,28 @@
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
+/obj/machinery/portable_atmospherics/canister/nucleium
+	name = "nucleium canister"
+	desc = "Nucleium. Inhalation might cause irradiation."
+	gas_type = GAS_NUCLEIUM
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#00b1a2#000000"
+
+/obj/machinery/portable_atmospherics/canister/freon
+	name = "freon canister"
+	desc = "Freon. Can absorb heat"
+	greyscale_colors = "#c6c0b5#000000"
+	gas_type = GAS_FREON
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/hydrogen
+	name = "hydrogen canister"
+	desc = "Hydrogen, highly flammable"
+	icon_state = "grey"
+	gas_type = GAS_H2
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#c6c0b5#000000"
+
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
 	desc = "Water Vapor. We get it, you vape."
@@ -163,6 +197,45 @@
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
 
+/obj/machinery/portable_atmospherics/canister/healium
+	name = "Healium canister"
+	desc = "Healium, causes deep sleep"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_HEALIUM
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/halon
+	name = "Halon canister"
+	desc = "Halon, remove oxygen from high temperature fires and cool down the area"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_HALON
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/hexane
+	name = "Hexane canister"
+	desc = "hexane, highly flammable"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_HEXANE
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/pluonium
+	name = "Pluonium canister"
+	desc = "Pluonium, react differently with various gases"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_PLUONIUM
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/zauker
+	name = "Zauker canister"
+	desc = "Zauker, highly toxic"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
+	gas_type = GAS_ZAUKER
+	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/proc/get_time_left()
 	if(timing)
@@ -207,7 +280,7 @@
 	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
 		usr.client.modify_canister_gas(src)
 
-/obj/machinery/portable_atmospherics/canister/New(loc, datum/gas_mixture/existing_mixture)
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
 	if(existing_mixture)
 		air_contents.copy_from(existing_mixture)
@@ -235,7 +308,7 @@
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		. += mutable_appearance(canister_overlay_file, "broken")
 		return
 
@@ -250,12 +323,16 @@
 	switch(pressure)
 		if((40 * ONE_ATMOSPHERE) to INFINITY)
 			. += mutable_appearance(canister_overlay_file, "can-3")
+			. += emissive_appearance(canister_overlay_file, "can-3")
 		if((10 * ONE_ATMOSPHERE) to (40 * ONE_ATMOSPHERE))
 			. += mutable_appearance(canister_overlay_file, "can-2")
+			. += emissive_appearance(canister_overlay_file, "can-2")
 		if((5 * ONE_ATMOSPHERE) to (10 * ONE_ATMOSPHERE))
 			. += mutable_appearance(canister_overlay_file, "can-1")
+			. += emissive_appearance(canister_overlay_file, "can-1")
 		if((10) to (5 * ONE_ATMOSPHERE))
 			. += mutable_appearance(canister_overlay_file, "can-0")
+			. += emissive_appearance(canister_overlay_file, "can-0")
 
 	if(update == last_update)
 		return
@@ -267,7 +344,7 @@
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			canister_break()
 		if(disassembled)
 			new /obj/item/stack/sheet/iron (loc, 10)
@@ -279,7 +356,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
 		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
@@ -291,7 +368,7 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
-	if((stat & BROKEN) || (flags_1 & NODECONSTRUCT_1))
+	if((machine_stat & BROKEN) || (flags_1 & NODECONSTRUCT_1))
 		return
 	canister_break()
 
@@ -301,7 +378,7 @@
 	T.assume_air(air_contents)
 	air_update_turf()
 
-	stat |= BROKEN
+	set_machine_stat(machine_stat | BROKEN)
 	density = FALSE
 	playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	update_icon()
@@ -326,7 +403,7 @@
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return PROCESS_KILL
 	if(timing && valve_timer < world.time)
 		valve_open = !valve_open

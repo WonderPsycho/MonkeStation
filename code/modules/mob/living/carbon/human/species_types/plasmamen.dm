@@ -17,7 +17,6 @@
 	heatmod = 1.5
 	brutemod = 1.5
 	breathid = "tox"
-	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 	disliked_food = FRUIT
 	liked_food = VEGETABLES
@@ -90,16 +89,12 @@
 		return 0
 	return ..()
 
-/datum/species/plasmaman/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_plasmaman_name()
+/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 
-	var/randname = plasmaman_name()
-
-	if(lastname)
-		randname += " [lastname]"
-
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/consumable/milk)

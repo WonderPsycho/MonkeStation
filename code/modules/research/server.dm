@@ -47,8 +47,6 @@
 	name += " [uppertext(num2hex(server_id, -1))]" //gives us a random four-digit hex number as part of the name. Y'know, for fluff.
 	SSresearch.servers |= src
 	stored_research = SSresearch.science_tech
-	var/obj/item/circuitboard/machine/B = new /obj/item/circuitboard/machine/rdserver(null)
-	B.apply_default_parts(src)
 	// The +10 is so the sparks work
 	RefreshParts()
 
@@ -57,6 +55,7 @@
 	return ..()
 
 /obj/machinery/rnd/server/RefreshParts()
+	. = ..()
 	var/tot_rating = 0
 	for(var/obj/item/stock_parts/SP in src)
 		tot_rating += SP.rating
@@ -66,7 +65,7 @@
 	if (panel_open)
 		icon_state = "RD-server-on_t"
 		return
-	if (stat & EMPED || stat & NOPOWER)
+	if (machine_stat & EMPED || machine_stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
 	if (research_disabled || overheated)
@@ -127,10 +126,10 @@
 
 	// If we are overheateed, start shooting out sparks
 	// don't shoot them if we have no power
-	if(overheated && !(stat & NOPOWER) && prob(40))
+	if(overheated && !(machine_stat & NOPOWER) && prob(40))
 		do_sparks(5, FALSE, src)
 
-	if(overheated || research_disabled || stat & EMPED || stat & NOPOWER)
+	if(overheated || research_disabled || machine_stat & EMPED || machine_stat & NOPOWER)
 		working = FALSE
 	else
 		working = TRUE
@@ -141,13 +140,13 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	stat |= EMPED
+	set_machine_stat(machine_stat | EMPED)
 	// Side note, make a little status screen on the server to show the reboot
 	addtimer(CALLBACK(src, .proc/unemp), 600)
 	refresh_working()
 
 /obj/machinery/rnd/server/proc/unemp()
-	stat &= ~EMPED
+	set_machine_stat(machine_stat & ~EMPED)
 	refresh_working()
 
 /obj/machinery/rnd/server/proc/toggle_disable()

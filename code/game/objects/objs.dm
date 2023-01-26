@@ -43,10 +43,16 @@
 
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 
+	/// Map tag for objs. Moved here for some semblance of a standard.
+	var/id_tag = null
+	/// Network id. If set it can be found by either its hardware id or by the id tag if thats set.  It can also be
+	/// broadcasted to as long as the other guys network is on the same branch or above.
+	var/network_id = null
+
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")
-			setAnchored(vval)
+			set_anchored(vval)
 			return TRUE
 		if(NAMEOF(src, obj_flags))
 			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
@@ -84,7 +90,7 @@
 	SStgui.close_uis(src)
 	. = ..()
 
-/obj/proc/setAnchored(anchorvalue)
+/obj/proc/set_anchored(anchorvalue)
 	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
 	anchored = anchorvalue
 
@@ -347,7 +353,7 @@
 
 /obj/AltClick(mob/user)
 	. = ..()
-	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		reskin_obj(user)
 
 /obj/proc/reskin_obj(mob/M)
@@ -373,6 +379,10 @@
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
+
+// Should move all contained objects to it's location.
+/obj/proc/dump_contents()
+	CRASH("Unimplemented.")
 
 //For returning special data when the object is saved
 //For example, or silos will return a list of their materials which will be dumped on top of them
@@ -408,3 +418,19 @@
 	. = ..()
 	if(. && ricochet_damage_mod)
 		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet
+
+/obj/update_overlays()
+	. = ..()
+	if(resistance_flags & ON_FIRE)
+		. += custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay
+
+//To be called from things that spill objects on the floor.
+//Makes an object move around randomly for a couple of tiles
+/obj/proc/tumble(var/dist = 2)
+	set waitfor = FALSE
+	if (dist >= 1)
+		dist += rand(0,1)
+		for(var/i = 1, i <= dist, i++)
+			if(src)
+				step(src, pick(NORTH,SOUTH,EAST,WEST))
+				sleep(rand(2,4))

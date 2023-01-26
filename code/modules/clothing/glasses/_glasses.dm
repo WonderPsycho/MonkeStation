@@ -17,6 +17,7 @@
 	var/list/icon/current = list() //the current hud icons
 	var/vision_correction = 0 //does wearing these glasses correct some of our vision defects?
 	var/glass_colour_type //colors your vision when worn
+	sprite_sheets = FLAG_SIMIAN
 
 /obj/item/clothing/glasses/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -345,13 +346,15 @@
 		colored_before = TRUE
 
 /obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
-	. = list()
-	if(!isinhands && ishuman(loc) && !colored_before)
-		var/mob/living/carbon/human/H = loc
-		var/mutable_appearance/M = mutable_appearance('icons/mob/eyes.dmi', "blindfoldwhite")
-		M.appearance_flags |= RESET_COLOR
-		M.color = "#[H.eye_color]"
-		. += M
+	. = ..()
+	if(isinhands || !ishuman(loc) || colored_before)
+		return
+
+	var/mob/living/carbon/human/H = loc
+	var/mutable_appearance/M = mutable_appearance('icons/mob/eyes.dmi', "blindfoldwhite")
+	M.appearance_flags |= RESET_COLOR
+	M.color = "#[H.eye_color]"
+	. += M
 
 /obj/item/clothing/glasses/sunglasses/advanced/big
 	icon_state = "bigsunglasses"

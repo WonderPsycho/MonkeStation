@@ -36,7 +36,6 @@
 	var/processing = FALSE
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres
-	var/sentient = FALSE //used to classify if a disease is sentient
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/mutability = 1
@@ -74,22 +73,18 @@
 			S.End(src)
 	return ..()
 
-/datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/try_infect(mob/living/carbon/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
 	var/channel = CheckChannel() //we do this because this can break otherwise, for some obscure reason i cannot fathom
 	for(var/datum/disease/advance/P in infectee.diseases)
 		var/otherchannel = P.CheckChannel()
-		if(sentient)
-			if(P.sentient)
-				advance_diseases += P
-			continue
 		if(dormant || P.dormant)//dormant diseases dont interfere with channels, not even with other dormant diseases if you manage to get two
 			continue
 		if(IsSame(P))
 			continue
-		if(channel == otherchannel && !P.sentient)
+		if(channel == otherchannel)
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
@@ -548,7 +543,7 @@
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
 
-/datum/disease/advance/infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/infect(var/mob/living/carbon/infectee, make_copy = TRUE)
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1

@@ -1,3 +1,4 @@
+#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
@@ -6,46 +7,113 @@
 	alert_type = null
 	var/needs_update_stat = FALSE
 
-/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum_safe(set_duration))
 		duration = set_duration
 	. = ..()
-	if(.)
-		if(updating_canmove)
-			owner.update_mobility()
-			if(needs_update_stat || issilicon(owner))
-				owner.update_stat()
+	if(. && (needs_update_stat || issilicon(owner)))
+		owner.update_stat()
 
 /datum/status_effect/incapacitating/on_remove()
-	owner.update_mobility()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
+	return ..()
 
 //STUN
 /datum/status_effect/incapacitating/stun
 	id = "stun"
 
+/datum/status_effect/incapacitating/stun/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/stun/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 //KNOCKDOWN
 /datum/status_effect/incapacitating/knockdown
 	id = "knockdown"
+
+
+/datum/status_effect/incapacitating/knockdown/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/knockdown/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 //IMMOBILIZED
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 
+/datum/status_effect/incapacitating/immobilized/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/immobilized/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
+
+/datum/status_effect/incapacitating/paralyzed/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/paralyzed/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_FLOORED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
 	needs_update_stat = TRUE
 
+/datum/status_effect/incapacitating/unconscious/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/unconscious/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 /datum/status_effect/incapacitating/unconscious/tick()
 	if(owner.getStaminaLoss())
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 //SLEEPING
+/datum/status_effect/incapacitating/sleeping/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/sleeping/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_KNOCKEDOUT, TRAIT_STATUS_EFFECT(id))
+	return ..()
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
 	alert_type = /atom/movable/screen/alert/status_effect/asleep
@@ -53,7 +121,7 @@
 	var/mob/living/carbon/carbon_owner
 	var/mob/living/carbon/human/human_owner
 
-/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner, updating_canmove)
+/datum/status_effect/incapacitating/sleeping/on_creation(mob/living/new_owner)
 	. = ..()
 	if(.)
 		if(iscarbon(owner)) //to avoid repeated istypes
@@ -101,6 +169,13 @@
         alert_type = /atom/movable/screen/alert/status_effect/stasis
         var/last_dead_time
 
+/datum/status_effect/incapacitating/stasis/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+
 /datum/status_effect/incapacitating/stasis/proc/update_time_of_death()
         if(last_dead_time)
                 var/delta = world.time - last_dead_time
@@ -111,7 +186,7 @@
         if(owner.stat == DEAD)
                 last_dead_time = world.time
 
-/datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration)
         . = ..()
         update_time_of_death()
         owner.reagents?.end_metabolization(owner, FALSE)
@@ -120,8 +195,10 @@
         update_time_of_death()
 
 /datum/status_effect/incapacitating/stasis/on_remove()
-        update_time_of_death()
-        return ..()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id))
+	update_time_of_death()
+	return ..()
 
 /datum/status_effect/incapacitating/stasis/be_replaced()
         update_time_of_death()
@@ -537,7 +614,7 @@
 
 /datum/status_effect/trance/tick()
 	if(stun)
-		owner.Stun(60, TRUE, TRUE)
+		owner.Stun(6 SECONDS, TRUE)
 	owner.dizziness = 20
 
 /datum/status_effect/trance/on_apply()
@@ -662,7 +739,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/dna_melt
 	var/kill_either_way = FALSE //no amount of removing mutations is gonna save you now
 
-/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/dna_melt/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
@@ -686,7 +763,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/go_away
 	var/direction
 
-/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration, updating_canmove)
+/datum/status_effect/go_away/on_creation(mob/living/new_owner, set_duration)
 	. = ..()
 	direction = pick(NORTH, SOUTH, EAST, WEST)
 	new_owner.setDir(direction)
@@ -905,6 +982,94 @@
 	if (prob(33))	//so the victim isn't spammed with messages every 3 seconds
 		to_chat(H,message)
 
+//Deals with ants covering someone.
+/datum/status_effect/ants
+	id = "ants"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/ants
+	duration = 2 MINUTES //Keeping the normal timer makes sure people can't somehow dump 300+ ants on someone at once so they stay there for like 30 minutes. Max w/ 1 dump is 57.6 brute.
+	examine_text = "<span class='warning'>SUBJECTPRONOUN is covered in ants!</span>"
+	tick_interval = 4 SECONDS
+	/// Will act as the main timer as well as changing how much damage the ants do.
+	var/ants_remaining = 0
+
+/datum/status_effect/ants/on_creation(mob/living/new_owner, amount_left)
+	if(isnum(amount_left) && new_owner.stat < DEAD)
+		if(new_owner.stat < UNCONSCIOUS) // Unconcious people won't get messages
+			to_chat(new_owner, "<span class='userdanger'>You're covered in ants!</span>")
+		ants_remaining += amount_left
+	. = ..()
+
+/datum/status_effect/ants/refresh(effect, amount_left)
+	var/mob/living/carbon/human/victim = owner
+	if(isnum(amount_left) && ants_remaining >= 1 && victim.stat < DEAD)
+		if(victim.stat < UNCONSCIOUS) // Unconcious people won't get messages
+			if(!prob(1)) // 99%
+				to_chat(victim, "<span class='userdanger'>You're covered in MORE ants!</span>")
+			else // 1%
+				victim.say("AAHH! THIS SITUATION HAS ONLY BEEN MADE WORSE WITH THE ADDITION OF YET MORE ANTS!!", forced = /datum/status_effect/ants)
+		ants_remaining += amount_left
+	. = ..()
+
+/datum/status_effect/ants/on_remove()
+	ants_remaining = 0
+	to_chat(owner, "<span class='notice'>All of the ants are off of your body!</span>")
+	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_ACT, .proc/ants_washed)
+	. = ..()
+
+/datum/status_effect/ants/proc/ants_washed()
+	SIGNAL_HANDLER
+	owner.remove_status_effect(STATUS_EFFECT_ANTS)
+	return
+
+/datum/status_effect/ants/tick()
+	var/mob/living/carbon/human/victim = owner
+	victim.adjustBruteLoss(max(0.1, round((ants_remaining * 0.004),0.1))) //Scales with # of ants (lowers with time). Roughly 10 brute over 50 seconds.
+	if(victim.stat <= SOFT_CRIT) //Makes sure people don't scratch at themselves while they're unconcious
+		if(prob(15))
+			switch(rand(1,2))
+				if(1)
+					victim.say(pick("GET THEM OFF ME!!", "OH GOD THE ANTS!!", "MAKE IT END!!", "THEY'RE EVERYWHERE!!", "GET THEM OFF!!", "SOMEBODY HELP ME!!"), forced = /datum/status_effect/ants)
+				if(2)
+					victim.emote("scream")
+		if(prob(50))
+			switch(rand(1,50))
+				if (1 to 8) //16% Chance
+					var/obj/item/bodypart/head/hed = victim.get_bodypart(BODY_ZONE_HEAD)
+					to_chat(victim, "<span class='danger'>You scratch at the ants on your scalp!.</span>")
+					hed.receive_damage(0.5,0)
+				if (9 to 29) //40% chance
+					var/obj/item/bodypart/arm = victim.get_bodypart(pick(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM))
+					to_chat(victim, "<span class='danger'>You scratch at the ants on your arms!</span>")
+					arm.receive_damage(1.5,0)
+				if (30 to 49) //38% chance
+					var/obj/item/bodypart/leg = victim.get_bodypart(pick(BODY_ZONE_L_LEG,BODY_ZONE_R_LEG))
+					to_chat(victim, "<span class='danger'>You scratch at the ants on your leg!</span>")
+					leg.receive_damage(1.5,0)
+				if(50) // 2% chance
+					to_chat(victim, "<span class='danger'>You rub some ants away from your eyes!</span>")
+					victim.blur_eyes(3)
+					ants_remaining -= 5 // To balance out the blindness, it'll be a little shorter.
+	ants_remaining--
+	if(ants_remaining <= 0 || victim.stat >= DEAD)
+		victim.remove_status_effect(STATUS_EFFECT_ANTS) //If this person has no more ants on them or are dead, they are no longer affected.
+
+/atom/movable/screen/alert/status_effect/ants
+	name = "Ants!"
+	desc = "<span class='warning'>JESUS FUCKING CHRIST! CLICK TO GET THOSE THINGS OFF!</span>"
+	icon_state = "antalert"
+
+/atom/movable/screen/alert/status_effect/ants/Click()
+	var/mob/living/living = owner
+	if(!istype(living) || !living.can_resist() || living != owner)
+		return
+	to_chat(living, "<span class='notice'>You start to shake the ants off!</span>")
+	if(!do_after(living, 2 SECONDS, target = living))
+		return
+	for (var/datum/status_effect/ants/ant_covered in living.status_effects)
+		to_chat(living, "<span class='notice'>You manage to get some of the ants off!</span>")
+		ant_covered.ants_remaining -= 10 // 5 Times more ants removed per second than just waiting in place
+
 /datum/status_effect/ghoul
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
@@ -944,3 +1109,34 @@
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
 	icon_state = "hypnosis"
+
+/datum/status_effect/flashed
+	id = "flashed"
+	duration = 5 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/flashed
+	examine_text = "<span class='warning'>They're squinting their eyes!</span>"
+	status_type = STATUS_EFFECT_UNIQUE
+
+/datum/status_effect/flashed/on_apply()
+	. = ..()
+	to_chat(owner, "<span class='notice'>You squint your eyes from the brightness!</span>")
+	owner.overlay_fullscreen("flashed", /atom/movable/screen/fullscreen/impaired, 2)
+
+/datum/status_effect/flashed/on_remove()
+	. = ..()
+	owner.clear_fullscreen("flashed")
+
+/atom/movable/screen/alert/status_effect/flashed
+	name = "Flashed"
+	desc = "You've been flashed by a bright light and can't see!"
+	icon_state = "stun"
+
+/datum/status_effect/deafened
+	id = "deafened"
+	alert_type = /atom/movable/screen/alert/status_effect/deafened
+	status_type = STATUS_EFFECT_UNIQUE
+
+/atom/movable/screen/alert/status_effect/deafened
+	name = "Deafened"
+	desc = "You're deaf and can't hear!"
+	icon_state = "deafened"

@@ -123,8 +123,8 @@
 		return FALSE
 	if(get_dist(A,B) != required_distance)
 		return FALSE
-	for(var/turf/T in getline(get_turf(A),get_turf(B)))
-		if(is_blocked_turf(T,TRUE))
+	for(var/turf/T in get_line(get_turf(A),get_turf(B)))
+		if(T.is_blocked_turf(TRUE))
 			return FALSE
 	return TRUE
 
@@ -184,9 +184,9 @@
 
 /obj/item/gun/energy/dueling/Destroy()
 	. = ..()
-	if(duel.gun_A == src)
+	if(duel?.gun_A == src)
 		duel.gun_A = null
-	if(duel.gun_B == src)
+	if(duel?.gun_B == src)
 		duel.gun_B = null
 	duel = null
 

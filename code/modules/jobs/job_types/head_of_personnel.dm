@@ -37,6 +37,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
+	bounty_types = CIV_JOB_RANDOM
 	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
 	rpg_title = "Guild Questgiver"
 
@@ -48,7 +49,7 @@
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/job/hop
 	belt = /obj/item/pda/heads/hop
 	ears = /obj/item/radio/headset/heads/hop
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
@@ -56,6 +57,8 @@
 	head = /obj/item/clothing/head/hopcap
 	backpack_contents = list(/obj/item/storage/box/ids=1,
 		/obj/item/melee/classic_baton/police/telescopic=1,
-		/obj/item/modular_computer/tablet/preset/advanced/command=1)
+		/obj/item/modular_computer/tablet/preset/advanced/command=1,
+		/obj/item/gun/energy/e_gun/heads
+		)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/hop)

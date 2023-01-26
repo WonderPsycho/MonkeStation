@@ -40,7 +40,7 @@
 
 /obj/machinery/transformer/update_icon()
 	..()
-	if(stat & (BROKEN|NOPOWER) || cooldown == 1)
+	if(machine_stat & (BROKEN|NOPOWER) || cooldown == 1)
 		icon_state = "separator-AO0"
 	else
 		icon_state = initial(icon_state)
@@ -54,7 +54,7 @@
 		// Only humans can enter from the west side, while lying down.
 		var/move_dir = get_dir(loc, AM.loc)
 		var/mob/living/carbon/human/H = AM
-		if((transform_standing || !(H.mobility_flags & MOBILITY_STAND)) && move_dir == EAST)// || move_dir == WEST)
+		if((transform_standing || H.body_position == LYING_DOWN) && move_dir == EAST)// || move_dir == WEST)
 			AM.forceMove(drop_location())
 			do_transform(AM)
 
@@ -73,7 +73,7 @@
 		update_icon()
 
 /obj/machinery/transformer/proc/do_transform(mob/living/carbon/human/H)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(cooldown == 1)
 		return
@@ -111,4 +111,4 @@
 	sleep(30)
 	if(R)
 		R.SetLockdown(FALSE)
-		R.notify_ai(NEW_BORG)
+		R.notify_ai(AI_NOTIFICATION_NEW_BORG)

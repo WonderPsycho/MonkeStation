@@ -3,7 +3,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 */
 
 /obj/machinery/atmospherics/components/binary/valve
-	icon_state = "mvalve_map-2"
+	icon_state = "mvalve_map-3"
 
 	name = "manual valve"
 	desc = "A pipe with a valve that can be used to disable flow of gas through it."
@@ -37,8 +37,8 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 /obj/machinery/atmospherics/components/binary/valve/update_icon_nopipes(animation = FALSE)
 	normalize_cardinal_directions()
 	if(animation)
-		flick("[valve_type]valve_[on][!on]", src)
-	icon_state = "[valve_type]valve_[on ? "on" : "off"]"
+		flick("[valve_type]valve_[on][!on]-[set_overlay_offset(piping_layer)]", src)
+	icon_state = "[valve_type]valve_[on ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /**
  * Called by finish_interact(), switch between open and closed, reconcile the air between two pipelines
@@ -73,7 +73,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 
 /obj/machinery/atmospherics/components/binary/valve/digital // can be controlled by AI
-	icon_state = "dvalve_map-2"
+	icon_state = "dvalve_map-3"
 
 	name = "digital valve"
 	desc = "A digitally controlled valve."
@@ -84,13 +84,11 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 /obj/machinery/atmospherics/components/binary/valve/digital/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/digital_valve))
+	AddComponent(/datum/component/shell, list(new /obj/item/circuit_component/digital_valve), SHELL_CAPACITY_SMALL)
 
 /obj/item/circuit_component/digital_valve
 	display_name = "Digital Valve"
 	display_desc = "The interface for communicating with a digital valve."
-
-	var/obj/machinery/atmospherics/components/binary/valve/digital/attached_valve
 
 	/// Opens the digital valve
 	var/datum/port/input/open
@@ -113,16 +111,20 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	opened = add_output_port("Opened", PORT_TYPE_SIGNAL)
 	closed = add_output_port("Closed", PORT_TYPE_SIGNAL)
 
-/obj/item/circuit_component/digital_valve/register_usb_parent(atom/movable/shell)
-	. = ..()
-	if(istype(shell, /obj/machinery/atmospherics/components/binary/valve/digital))
-		attached_valve = shell
-		RegisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN, .proc/handle_valve_toggled)
+/obj/item/circuit_component/digital_valve/Initialize(mapload)
+	open = null
+	close = null
 
-/obj/item/circuit_component/digital_valve/unregister_usb_parent(atom/movable/shell)
-	UnregisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN)
-	attached_valve = null
+	is_open = null
+	opened = null
+	closed = null
 	return ..()
+
+/obj/item/circuit_component/digital_valve/register_shell(atom/movable/shell)
+	RegisterSignal(shell, COMSIG_VALVE_SET_OPEN, .proc/handle_valve_toggled)
+
+/obj/item/circuit_component/digital_valve/unregister_shell(atom/movable/shell)
+	UnregisterSignal(shell, COMSIG_VALVE_SET_OPEN)
 
 /obj/item/circuit_component/digital_valve/proc/handle_valve_toggled(datum/source, on)
 	is_open.set_output(on)
@@ -136,56 +138,60 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	if(.)
 		return
 
-	if(!attached_valve)
+
+	var/obj/machinery/atmospherics/components/binary/valve/digital/shell = parent.shell
+	if(!istype(shell))
 		return
 
-	if(COMPONENT_TRIGGERED_BY(open, port) && !attached_valve.on)
-		attached_valve.set_open(TRUE)
-	if(COMPONENT_TRIGGERED_BY(close, port) && attached_valve.on)
-		attached_valve.set_open(FALSE)
+	if(shell.switching)
+		return
 
+	if(COMPONENT_TRIGGERED_BY(open, port) && !shell.on)
+		shell.set_open(TRUE)
+	if(COMPONENT_TRIGGERED_BY(close, port) && shell.on)
+		shell.set_open(FALSE)
 
 /obj/machinery/atmospherics/components/binary/valve/digital/update_icon_nopipes(animation)
-	if(!is_operational())
+	if(!is_operational)
 		normalize_cardinal_directions()
-		icon_state = "dvalve_nopower"
+		icon_state = "dvalve_nopower-[set_overlay_offset(piping_layer)]"
 		return
 	..()
 
-/obj/machinery/atmospherics/components/binary/valve/layer1
-	piping_layer = 1
-	icon_state = "mvalve_map-1"
+/obj/machinery/atmospherics/components/binary/valve/layer2
+	piping_layer = 2
+	icon_state = "mvalve_map-2"
 
-/obj/machinery/atmospherics/components/binary/valve/layer3
-	piping_layer = 3
-	icon_state = "mvalve_map-3"
+/obj/machinery/atmospherics/components/binary/valve/layer4
+	piping_layer = 4
+	icon_state = "mvalve_map-4"
 
 /obj/machinery/atmospherics/components/binary/valve/on
 	on = TRUE
 
-/obj/machinery/atmospherics/components/binary/valve/on/layer1
-	piping_layer = 1
-	icon_state = "mvalve_map-1"
+/obj/machinery/atmospherics/components/binary/valve/on/layer2
+	piping_layer = 2
+	icon_state = "mvalve_map-2"
 
-/obj/machinery/atmospherics/components/binary/valve/on/layer3
-	piping_layer = 3
-	icon_state = "mvalve_map-3"
+/obj/machinery/atmospherics/components/binary/valve/on/layer4
+	piping_layer = 4
+	icon_state = "mvalve_map-4"
 
-/obj/machinery/atmospherics/components/binary/valve/digital/layer1
-	piping_layer = 1
-	icon_state = "dvalve_map-1"
+/obj/machinery/atmospherics/components/binary/valve/digital/layer2
+	piping_layer = 2
+	icon_state = "dvalve_map-2"
 
-/obj/machinery/atmospherics/components/binary/valve/digital/layer3
-	piping_layer = 3
-	icon_state = "dvalve_map-3"
+/obj/machinery/atmospherics/components/binary/valve/digital/layer4
+	piping_layer = 4
+	icon_state = "dvalve_map-4"
 
 /obj/machinery/atmospherics/components/binary/valve/digital/on
 	on = TRUE
 
-/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1
-	piping_layer = 1
-	icon_state = "dvalve_map-1"
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer2
+	piping_layer = 2
+	icon_state = "dvalve_map-2"
 
-/obj/machinery/atmospherics/components/binary/valve/digital/on/layer3
-	piping_layer = 3
-	icon_state = "dvalve_map-3"
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer4
+	piping_layer = 4
+	icon_state = "dvalve_map-4"

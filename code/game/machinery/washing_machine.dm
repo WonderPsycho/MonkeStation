@@ -223,7 +223,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	qdel(src)
 
 /obj/item/clothing/suit/hooded/ian_costume/machine_wash(obj/machinery/washing_machine/WM)
-	new /obj/item/reagent_containers/food/snacks/meat/slab/corgi(loc)
+	new /obj/item/food/meat/slab/corgi(loc)
 	qdel(src)
 
 /obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)
@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		new /obj/item/restraints/handcuffs(loc)
 	..()
 
-/obj/machinery/washing_machine/relaymove(mob/user)
+/obj/machinery/washing_machine/relaymove(mob/living/user, direction)
 	container_resist(user)
 
 /obj/machinery/washing_machine/container_resist(mob/living/user)

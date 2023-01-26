@@ -59,8 +59,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
@@ -221,8 +219,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
@@ -386,8 +382,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -583,7 +577,7 @@
 			R.mmi.brainmob.name = real_name
 
 	R.job = "Cyborg"
-	R.notify_ai(NEW_BORG)
+	R.notify_ai(AI_NOTIFICATION_NEW_BORG)
 
 	. = R
 	qdel(src)
@@ -593,7 +587,8 @@
 	if (notransform)
 		return
 	notransform = TRUE
-	mobility_flags = NONE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_GENERIC)
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
 	regenerate_icons()
@@ -623,7 +618,8 @@
 	if (notransform)
 		return
 	notransform = TRUE
-	mobility_flags = NONE
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_GENERIC)
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
 	regenerate_icons()

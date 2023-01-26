@@ -5,7 +5,7 @@
 	species = "rainbowbunch"
 	plantname = "Rainbow Bunch"
 	icon_harvest = "rainbowbunch-harvest"
-	product = /obj/item/reagent_containers/food/snacks/grown/rainbow_flower
+	product = /obj/item/food/grown/rainbow_flower
 	lifespan = 25
 	endurance = 10
 	maturation = 6
@@ -14,11 +14,10 @@
 	potency = 20
 	growthstages = 4
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	icon_dead = "rainbowbunch-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower
+/obj/item/food/grown/rainbow_flower
 	seed = /obj/item/seeds/rainbow_bunch
 	name = "rainbow flower"
 	desc = "A beautiful flower capable of being used for most dyeing processes."
@@ -31,7 +30,7 @@
 	throw_range = 3
 	attack_verb = list("pompfed")
 
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/Initialize(mapload)
+/obj/item/food/grown/rainbow_flower/Initialize(mapload)
 	. = ..()
 	var/flower_color = rand(1,8)
 	switch(flower_color)

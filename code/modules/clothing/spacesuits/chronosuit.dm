@@ -222,7 +222,7 @@
 			teleport_now.Remove(user)
 			if(user.wear_suit == src)
 				if(hard_landing)
-					user.electrocute_act(35, src, safety = 1)
+					user.electrocute_act(35, src, flags = SHOCK_NOGLOVES)
 					user.Paralyze(200)
 				if(!silent)
 					to_chat(user, "\nroot@ChronosuitMK4# chronowalk4 --stop\n")
@@ -270,7 +270,7 @@
 	if(target_ui)
 		QDEL_NULL(target_ui)
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/living/user, direction)
 	if(!holder)
 		qdel(src)
 		return

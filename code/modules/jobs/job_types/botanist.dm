@@ -17,6 +17,7 @@
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_SRV
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
+	bounty_types = CIV_JOB_GROW
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Gardener"
 
@@ -28,7 +29,7 @@
 	jobtype = /datum/job/hydro
 
 	id = /obj/item/card/id/job/serv
-	belt = /obj/item/pda/botanist
+	belt = /obj/item/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron

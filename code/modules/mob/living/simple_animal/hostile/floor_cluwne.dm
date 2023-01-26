@@ -131,9 +131,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	var/area/A = get_area(current_victim.loc)
 	if(!manifested && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(current_victim.z))
-		walk_to(src, target, minimum_distance, delay)
+		SSmove_manager.move_to(src, target, minimum_distance, delay)
 	else
-		walk_to(src,0)
+		SSmove_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()
@@ -152,7 +152,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)//prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE) //prevents runtimes with machine fuckery
 	return FALSE
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Found_You()
@@ -189,7 +189,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
 	if(manifested)
 		mobility_flags &= ~MOBILITY_MOVE
-		update_mobility()
 		cluwnehole = new(src.loc)
 		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
 	else
@@ -197,7 +196,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		invisibility = INVISIBILITY_OBSERVER
 		density = FALSE
 		mobility_flags |= MOBILITY_MOVE
-		update_mobility()
 		if(cluwnehole)
 			qdel(cluwnehole)
 
@@ -326,7 +324,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				return
 			if(!eating)
 				Found_You()
-				for(var/I in getline(src,H))
+				for(var/I in get_line(src,H))
 					var/turf/T = I
 					if(T.density)
 						forceMove(H.loc)

@@ -17,7 +17,7 @@
 
 //Grey
 /datum/chemical_reaction/slime/slimespawn
-	name = "Slime Spawn"
+	name = "Spawn Slime"
 	id = "m_spawn"
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_container = /obj/item/slime_extract/grey
@@ -45,7 +45,7 @@
 
 /datum/chemical_reaction/slime/slimemonkey/on_reaction(datum/reagents/holder)
 	for(var/i in 1 to 3)
-		new /obj/item/reagent_containers/food/snacks/monkeycube(get_turf(holder.my_atom))
+		new /obj/item/food/monkeycube(get_turf(holder.my_atom))
 	..()
 
 //Green
@@ -163,7 +163,7 @@
 		var/chosen = getbork()
 		var/obj/B = new chosen(T)
 		if(prob(5))//Fry it!
-			var/obj/item/reagent_containers/food/snacks/deepfryholder/fried
+			var/obj/item/food/deepfryholder/fried
 			fried = new(T, B)
 			fried.fry() // actually set the name and colour it
 			B = fried
@@ -296,7 +296,7 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
-	empulse(get_turf(holder.my_atom), 3, 7)
+	empulse(get_turf(holder.my_atom), 3, 7, magic=TRUE)
 	..()
 
 /datum/chemical_reaction/slime/slimecell
@@ -455,7 +455,7 @@
 
 /datum/chemical_reaction/slime/slimeexplosion/proc/boom(datum/reagents/holder)
 	if(holder?.my_atom)
-		explosion(get_turf(holder.my_atom), 1 ,3, 6)
+		explosion(get_turf(holder.my_atom), 0, 2, 3)
 
 
 /datum/chemical_reaction/slime/slimecornoil

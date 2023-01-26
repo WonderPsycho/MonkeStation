@@ -73,6 +73,9 @@
 /obj/item/clothing/shoes/galoshes/dry/step_action()
 	var/turf/open/t_loc = get_turf(src)
 	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
+	if(t_loc.liquids)
+		var/datum/reagents/tempr = t_loc.liquids.take_reagents_flat(1)
+		tempr.remove_all(1)
 
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn, they're huge! Ctrl-click to toggle waddle dampeners."
@@ -147,6 +150,19 @@
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+
+/obj/item/clothing/shoes/winterboots/noslip
+	name = "high-traction winter boots"
+	desc = "Boots lined with 'synthetic' animal fur and coated with a special freeze resistant anti-slip coating."
+
+/obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_FEET)
+		ADD_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+
+/obj/item/clothing/shoes/winterboots/noslip/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

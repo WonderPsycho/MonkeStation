@@ -90,11 +90,7 @@
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/choice_beacon/music/B = new(get_turf(H))
-	var/list/slots = list (
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS,
-	)
-	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+	SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_INSERT, B, H, TRUE, TRUE) //insert the item, even if the backpack's full
 
 /datum/quirk/multilingual
 	name = "Multilingual"
@@ -108,15 +104,37 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H.job == "Curator")
 		return
-	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
-	var/list/languages_possible = T.languages_possible
+	var/list/languages_possible = typecacheof(list(
+		/datum/language/aphasia,
+		/datum/language/apidite,
+		/datum/language/beachbum,
+		/datum/language/buzzwords,
+		/datum/language/calcic,
+		/datum/language/codespeak,
+		/datum/language/common,
+		/datum/language/draconic,
+		/datum/language/moffic,
+		/datum/language/monkey,
+		/datum/language/narsie,
+		/datum/language/piratespeak,
+		/datum/language/ratvar,
+		/datum/language/shadowtongue,
+		/datum/language/slime,
+		/datum/language/sylvan,
+		/datum/language/terrum,
+		/datum/language/uncommon,
+		/datum/language/zoomercant,
+		/datum/language/sippins)) //monkestation edit: make multilingual possible for simpletongue species
 	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
 	languages_possible = languages_possible - H.language_holder.understood_languages
 	languages_possible = languages_possible - H.language_holder.spoken_languages
 	languages_possible = languages_possible - H.language_holder.blocked_languages
 	if(length(languages_possible))
 		var/datum/language/random_language = pick(languages_possible)
-		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+		var/complextongue = TRUE //monkestation edit: add simian species
+		if(issimian(H))
+			complextongue = FALSE
+		H.grant_language(random_language, TRUE, complextongue, LANGUAGE_MULTILINGUAL)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/night_vision
@@ -145,14 +163,7 @@
 /datum/quirk/photographer/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/camera/camera = new(get_turf(H))
-	var/list/camera_slots = list (
-		"neck" = ITEM_SLOT_NECK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET,
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"hands" = ITEM_SLOT_HANDS
-	)
-	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE)
+	SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_INSERT, camera, H, TRUE, TRUE) //insert the item, even if the backpack's full
 	H.regenerate_icons()
 
 /datum/quirk/selfaware
@@ -178,8 +189,10 @@
 
 /datum/quirk/spiritual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
-	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
+	var/obj/item/storage/fancy/candle_box/candles = new(get_turf(H))
+	var/obj/item/storage/box/matches/matches = new(get_turf(H))
+	SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_INSERT, candles, H, TRUE, TRUE) //insert the item, even if the backpack's full
+	SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_INSERT, matches, H, TRUE, TRUE)
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
@@ -203,17 +216,40 @@
 /datum/quirk/tagger/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/toy/crayon/spraycan/spraycan = new(get_turf(H))
-	H.put_in_hands(spraycan)
-	H.equip_to_slot(spraycan, ITEM_SLOT_BACKPACK)
+	SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_INSERT, spraycan, H, TRUE, TRUE) //insert the item, even if the backpack's full
 	H.regenerate_icons()
 
 /datum/quirk/voracious
 	name = "Voracious"
-	desc = "Nothing gets between you and your food. You eat faster and can binge on junk food! Being fat suits you just fine."
-	value = 1
+	desc = "Nothing gets between you and your food. You eat faster and can binge on junk food! Being fat suits you just fine. Also allows you to have an additional food buff."
+	value = 2
 	mob_trait = TRAIT_VORACIOUS
 	gain_text = "<span class='notice'>You feel HONGRY.</span>"
 	lose_text = "<span class='danger'>You no longer feel HONGRY.</span>"
+
+/datum/quirk/voracious/on_spawn()
+	var/mob/living/carbon/human/holder = quirk_holder
+	holder.max_food_buffs ++
+
+/datum/quirk/voracious/remove()
+	var/mob/living/carbon/human/holder = quirk_holder
+	holder.max_food_buffs --
+
+/datum/quirk/gourmand
+	name = "Gourmand"
+	desc = "You can enjoy the finer things in life. You are able to have one more food buff applied at once."
+	value = 2
+	mob_trait = TRAIT_GOURMAND
+	gain_text = "<span class='notice'>You start to enjoy fine cuisine.</span>"
+	lose_text = "<span class='danger'>Those Space Twinkies are starting to look mighty fine.</span>"
+
+/datum/quirk/gourmand/on_spawn()
+	var/mob/living/carbon/human/holder = quirk_holder
+	holder.max_food_buffs ++
+
+/datum/quirk/gourmand/remove()
+	var/mob/living/carbon/human/holder = quirk_holder
+	holder.max_food_buffs --
 
 /datum/quirk/neet
 	name = "NEET"
