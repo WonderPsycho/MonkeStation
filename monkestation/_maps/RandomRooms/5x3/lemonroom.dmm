@@ -1,0 +1,49 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"e" = (
+/obj/effect/turf_decal/tile/piss_yellow/tile_full,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/effect/turf_decal/tile/piss_yellow/tile_full,
+/obj/structure/table/glass{
+	color = "#BAC700"
+	},
+/obj/item/food/grown/citrus/lemon,
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/effect/turf_decal/tile/piss_yellow/tile_full,
+/obj/item/food/grown/citrus/lemon,
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/effect/turf_decal/tile/piss_yellow/tile_full,
+/obj/item/food/snowcones/lemon,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+k
+e
+E
+"}
+(2,1,1) = {"
+k
+A
+A
+"}
+(3,1,1) = {"
+E
+e
+A
+"}
+(4,1,1) = {"
+e
+k
+e
+"}
+(5,1,1) = {"
+e
+k
+e
+"}
