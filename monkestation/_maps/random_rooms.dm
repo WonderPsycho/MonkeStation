@@ -76,8 +76,8 @@
 
 /datum/map_template/random_room/bigmonkeroom
 	name = "Large Monkey Jungle Room"
-	room_id = "LARGERMONKEROOM"
-	mappath = "monkestation/_maps/RandomRooms/10x10/LARGERMONKEROOM.dmm"
+	room_id = "LARGEMONKEROOM"
+	mappath = "monkestation/_maps/RandomRooms/10x10/LARGEMONKEROOM.dmm"
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
