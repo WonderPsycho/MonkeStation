@@ -1,0 +1,297 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/open/floor/grass,
+/area/template_noop)
+"d" = (
+/obj/item/grown/bananapeel{
+	pixel_x = -4;
+	pixel_y = -8
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"f" = (
+/obj/item/grown/bananapeel{
+	pixel_y = 6
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"i" = (
+/obj/item/wallframe/light_fixture{
+	dir = 8;
+	pixel_x = -14
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"l" = (
+/obj/structure/statue/bananium/clown{
+	pixel_x = 19;
+	pixel_y = -6
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"o" = (
+/obj/item/food/grown/banana{
+	pixel_y = -8
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"p" = (
+/obj/item/food/grown/banana{
+	pixel_x = 8
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"s" = (
+/obj/item/wallframe/light_fixture{
+	dir = 8;
+	pixel_x = -14
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"v" = (
+/obj/item/grown/bananapeel,
+/turf/open/floor/grass,
+/area/template_noop)
+"y" = (
+/obj/item/grown/bananapeel{
+	pixel_x = 9
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"z" = (
+/obj/item/wallframe/light_fixture{
+	dir = 1;
+	pixel_y = 14
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"A" = (
+/obj/item/grown/bananapeel{
+	pixel_x = 5;
+	pixel_y = -9
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"B" = (
+/obj/item/grown/bananapeel{
+	pixel_x = 8
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"D" = (
+/obj/item/grown/bananapeel{
+	pixel_y = 13
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"E" = (
+/obj/effect/overlay/palmtree_r{
+	pixel_x = -9;
+	pixel_y = 14
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"F" = (
+/obj/item/grown/bananapeel{
+	pixel_y = 10
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"G" = (
+/obj/effect/overlay/palmtree_l{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"J" = (
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"L" = (
+/obj/effect/overlay/palmtree_r{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"O" = (
+/obj/item/grown/bananapeel{
+	pixel_x = -16;
+	pixel_y = -5
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"P" = (
+/obj/effect/overlay/palmtree_r,
+/turf/open/floor/grass,
+/area/template_noop)
+"Q" = (
+/obj/item/grown/bananapeel,
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"R" = (
+/obj/effect/overlay/palmtree_r{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"S" = (
+/obj/item/wallframe/light_fixture{
+	dir = 4;
+	pixel_x = 14
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"T" = (
+/obj/item/food/grown/banana{
+	pixel_y = -7
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"V" = (
+/obj/item/wallframe/light_fixture{
+	pixel_y = -14
+	},
+/mob/living/carbon/monkey,
+/turf/open/floor/grass,
+/area/template_noop)
+"Y" = (
+/obj/effect/overlay/palmtree_l,
+/turf/open/floor/grass,
+/area/template_noop)
+"Z" = (
+/obj/item/wallframe/light_fixture{
+	pixel_y = -14
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+i
+b
+i
+J
+i
+b
+s
+b
+b
+"}
+(2,1,1) = {"
+z
+J
+O
+b
+b
+J
+b
+J
+v
+Z
+"}
+(3,1,1) = {"
+b
+Y
+J
+b
+R
+b
+P
+b
+J
+b
+"}
+(4,1,1) = {"
+b
+o
+B
+Q
+b
+F
+b
+J
+b
+Z
+"}
+(5,1,1) = {"
+J
+J
+b
+J
+l
+b
+J
+J
+y
+b
+"}
+(6,1,1) = {"
+z
+f
+b
+E
+b
+b
+p
+b
+b
+V
+"}
+(7,1,1) = {"
+b
+b
+J
+A
+b
+J
+b
+v
+G
+D
+"}
+(8,1,1) = {"
+J
+b
+L
+b
+P
+d
+J
+J
+b
+b
+"}
+(9,1,1) = {"
+z
+b
+J
+v
+J
+b
+Y
+T
+Q
+Z
+"}
+(10,1,1) = {"
+b
+J
+S
+J
+S
+b
+S
+b
+S
+b
+"}
