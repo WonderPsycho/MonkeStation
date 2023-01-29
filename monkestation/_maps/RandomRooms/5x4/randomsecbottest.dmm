@@ -1,0 +1,81 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"j" = (
+/obj/structure/closet,
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/structure/closet,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"G" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/structure/closet/crate/engineering/electrical,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/secbot{
+	auto_patrol = 1;
+	name = "Officer Maintsky"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/item/book/random,
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+G
+G
+O
+G
+"}
+(2,1,1) = {"
+N
+Q
+G
+G
+"}
+(3,1,1) = {"
+Z
+V
+R
+j
+"}
+(4,1,1) = {"
+t
+Z
+V
+G
+"}
+(5,1,1) = {"
+G
+H
+G
+t
+"}
