@@ -93,3 +93,12 @@
 	template_width = 5
 	stock = 3
 	weight = 4
+
+/datum/map_template/random_room/randomsecbottest
+	name = "Abandoned Maint Room with Officer Maintsky"
+	room_id = "randomsecbottest"
+	mappath = "monkestation/_maps/RandomRooms/3x5/randomsecbottest.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+	weight = 5
