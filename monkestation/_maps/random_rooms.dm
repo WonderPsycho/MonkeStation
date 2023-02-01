@@ -63,7 +63,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	stock = 2
+	stock = 10
 
 /datum/map_template/random_room/cultroom
 	name = "Ancient Blood Cult Maint Room"
@@ -72,7 +72,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	stock = 4
+	stock = 10
 
 /datum/map_template/random_room/bigmonkeroom
 	name = "Large Monkey Jungle Room"
@@ -81,7 +81,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	stock = 1
+	stock = 10
 
 
 /datum/map_template/random_room/abandonedbiohazardsecurityroom
@@ -92,7 +92,7 @@
 	template_height = 4
 	template_width = 5
 	stock = 3
-	weight = 4
+	weight = 10
 
 /datum/map_template/random_room/randomsecbottest
 	name = "Abandoned Maint Room with Officer Maintsky"
@@ -101,4 +101,4 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	weight = 5
+	weight = 10
