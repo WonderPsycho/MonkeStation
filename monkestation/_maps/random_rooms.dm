@@ -105,3 +105,13 @@
 	template_height = 4
 	template_width = 5
 	weight = 5
+
+/datum/map_template/random_room/lemonroom
+	name = "Lemon Room"
+	room_id = "lemonroom"
+	mappath = "monkestation/_maps/RandomRooms/5x3/lemonroom.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 5
+	weight = 7
+	stock = 4
