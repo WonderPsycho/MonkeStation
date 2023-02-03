@@ -1,0 +1,59 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"w" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/helmet/skull{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/chair{
+	pixel_y = -4
+	},
+/obj/item/dnainjector/radioactive{
+	desc = "This injects the person with DNA of unknown origin, you get a bad feeling that using it would be dangerous";
+	name = "unnamed DNA Injector";
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"M" = (
+/obj/structure/closet,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Q" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+w
+a
+e
+"}
+(2,1,1) = {"
+e
+L
+a
+"}
+(3,1,1) = {"
+M
+u
+Q
+"}
