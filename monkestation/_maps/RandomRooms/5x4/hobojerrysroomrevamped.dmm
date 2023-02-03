@@ -16,9 +16,10 @@
 /area/template_noop)
 "j" = (
 /obj/item/paper{
-	pixel_x = 7;
+	desc = "A paper that seems to be a note from whoever lives in this maint room..";
+	info = "if you are reading this, this is my room!, stay out of it and DON'T STEAL MY STUFF!";
 	name = "A Note from Hobo Jerry";
-	desc = "if you are reading this, this is my room!, stay out of it and DON'T STEAL MY STUFF!"
+	pixel_x = 7
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)

@@ -115,3 +115,13 @@
 	template_width = 5
 	weight = 7
 	stock = 4
+
+/datum/map_template/random_room/hobojerrysroom
+	name = "Hobo Jerry's New Revamped and Rebalanced Room"
+	room_id = "hobojerrysroomrevamped"
+	mappath = "monkestation/_maps/RandomRooms/5x4/hobojerrysroomrevamped.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 3
+	stock = 1
