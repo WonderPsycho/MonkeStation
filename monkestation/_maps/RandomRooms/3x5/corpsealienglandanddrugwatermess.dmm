@@ -1,0 +1,112 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 5
+	},
+/obj/item/organ/heart/gland{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"k" = (
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"m" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/innards,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/organ/heart/gland{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"r" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"u" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/organ/heart/gland{
+	pixel_x = 5;
+	pixel_y = 9
+	},
+/obj/item/organ/heart/gland{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/organ/heart/gland{
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"D" = (
+/obj/effect/decal/cleanable/xenoblood,
+/obj/effect/decal/cleanable/xenoblood/xgibs,
+/obj/item/organ/heart/gland{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"N" = (
+/obj/item/organ/heart/gland{
+	pixel_x = -3;
+	pixel_y = -5
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"S" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/waterbottle/relic{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/waterbottle/relic{
+	pixel_x = 8;
+	pixel_y = -6
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"W" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/template_noop)
+
+(1,1,1) = {"
+k
+W
+l
+k
+W
+"}
+(2,1,1) = {"
+N
+Z
+S
+r
+u
+"}
+(3,1,1) = {"
+D
+f
+i
+l
+m
+"}

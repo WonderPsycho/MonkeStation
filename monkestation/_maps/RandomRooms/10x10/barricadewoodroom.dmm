@@ -1,0 +1,384 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden,
+/turf/open/floor/wood,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/wood,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/costume,
+/turf/open/floor/wood,
+/area/template_noop)
+"d" = (
+/obj/structure/bonfire/prelit,
+/turf/open/floor/wood,
+/area/template_noop)
+"e" = (
+/obj/structure/chair/wood,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood,
+/area/template_noop)
+"f" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/barricade/wooden,
+/turf/open/floor/wood,
+/area/template_noop)
+"g" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"h" = (
+/obj/item/paper{
+	info = "I finally did what I could do to clear this station out from the infected subjects that had infested this station... I have nothing else to do now and I doubt The ERT will find me.. sp here's to a great goodbye if anyone finds my note, let NT know they left a guy here...";
+	name = "a last note"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"i" = (
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/wood,
+/area/template_noop)
+"k" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bookcase/random,
+/turf/open/floor/wood,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood,
+/area/template_noop)
+"m" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/template_noop{
+	icon_state = "wood-broken"
+	})
+"n" = (
+/obj/structure/barricade/wooden/crude,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"o" = (
+/obj/structure/barricade/wooden,
+/turf/open/floor/wood,
+/area/template_noop)
+"p" = (
+/obj/item/gun/ballistic/automatic/pistol{
+	pixel_x = -3;
+	pixel_y = -4
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"q" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
+	},
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"s" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"u" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"v" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/obj/item/reagent_containers/glass/bottle/random_virus,
+/turf/open/floor/wood,
+/area/template_noop)
+"w" = (
+/obj/structure/bookcase/random,
+/turf/open/floor/wood,
+/area/template_noop)
+"x" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper/fluff/junkmail_generic,
+/turf/open/floor/wood,
+/area/template_noop)
+"y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/mask/pig/cursed,
+/turf/open/floor/wood,
+/area/template_noop)
+"z" = (
+/obj/item/key{
+	pixel_x = -4;
+	pixel_y = 5
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"A" = (
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"B" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/wood,
+/area/template_noop)
+"C" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"D" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden,
+/turf/open/floor/wood,
+/area/template_noop)
+"E" = (
+/obj/item/clothing/glasses/clockwork/wraith_spectacles{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"F" = (
+/turf/open/floor/wood,
+/area/template_noop)
+"G" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken5"
+	},
+/area/template_noop)
+"H" = (
+/obj/item/flashlight/lamp{
+	pixel_y = -4
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"J" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood,
+/area/template_noop)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"L" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/item/food/boiledspiderleg,
+/turf/open/floor/wood,
+/area/template_noop)
+"M" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood,
+/area/template_noop)
+"O" = (
+/obj/item/paper/fluff/junkmail_generic,
+/turf/open/floor/wood,
+/area/template_noop)
+"Q" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/open/floor/wood,
+/area/template_noop)
+"S" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"T" = (
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/template_noop)
+"U" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/open/floor/wood,
+/area/template_noop)
+"V" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/template_noop)
+"W" = (
+/obj/item/food/kebab/monkey,
+/turf/open/floor/wood,
+/area/template_noop)
+"X" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/wood,
+/area/template_noop)
+"Y" = (
+/obj/machinery/computer/security/wooden_tv{
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood,
+/area/template_noop)
+"Z" = (
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+i
+n
+o
+a
+o
+o
+o
+M
+w
+"}
+(2,1,1) = {"
+g
+g
+g
+d
+J
+A
+o
+f
+g
+r
+"}
+(3,1,1) = {"
+G
+H
+b
+e
+Y
+N
+k
+w
+g
+o
+"}
+(4,1,1) = {"
+g
+b
+g
+l
+U
+Q
+E
+m
+F
+o
+"}
+(5,1,1) = {"
+o
+o
+X
+q
+Z
+p
+O
+K
+A
+a
+"}
+(6,1,1) = {"
+o
+o
+v
+h
+z
+b
+x
+O
+A
+A
+"}
+(7,1,1) = {"
+o
+o
+c
+u
+V
+g
+W
+y
+w
+a
+"}
+(8,1,1) = {"
+F
+o
+F
+g
+B
+C
+L
+S
+A
+o
+"}
+(9,1,1) = {"
+M
+i
+K
+s
+A
+o
+o
+o
+T
+g
+"}
+(10,1,1) = {"
+G
+o
+o
+a
+D
+o
+a
+o
+M
+o
+"}
