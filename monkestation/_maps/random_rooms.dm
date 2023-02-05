@@ -125,3 +125,43 @@
 	template_width = 5
 	weight = 3
 	stock = 1
+
+/datum/map_template/random_room/officeroom1
+	name = "Abandoned Office Room"
+	room_id = "officeroom1"
+	mappath = "monkestation/_maps/RandomRooms/10x5/officeroom1.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 10
+	stock = 6
+
+/datum/map_template/random_room/officeroom2
+	name = "Abandoned Office Room with Bloody Scene"
+	room_id = "officeroom2"
+	mappath = "monkestation/_maps/RandomRooms/10x5/officeroom2.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 10
+	stock = 6
+
+/datum/map_template/random_room/officeroom3
+	name = "Abandoned Office Room that's Trashy"
+	room_id = "officeroom3"
+	mappath = "monkestation/_maps/RandomRooms/10x5/officeroom3.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 10
+	stock = 6
+
+/datum/map_template/random_room/barricadewoodroom
+	name = "Barricaded-off Old Room"
+	room_id = "barricadewoodroom"
+	mappath = "monkestation/_maps/RandomRooms/10x10/barricadewoodroom.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 10
+	stock = 6
