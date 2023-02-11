@@ -24,7 +24,7 @@
 		return
 
 	if(LM.body_position == LYING_DOWN) //play crawling sound if we're lying
-		playsound(LM, 'sound/effects/footstep/crawl1.ogg', 15 * volume)
+		playsound(LM, 'sound/effects/footstep/crawl1.ogg', 15 * volume, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 		return
 
 	if(iscarbon(LM))
@@ -51,7 +51,7 @@
 		playsound(LM, pick(GLOB.barefootstep[T.barefootstep][1]),
 			GLOB.barefootstep[T.barefootstep][2] * v,
 			TRUE,
-			GLOB.barefootstep[T.barefootstep][3] + e)
+			GLOB.barefootstep[T.barefootstep][3] + e, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 		return
 
 	//for xenomorphs, dogs, and other clawed mobs
@@ -63,7 +63,7 @@
 		playsound(LM, pick(GLOB.clawfootstep[T.clawfootstep][1]),
 				GLOB.clawfootstep[T.clawfootstep][2] * v,
 				TRUE,
-				GLOB.clawfootstep[T.clawfootstep][3] + e)
+				GLOB.clawfootstep[T.clawfootstep][3] + e, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 		return
 
 	//for megafauna and other large and imtimidating mobs such as the bloodminer
@@ -71,12 +71,12 @@
 		playsound(LM, pick(GLOB.heavyfootstep[T.heavyfootstep][1]),
 				GLOB.heavyfootstep[T.heavyfootstep][2] * v,
 				TRUE,
-				GLOB.heavyfootstep[T.heavyfootstep][3] + e)
+				GLOB.heavyfootstep[T.heavyfootstep][3] + e, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 		return
 
 	//for slimes
 	if(isslime(LM))
-		playsound(LM, 'sound/effects/footstep/slime1.ogg', 15 * v)
+		playsound(LM, 'sound/effects/footstep/slime1.ogg', 15 * v, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 		return
 
 	//for (simple) humanoid mobs (clowns, russians, pirates, etc.)
@@ -85,7 +85,7 @@
 			playsound(LM, pick(GLOB.footstep[T.footstep][1]),
 				GLOB.footstep[T.footstep][2] * v,
 				TRUE,
-				GLOB.footstep[T.footstep][3] + e)
+				GLOB.footstep[T.footstep][3] + e, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 			return
 		if(ishuman(LM)) //for proper humans, they're special
 			var/mob/living/carbon/human/H = LM
@@ -95,15 +95,15 @@
 				playsound(LM, pick(GLOB.footstep[T.footstep][1]),
 					GLOB.footstep[T.footstep][2] * v,
 					TRUE,
-					GLOB.footstep[T.footstep][3] + e)
+					GLOB.footstep[T.footstep][3] + e, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 
 			//Sound of wearing shoes always plays, special movement sound
 			// IE (server motors wont play bare footed.)
 			if(H.dna.species.special_step_sounds)
-				playsound(LM, pick(H.dna.species.special_step_sounds), 50, TRUE)
+				playsound(LM, pick(H.dna.species.special_step_sounds), 50, TRUE, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
 
 			else if((!H.shoes && !feetCover)) //are we NOT wearing shoes
 				playsound(LM, pick(GLOB.barefootstep[T.barefootstep][1]),
 					GLOB.barefootstep[T.barefootstep][2] * v,
 					TRUE,
-					GLOB.barefootstep[T.barefootstep][3] + e)
+					GLOB.barefootstep[T.barefootstep][3] + e, mixer_channel = CHANNEL_SOUND_FOOTSTEPS)
