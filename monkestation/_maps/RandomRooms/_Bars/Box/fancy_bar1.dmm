@@ -1,12 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"au" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/mob/living/carbon/monkey/punpun,
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "bG" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -30,23 +22,50 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"fA" = (
+"fP" = (
+/obj/structure/table,
+/obj/item/kitchen/fork,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"hS" = (
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
 	},
-/obj/machinery/light/floor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "io" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
+/area/crew_quarters/bar)
+"is" = (
+/obj/machinery/newscaster{
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"iD" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "iT" = (
 /obj/machinery/disposal/bin,
@@ -66,20 +85,6 @@
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"jb" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/that,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	desc = "Stay off my FUCKING counter.";
-	id = "barsec";
-	name = "Bar Security Shutters"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -121,27 +126,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"mn" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"mo" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "mQ" = (
-/obj/machinery/light/floor,
-/turf/open/floor/plating/beach/sand,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "nl" = (
 /obj/effect/turf_decal/tile/bar,
@@ -155,6 +146,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "nu" = (
+/obj/effect/landmark/event_spawn,
+/obj/effect/spawner/xmastree,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -165,24 +158,30 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/machinery/light/floor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "nw" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"ow" = (
+"oT" = (
+/obj/structure/chair{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/structure/chair/stool,
-/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "sm" = (
@@ -190,10 +189,6 @@
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
-	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -204,16 +199,20 @@
 	pixel_x = 30;
 	receive_ore_updates = 1
 	},
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks{
+/obj/machinery/camera/autoname{
 	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"vY" = (
+/obj/machinery/light,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
 	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -244,51 +243,9 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"AG" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/item/lighter,
-/obj/machinery/door/poddoor/shutters/preopen{
-	desc = "Stay off my FUCKING counter.";
-	id = "barsec";
-	name = "Bar Security Shutters"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"Cc" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/light/floor,
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "CV" = (
-/obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
-	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/glass/rag,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	desc = "Stay off my FUCKING counter.";
-	id = "barsec";
-	name = "Bar Security Shutters"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"DW" = (
-/obj/effect/landmark/start/bartender,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -305,13 +262,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"ET" = (
+"EP" = (
+/obj/structure/chair,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
-	},
-/obj/machinery/newscaster{
-	pixel_y = -28
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -323,15 +278,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/structure/chair/stool,
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"Gl" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "GC" = (
@@ -342,48 +288,45 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"GY" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	desc = "Stay off my FUCKING counter.";
-	id = "barsec";
-	name = "Bar Security Shutters"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "Ht" = (
+/obj/structure/chair{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/machinery/holopad,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "IJ" = (
+/obj/structure/table/wood/poker,
+/obj/item/clothing/mask/cigarette/cigar,
+/obj/item/toy/cards/deck,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Ld" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "LM" = (
-/mob/living/simple_animal/crab{
-	desc = "This crab looks like he has some sort of secret formula..";
-	name = "Mr. Crabs"
+/obj/structure/chair,
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
 	},
-/turf/open/floor/plating/beach/sand,
+/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Mw" = (
 /obj/structure/extinguisher_cabinet{
@@ -397,14 +340,6 @@
 /area/crew_quarters/bar)
 "MB" = (
 /turf/closed/wall,
-/area/crew_quarters/bar)
-"MF" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "NG" = (
 /obj/machinery/firealarm{
@@ -424,9 +359,8 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"NX" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/landmark/start/assistant,
+"Py" = (
+/obj/machinery/computer/arcade,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -449,18 +383,13 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Qy" = (
-/obj/machinery/door/window/southright{
-	name = "Bar Door";
-	req_one_access_txt = "25;28"
-	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"QD" = (
+/obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	desc = "Stay off my FUCKING counter.";
-	id = "barsec";
-	name = "Bar Security Shutters"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -471,32 +400,32 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"RE" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/light/floor,
-/turf/open/floor/mineral/plastitanium,
-/area/crew_quarters/bar)
 "So" = (
+/obj/structure/table,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
 	},
+/obj/item/clothing/head/hardhat/cakehat,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/effect/spawner/structure/window,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "TT" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 5;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 2
+	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/effect/landmark/event_spawn,
-/obj/effect/spawner/xmastree,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "UM" = (
@@ -509,16 +438,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
+"Vl" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -31
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "WE" = (
 /obj/structure/sign/barsign,
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "WL" = (
+/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/effect/spawner/structure/window,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Xr" = (
@@ -551,7 +493,6 @@
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
-/obj/machinery/light/blacklight/directional/west,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "ZI" = (
@@ -568,7 +509,7 @@ MB
 MB
 ZI
 MB
-MB
+zf
 MB
 ZI
 MB
@@ -576,46 +517,46 @@ MB
 "}
 (2,1,1) = {"
 So
-WL
-WL
+hS
+Rm
 XH
-WL
-WL
-WL
-WL
+Rm
+Vl
+Rm
+Py
 MB
 "}
 (3,1,1) = {"
 WL
-mQ
-WL
+Rm
+oT
+Rm
 Rm
 WL
-RE
-Ld
-WL
+Rm
+QD
 MB
 "}
 (4,1,1) = {"
-WL
-LM
-WL
 Rm
+LM
+fP
+Ht
 WL
 IJ
-Ld
 WL
+is
 MB
 "}
 (5,1,1) = {"
-WL
-WL
-WL
+Rm
+Rm
+iD
 Xr
+Rm
 WL
-WL
-WL
-WL
+Rm
+vY
 MB
 "}
 (6,1,1) = {"
@@ -623,7 +564,7 @@ Rm
 Et
 nl
 nu
-Rm
+mQ
 Rm
 Rm
 Rm
@@ -632,32 +573,32 @@ zf
 (7,1,1) = {"
 Rm
 mh
-ow
+WL
 Fd
-ow
 Rm
+oT
 Rm
 Rm
 ZI
 "}
 (8,1,1) = {"
 Rm
-fA
-Gl
-Gl
-Gl
+nw
+Rm
+WL
+EP
 TT
-Cc
+Ld
 Rm
 zf
 "}
 (9,1,1) = {"
 Rm
 mh
-nw
-Ht
-nw
+WL
 Rm
+Rm
+iD
 Rm
 GC
 WE
@@ -675,11 +616,11 @@ MB
 "}
 (11,1,1) = {"
 io
-MF
-mo
-MF
-MF
-MF
+Rm
+Rm
+Rm
+Rm
+Rm
 Rm
 yr
 MB
@@ -687,11 +628,11 @@ MB
 (12,1,1) = {"
 MB
 jP
-AG
-jb
-GY
-GY
-NX
+Qy
+Qy
+Qy
+Qy
+Rm
 Mw
 MB
 "}
@@ -699,19 +640,19 @@ MB
 iT
 Qr
 Rm
-DW
 Rm
-GY
-mn
+Qy
+Qy
+Qy
 kN
 MB
 "}
 (14,1,1) = {"
 bI
 UM
-au
 Rm
 Rm
+Qy
 Qy
 Rm
 sm
@@ -720,11 +661,11 @@ MB
 (15,1,1) = {"
 NG
 XF
-Rm
+Qy
 ve
 Rm
 CV
 Rm
-ET
+Rm
 MB
 "}
