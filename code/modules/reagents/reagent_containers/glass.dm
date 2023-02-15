@@ -457,8 +457,14 @@
 				if(grinded.reagents) //food and pills
 					grinded.reagents.trans_to(src, grinded.reagents.total_volume, transfered_by = user)
 				if(grinded.juice_results) //prioritize juicing
-					grinded.on_juice()
-					reagents.add_reagent_list(grinded.juice_results)
+					if(istype(grinded, /obj/item/stack))
+						var/obj/item/stack/grinded_stack = grinded
+						for(var/num = 1, num < grinded_stack.amount, num ++)
+							grinded.on_juice()
+							reagents.add_reagent_list(grinded.juice_results)
+					else
+						grinded.on_juice()
+						reagents.add_reagent_list(grinded.juice_results)
 					to_chat(user, "You juice [grinded] into a fine liquid.")
 					QDEL_NULL(grinded)
 					return
