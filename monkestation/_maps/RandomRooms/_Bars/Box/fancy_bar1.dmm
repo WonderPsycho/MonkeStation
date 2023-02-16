@@ -16,10 +16,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "fP" = (
@@ -57,16 +53,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"iD" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "iT" = (
 /obj/machinery/disposal/bin,
 /obj/structure/sign/plaques/deempisi{
@@ -81,24 +67,6 @@
 	name = "bar shutters";
 	pixel_x = 4;
 	pixel_y = 28
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"jP" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/structure/displaycase/forsale/kitchen,
-/obj/machinery/door/poddoor/shutters/preopen{
-	desc = "Stay off my FUCKING counter.";
-	id = "barsec";
-	name = "Bar Security Shutters"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -157,20 +125,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"nw" = (
-/obj/structure/chair/stool,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -262,14 +216,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"EP" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "Fd" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -308,17 +254,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"Ld" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "LM" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/assistant,
@@ -346,16 +281,8 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks/beer{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	pixel_y = 25
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -412,32 +339,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"TT" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 5;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"UM" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "Vl" = (
 /obj/machinery/light{
 	dir = 8
@@ -470,14 +371,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"XF" = (
-/obj/machinery/vending/boozeomat,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -551,7 +444,7 @@ MB
 (5,1,1) = {"
 Rm
 Rm
-iD
+Qy
 Xr
 Rm
 WL
@@ -573,32 +466,32 @@ zf
 (7,1,1) = {"
 Rm
 mh
-WL
+Qy
 Fd
 Rm
-oT
+Qy
 Rm
 Rm
 ZI
 "}
 (8,1,1) = {"
 Rm
-nw
+mh
+Qy
+Qy
 Rm
-WL
-EP
-TT
-Ld
+Qy
+Qy
 Rm
 zf
 "}
 (9,1,1) = {"
 Rm
 mh
-WL
-Rm
-Rm
-iD
+Qy
+Qy
+Qy
+Qy
 Rm
 GC
 WE
@@ -617,8 +510,8 @@ MB
 (11,1,1) = {"
 io
 Rm
-Rm
-Rm
+Qy
+Qy
 Rm
 Rm
 Rm
@@ -627,7 +520,7 @@ MB
 "}
 (12,1,1) = {"
 MB
-jP
+Qy
 Qy
 Qy
 Qy
@@ -639,8 +532,8 @@ MB
 (13,1,1) = {"
 iT
 Qr
-Rm
-Rm
+Qy
+Qy
 Qy
 Qy
 Qy
@@ -649,7 +542,7 @@ MB
 "}
 (14,1,1) = {"
 bI
-UM
+Qy
 Rm
 Rm
 Qy
@@ -660,7 +553,7 @@ MB
 "}
 (15,1,1) = {"
 NG
-XF
+Qy
 Qy
 ve
 Rm
