@@ -295,10 +295,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Qr" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /obj/machinery/button/door{
 	desc = "Stay off my FUCKING counter.";
 	id = "barsec";
@@ -443,7 +439,7 @@ MB
 "}
 (5,1,1) = {"
 Rm
-Rm
+Qy
 Qy
 Xr
 Rm
@@ -547,7 +543,7 @@ Rm
 Rm
 Qy
 Qy
-Rm
+Qy
 sm
 MB
 "}
