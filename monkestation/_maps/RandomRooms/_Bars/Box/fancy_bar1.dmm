@@ -244,16 +244,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"IJ" = (
-/obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/toy/cards/deck,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "LM" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/assistant,
@@ -431,8 +421,8 @@ Rm
 LM
 fP
 Ht
-WL
-IJ
+Qy
+Qy
 WL
 is
 MB
@@ -443,7 +433,7 @@ Qy
 Qy
 Xr
 Rm
-WL
+Qy
 Rm
 vY
 MB
