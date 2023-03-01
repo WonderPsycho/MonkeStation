@@ -227,6 +227,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["tip_delay"], tip_delay)
 	READ_FILE(S["pda_style"], pda_style)
 	READ_FILE(S["pda_color"], pda_color)
+	READ_FILE(S["pointed_color"], pointed_color)
 	READ_FILE(S["show_credits"], show_credits)
 
 	READ_FILE(S["key_bindings"], key_bindings)
@@ -268,6 +269,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	menuoptions		= SANITIZE_LIST(menuoptions)
 	be_special		= SANITIZE_LIST(be_special)
 	crew_objectives		= sanitize_integer(crew_objectives, FALSE, TRUE, initial(crew_objectives))
+	pointed_color		= sanitize_hexcolor(pointed_color, 6, TRUE, initial(pointed_color))
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
 	show_credits		= sanitize_integer(show_credits, FALSE, TRUE, initial(show_credits))
@@ -333,6 +335,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["menuoptions"], menuoptions)
 	WRITE_FILE(S["enable_tips"], enable_tips)
 	WRITE_FILE(S["tip_delay"], tip_delay)
+	WRITE_FILE(S["pointed_color"], pointed_color)
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["show_credits"], show_credits)
