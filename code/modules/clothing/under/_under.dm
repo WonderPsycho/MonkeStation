@@ -53,7 +53,7 @@
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
-	sensor_mode = SENSOR_NOT_SET
+	sensor_mode = SENSOR_OFF
 	if(random_sensor)
 		//make the sensor mode favor higher levels, except coords.
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS, SENSOR_COORDS)
