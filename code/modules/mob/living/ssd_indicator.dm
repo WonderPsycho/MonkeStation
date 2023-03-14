@@ -6,7 +6,7 @@
 		icon_state = "default0"
 		layer = FLY_LAYER
 
-/mob/living/var/obj/effect/decal/ssd_indicator/indicator
+/mob/living/var/static/obj/effect/decal/ssd_indicator/indicator
 
 /mob/living/proc/set_ssd_indicator(var/state)
 	if(!indicator)

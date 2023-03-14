@@ -595,7 +595,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			if(CONFIG_GET(flag/join_with_mutant_humans))
 
-				if("wings" in pref_species.default_features && GLOB.r_wings_list.len >1)
+				if("wings" in pref_species.default_features && GLOB.roundstart_wings_list.len >1)
 					if(!mutant_category)
 						dat += APPEARANCE_CATEGORY_COLUMN
 
@@ -1672,7 +1672,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("wings")
 					var/new_wings
-					new_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.r_wings_list
+					new_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.roundstart_wings_list
 					if(new_wings)
 						features["wings"] = new_wings
 
@@ -1703,7 +1703,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("moth_wings")
 					var/new_moth_wings
 
-					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_list
+					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.roundstart_moth_wings_list
 
 					if(new_moth_wings)
 						features["moth_wings"] = new_moth_wings
