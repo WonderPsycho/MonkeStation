@@ -96,10 +96,6 @@
 /area/crew_quarters/bar)
 "sm" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "ve" = (
@@ -282,10 +278,6 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
@@ -314,9 +306,9 @@ MB
 (2,1,1) = {"
 So
 hS
-Rm
+Qy
 XH
-Rm
+Qy
 Vl
 Rm
 Py
@@ -374,7 +366,7 @@ Fd
 Qy
 Qy
 Qy
-Rm
+Qy
 ZI
 "}
 (8,1,1) = {"
@@ -462,6 +454,6 @@ ve
 Qy
 CV
 Qy
-Rm
+Qy
 MB
 "}
