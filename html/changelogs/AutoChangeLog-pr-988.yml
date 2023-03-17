@@ -1,0 +1,7 @@
+author: Salted-Zen
+delete-after: true
+changes:
+  - rscadd: Added a nice pile of new clothing / costumes to fill the meta store and
+      costume / clothes vendor
+  - bugfix: Future hooded clothing in the modular folder will now change states when
+      the hood is put up
