@@ -28,10 +28,6 @@
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -56,10 +52,6 @@
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -116,27 +108,15 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "yr" = (
 /obj/structure/noticeboard{
 	pixel_y = -27
 	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "yL" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
@@ -172,19 +152,11 @@
 /area/crew_quarters/bar)
 "GC" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Mw" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -203,10 +175,6 @@
 /area/crew_quarters/bar)
 "Py" = (
 /obj/machinery/computer/arcade,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "Qr" = (
@@ -225,17 +193,6 @@
 /area/crew_quarters/bar)
 "QD" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
-"Rm" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "So" = (
@@ -256,10 +213,6 @@
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -310,7 +263,7 @@ Qy
 XH
 Qy
 Vl
-Rm
+Qy
 Py
 MB
 "}
@@ -321,7 +274,7 @@ Qy
 Qy
 Qy
 Qy
-Rm
+Qy
 QD
 MB
 "}
@@ -355,7 +308,7 @@ nu
 mQ
 Qy
 Qy
-Rm
+Qy
 zf
 "}
 (7,1,1) = {"
@@ -377,7 +330,7 @@ Qy
 Qy
 Qy
 Qy
-Rm
+Qy
 zf
 "}
 (9,1,1) = {"
