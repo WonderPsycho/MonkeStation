@@ -1,12 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"bw" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/table/wood/bar,
-/turf/open/floor/wood,
-/area/crew_quarters/bar)
 "bG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -54,10 +46,6 @@
 	pixel_x = 4;
 	pixel_y = 28
 	},
-/turf/open/floor/wood,
-/area/crew_quarters/bar)
-"kg" = (
-/obj/structure/table/wood/bar,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "kN" = (
@@ -126,7 +114,6 @@
 /obj/structure/noticeboard{
 	pixel_y = -27
 	},
-/obj/structure/table/wood/fancy,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "yL" = (
@@ -171,7 +158,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/structure/table/wood/fancy,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "MB" = (
@@ -284,10 +270,10 @@ MB
 (3,1,1) = {"
 Qy
 Qy
-kg
-kg
-kg
-kg
+Qy
+Qy
+Qy
+Qy
 Qy
 QD
 MB
@@ -295,10 +281,10 @@ MB
 (4,1,1) = {"
 Qy
 Qy
-kg
 Qy
 Qy
-kg
+Qy
+Qy
 Qy
 is
 MB
@@ -306,10 +292,10 @@ MB
 (5,1,1) = {"
 Qy
 Qy
-kg
+Qy
 Xr
 Qy
-kg
+Qy
 Qy
 vY
 MB
@@ -317,10 +303,10 @@ MB
 (6,1,1) = {"
 Qy
 Et
-bw
+nl
 nu
 mQ
-kg
+Qy
 Qy
 Qy
 zf
@@ -339,10 +325,10 @@ ZI
 (8,1,1) = {"
 Qy
 mh
-kg
 Qy
 Qy
-kg
+Qy
+Qy
 Qy
 Qy
 zf
@@ -350,10 +336,10 @@ zf
 (9,1,1) = {"
 Qy
 mh
-kg
 Qy
 Qy
-kg
+Qy
+Qy
 Qy
 GC
 WE
@@ -361,10 +347,10 @@ WE
 (10,1,1) = {"
 nl
 bG
-kg
 Qy
 Qy
-kg
+Qy
+Qy
 Qy
 yL
 MB
@@ -372,10 +358,10 @@ MB
 (11,1,1) = {"
 io
 Qy
-kg
 Qy
 Qy
-kg
+Qy
+Qy
 Qy
 yr
 MB
@@ -383,10 +369,10 @@ MB
 (12,1,1) = {"
 MB
 Qy
-kg
 Qy
 Qy
-kg
+Qy
+Qy
 Qy
 Mw
 MB
@@ -394,10 +380,10 @@ MB
 (13,1,1) = {"
 iT
 Qr
-kg
-kg
-kg
-kg
+Qy
+Qy
+Qy
+Qy
 Qy
 kN
 MB
