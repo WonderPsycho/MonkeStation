@@ -65,6 +65,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
+/obj/item/chair/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "mh" = (
@@ -102,6 +103,10 @@
 /obj/machinery/light/small,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"sT" = (
+/obj/machinery/chem_dispenser/drinks/beer,
+/turf/closed/wall/mineral/wood,
+/area/crew_quarters/bar)
 "ve" = (
 /obj/machinery/requests_console{
 	department = "Bar";
@@ -133,6 +138,9 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
+/obj/item/chair/wood{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "zf" = (
@@ -141,6 +149,10 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"AL" = (
+/obj/machinery/chem_dispenser/drinks,
+/turf/closed/wall/mineral/wood,
 /area/crew_quarters/bar)
 "CV" = (
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -165,6 +177,15 @@
 /area/crew_quarters/bar)
 "GC" = (
 /obj/machinery/light,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
+"GQ" = (
+/obj/machinery/vending/boozeomat,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
+"GR" = (
+/obj/structure/table/wood/bar,
+/obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "Mw" = (
@@ -339,7 +360,7 @@ ZI
 (8,1,1) = {"
 Qy
 mh
-kg
+GR
 Qy
 Qy
 kg
@@ -351,7 +372,7 @@ zf
 Qy
 mh
 kg
-Qy
+GQ
 Qy
 kg
 Qy
@@ -362,7 +383,7 @@ WE
 nl
 bG
 kg
-Qy
+AL
 Qy
 kg
 Qy
@@ -373,7 +394,7 @@ MB
 io
 Qy
 kg
-Qy
+sT
 Qy
 kg
 Qy
