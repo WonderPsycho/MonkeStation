@@ -22,6 +22,10 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"hp" = (
+/obj/item/chair/wood,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "hS" = (
 /obj/machinery/light{
 	dir = 8
@@ -99,6 +103,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"oU" = (
+/obj/item/chair/wood{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "sm" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood,
@@ -149,6 +159,10 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
+/area/crew_quarters/bar)
+"zy" = (
+/obj/structure/table/wood/fancy,
+/turf/open/floor/wood,
 /area/crew_quarters/bar)
 "AL" = (
 /obj/machinery/chem_dispenser/drinks,
@@ -314,7 +328,7 @@ QD
 MB
 "}
 (4,1,1) = {"
-Qy
+oU
 Qy
 kg
 Qy
@@ -325,7 +339,7 @@ is
 MB
 "}
 (5,1,1) = {"
-Qy
+zy
 Qy
 kg
 Xr
@@ -336,7 +350,7 @@ vY
 MB
 "}
 (6,1,1) = {"
-Qy
+zy
 Et
 bw
 nu
@@ -347,7 +361,7 @@ Qy
 zf
 "}
 (7,1,1) = {"
-Qy
+hp
 mh
 Qy
 Fd
