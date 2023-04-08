@@ -16,6 +16,9 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"bH" = (
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/bar)
 "bI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -83,7 +86,7 @@
 /area/crew_quarters/bar)
 "mQ" = (
 /obj/machinery/holopad,
-/turf/open/floor/wood,
+/turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "nl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -101,7 +104,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "oU" = (
 /obj/item/chair/wood{
@@ -187,7 +190,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "GC" = (
 /obj/machinery/light,
@@ -195,7 +198,7 @@
 /area/crew_quarters/bar)
 "GQ" = (
 /obj/machinery/vending/boozeomat,
-/turf/open/floor/wood,
+/turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "GR" = (
 /obj/structure/table/wood/bar,
@@ -273,7 +276,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "XH" = (
 /obj/machinery/airalarm{
@@ -331,8 +334,8 @@ MB
 oU
 Qy
 kg
-Qy
-Qy
+bH
+bH
 kg
 Qy
 is
@@ -343,7 +346,7 @@ zy
 Qy
 kg
 Xr
-Qy
+bH
 kg
 Qy
 vY
@@ -365,7 +368,7 @@ hp
 mh
 Qy
 Fd
-Qy
+bH
 Qy
 Qy
 Qy
@@ -375,8 +378,8 @@ ZI
 Qy
 mh
 GR
-Qy
-Qy
+bH
+bH
 kg
 Qy
 Qy
@@ -387,7 +390,7 @@ Qy
 mh
 kg
 GQ
-Qy
+bH
 kg
 Qy
 GC
@@ -398,7 +401,7 @@ nl
 bG
 kg
 AL
-Qy
+bH
 kg
 Qy
 yL
@@ -409,7 +412,7 @@ io
 Qy
 kg
 sT
-Qy
+bH
 kg
 Qy
 yr
@@ -419,8 +422,8 @@ MB
 MB
 Qy
 kg
-Qy
-Qy
+bH
+bH
 kg
 Qy
 Mw
