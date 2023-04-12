@@ -5,6 +5,13 @@
 	icon_state = "russducky"
 	squeak_override = list('sound/items/bikehorn.ogg'=1)
 
+/obj/item/toy/plush/sammiplush
+	name = "sammi plush"
+	desc = "Voted cutest monke 2023"
+	icon = 'monkestation/icons/obj/plushes.dmi'
+	icon_state = "sammi"
+	squeak_override = list('monkestation/sound/voice/laugh/simian/monkey_laugh_1.ogg'=1)
+
 /obj/item/toy/plush/lubeplush
 	name = "living lube plushie"
 	desc = "It feels... moist."
