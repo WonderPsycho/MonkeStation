@@ -1,4 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"au" = (
+/obj/structure/table/wood/bar,
+/obj/item/clothing/head/collectable/tophat,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "bw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -26,7 +31,9 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "hp" = (
-/obj/item/chair/wood,
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "hS" = (
@@ -72,7 +79,9 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/item/chair/wood,
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "mh" = (
@@ -107,7 +116,7 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "oU" = (
-/obj/item/chair/wood{
+/obj/structure/chair/wood/normal{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -115,6 +124,10 @@
 "sm" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood,
+/area/crew_quarters/bar)
+"sq" = (
+/mob/living/carbon/monkey/punpun,
+/turf/open/floor/carpet/purple,
 /area/crew_quarters/bar)
 "sT" = (
 /obj/machinery/chem_dispenser/drinks/beer,
@@ -151,7 +164,7 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
-/obj/item/chair/wood{
+/obj/structure/chair/wood/normal{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -205,6 +218,10 @@
 /obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"Jy" = (
+/obj/machinery/door/window/southright,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
 "Mw" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
@@ -227,6 +244,10 @@
 /area/crew_quarters/bar)
 "Py" = (
 /obj/machinery/computer/arcade,
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
+"PB" = (
+/obj/machinery/door/window/northright,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "Qr" = (
@@ -257,6 +278,11 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/turf/open/floor/wood,
+/area/crew_quarters/bar)
+"TM" = (
+/obj/structure/table/wood/bar,
+/obj/item/lighter,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "Vl" = (
@@ -346,7 +372,7 @@ zy
 Qy
 kg
 Xr
-bH
+sq
 kg
 Qy
 vY
@@ -366,10 +392,10 @@ zf
 (7,1,1) = {"
 hp
 mh
-Qy
+PB
 Fd
 bH
-Qy
+Jy
 Qy
 Qy
 ZI
@@ -433,8 +459,8 @@ MB
 iT
 Qr
 kg
-kg
-kg
+au
+TM
 kg
 Qy
 kN
