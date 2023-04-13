@@ -87,7 +87,7 @@
 	centerspawner = FALSE
 	template_height = 9
 	template_width = 15
-	weight = 6
+	weight = 1
 	station_name = "Box Station"
 
 /datum/map_template/random_bars/box_fancy_bar1
@@ -97,7 +97,7 @@
 	centerspawner = FALSE
 	template_height = 9
 	template_width = 15
-	weight = 10
+	weight = 1
 	station_name = "Box Station"
 
 
